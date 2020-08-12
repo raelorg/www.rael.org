@@ -1,0 +1,515 @@
+/**
+ * Microthemer Styles
+ *
+ * These styles were originally created by a plugin called
+ * Microthemer. This plugin was very heavy on pageload, so
+ * these styles have been placed here to preserve the work
+ * that was done before de-activating the plugin.
+ */
+
+/*= Animations ================ */
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/*= Header ==================== */
+
+/** Header >> #breadcrumbs **/
+#breadcrumbs {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(0, 40, 56) !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 5px 10px 5px 10px !important;
+  display: inline-block !important;
+}
+
+/** Header >> #breadcrumbs a:hover **/
+#breadcrumbs a:hover {
+  color: rgb(255, 255, 255) !important;
+  border-bottom: 2px solid rgb(255, 255, 255) !important;
+}
+
+/** Header >> Breadcrumbs link **/
+#breadcrumbs a {
+  color: rgb(255, 255, 255) !important;
+}
+
+/*= Footer ==================== */
+
+/** Footer >> footer top margin alignment **/
+.yes {
+  margin-top: -20px !important;
+}
+
+/** Footer >> footer form space adjustment **/
+.yes li {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/** Footer >> footer form line space **/
+#gform_fields_7 {
+  line-height: 0 !important;
+}
+
+/*= Download ================== */
+
+/** Download >> 'Here you can download Rael's books in..' **/
+.elementor-element-0120558 {
+  margin-bottom: 0 !important;
+}
+
+/** Download >> 'other languages(eBooks)' **/
+.elementor-element-5bc9da1 h1 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/** Download >> 'Here you can download Rael's books in'.. 2 **/
+.elementor-clearfix h2 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/** Download >> Gform label **/
+#gform_fields_8 label {
+}
+
+/*= EVENT landing page ======== */
+
+/** EVENT landing page >> line space 1 **/
+.elementor-element-724a4f9 p {
+  margin-bottom: 0 !important;
+}
+
+/** EVENT landing page >> line space 2 **/
+.elementor-element-897a171 p {
+  margin-bottom: 0 !important;
+}
+
+/** EVENT landing page >> line space 3 **/
+.elementor-element-8372241 p {
+  margin-bottom: 0 !important;
+}
+
+/*= HOME ====================== */
+
+/** HOME >> event tap **/
+.elementor-portfolio__filter {
+  color: rgb(5, 0, 0) !important;
+  background-color: rgba(95, 128, 134, 0.27) !important;
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+  border-bottom: 0 none rgba(0, 0, 0, 0) !important;
+  border-radius: 2px !important;
+}
+
+/** HOME >> event tap: hover **/
+.elementor-portfolio__filter:hover {
+  color: rgb(14, 202, 212) !important;
+  border-bottom-width: 0 !important;
+  border-bottom-style: none !important;
+}
+
+/** HOME >> Elementor portfolio:active **/
+.elementor-portfolio__filter:active {
+  color: rgb(255, 255, 255) !important;
+  box-shadow: 0 0 5px 5px !important;
+  background-color: rgb(14, 202, 212) !important;
+  -o-transition-property: flex-grow !important;
+  -moz-transition-property: flex-grow !important;
+  -webkit-transition-property: flex-grow !important;
+  transition-property: flex-grow !important;
+  -o-transition-duration: 0.5s !important;
+  -moz-transition-duration: 0.5s !important;
+  -webkit-transition-duration: 0.5s !important;
+  transition-duration: 0.5s !important;
+}
+
+/*= HG ======================== */
+
+/** HG >> sentence - bold **/
+em strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** HG >> Elementor element 7823078 strong **/
+.elementor-element-7823078 strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** HG >> Paragraph:(1) strong **/
+.elementor-element-b281619 > div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** HG >> Honorary guides: font - bold **/
+.mt-23 .elementor-clearfix > p:nth-of-type(1) > strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** HG >> HG photo:hover **/
+.mt-23 .uael-modal-photo:hover {
+  box-shadow: 0 0 rgb(176, 171, 171) !important;
+  border-bottom: 10px solid rgb(14, 202, 212) !important;
+}
+
+/** HG >> HG photo: transparent bottom border **/
+.mt-23 .uael-modal-photo {
+  border-bottom: 10px solid rgba(0, 1, 10, 0) !important;
+}
+
+/*= National sites ============ */
+
+/** National sites >> continent name: hover **/
+.elementor-tab-title a:hover {
+  border-bottom: 2px solid rgb(0, 40, 56) !important;
+}
+
+/*= The message =============== */
+
+/** The message >> Scientific Creation text shadow **/
+.elementor-element-033fc2d p {
+  text-shadow: 0 0 5px rgb(0, 0, 0) !important;
+}
+
+/** The message >> Apocalypse: font bold **/
+.elementor-element-e639ff7 strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/*= Causes ==================== */
+
+/** Causes >> quote - 1m4p **/
+.elementor-element-7a585d6 strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Causes >> F,G,M (FGM) bold **/
+.elementor-element-daf09ca strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Causes >> Font bold **/
+.elementor-element-ade38c2 > div:nth-of-type(1) > div:nth-of-type(1) > h5:nth-of-type(1) > strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+  font-size: 22px !important;
+}
+
+/** Causes >> Be PROUD **/
+.elementor-clearfix > p:nth-of-type(2) > strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+  font-weight: 800 !important;
+}
+
+/** Causes >> “For a world without Work and Money” **/
+.elementor-element-119a0a6 strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Causes >> Rehabilitation of an ancient spiritual symbol. **/
+.elementor-element-cb323f6 strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Causes >> Other causes photo:hover **/
+.mt-21 .uael-modal-photo:hover {
+  border-width: 0 !important;
+  -webkit-animation-name: fadeIn !important;
+  animation-name: fadeIn !important;
+  -webkit-animation-duration: 1s !important;
+  animation-duration: 1s !important;
+  -webkit-animation-timing-function: linear !important;
+  animation-timing-function: linear !important;
+}
+
+/** Causes >> Other causes text: hover **/
+.mt-21 .elementor-motion-effects-element a:hover {
+  color: rgb(255, 108, 41) !important;
+}
+
+/*= Orgnization =============== */
+
+/** Orgnization >> Message of the Elohim -font style **/
+.elementor-element-5cabc4b span {
+  font-family: Adagio-slab-Blod, gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Orgnization >> Build the elohim's embassy: font sytle **/
+.elementor-clearfix > p:nth-of-type(1) > span:nth-of-type(1) > strong {
+  font-family: Adagio-slab-Blod, gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Orgnization >> ...contact the raelian... below: font bold **/
+.mt-19 .elementor-element-47d5218 strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/*= Happiness Academy ========= */
+
+/** Happiness Academy >> some sentences: font bold **/
+li strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Happiness Academy >> .slick-active .event-title **/
+.slick-active .event-title {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Happiness Academy >> .slick-active p:nth-of-type(4) **/
+.slick-active p:nth-of-type(4) {
+  font-family: "Gentona light", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Happiness Academy >> .slick-active .event-location **/
+.slick-active .event-location {
+  font-family: "Gentona light", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Happiness Academy >> .slick-active .button **/
+.slick-active .button {
+  font-family: "Gentona light", gentona, sans-serif, raelway, roboto, arial !important;
+  font-size: 16px !important;
+  text-transform: uppercase !important;
+}
+
+/** Happiness Academy >> .slick-active .month **/
+.slick-active .month {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Happiness Academy >> .slick-active .date **/
+.slick-active .date {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Happiness Academy >> .slick-active .event-date **/
+.slick-active .event-date {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+  font-size: 21px !important;
+  letter-spacing: 1px !important;
+}
+
+/** Happiness Academy >> "Happiness Academy, Change your life": font bigger, pink **/
+.mt-49187 .elementor-size-default b {
+  color: rgb(254, 4, 241) !important;
+  font-size: 48px !important;
+}
+
+/** Happiness Academy >> Elementor motion effects element strong **/
+.mt-49187 .elementor-motion-effects-element strong {
+  font-family: "Gentona - book bold", gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** Happiness Academy >> No online links bold **/
+.mt-18 .no_online_links b {
+}
+
+/** Happiness Academy >> H.A. header bold - PERSIAN **/
+.mt-59466 .elementor-size-default b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> BULGARIAN: Mt page happiness academymt 76436 bold **/
+.mt-page-happiness-academy.mt-76436 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> CH SIMPLE: Mt page happiness academymt 56290 bold **/
+.mt-page-happiness-academy.mt-56290 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> CH TRAD: Mt page happiness academymt 55860 bold **/
+.mt-page-happiness-academy.mt-55860 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> CZECH: Mt page akademie stestimt 71867 bold **/
+.mt-page-akademie-stesti.mt-71867 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> DANISH: Mt page happiness academymt 74949 bold **/
+.mt-page-happiness-academy.mt-74949 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> DUTCH: Mt page happiness academymt 69894 bold **/
+.mt-page-happiness-academy.mt-69894 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> FREMCH: Mt page universite du bonheurmt 55785 bold **/
+.mt-page-universite-du-bonheur.mt-55785 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> GERMAN: Mt page happiness academy lernen gluecklich zu seinmt 64118 bold **/
+.mt-page-happiness-academy-lernen-gluecklich-zu-sein.mt-64118 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> HEBREW: Mt page happiness academymt 55790 bold **/
+.mt-page-happiness-academy.mt-55790 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> ITALIAN: Mt page universita della felicitamt 56078 bold **/
+.mt-page-universita-della-felicita.mt-56078 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> JAPANESE: Mt page happiness academymt 55273 bold **/
+.mt-page-happiness-academy.mt-55273 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> KOREAN" Mt page happiness academymt 51747 bold **/
+.mt-page-happiness-academy.mt-51747 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> LITHUANIAN: Mt page laimes akademijamt 79448 bold **/
+.mt-page-laimes-akademija.mt-79448 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> MONGOLIAN: Mt page happiness academymt 74456 bold **/
+.mt-page-happiness-academy.mt-74456 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> POLISH: Mt page akademia szczesciamt 69905 bold **/
+.mt-page-akademia-szczescia.mt-69905 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> Mt page universidade da felicidademt 71295 bold **/
+.mt-page-universidade-da-felicidade.mt-71295 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> ROMANIAN: Mt page academia fericiriimt 57484 bold **/
+.mt-page-academia-fericirii.mt-57484 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> RUSSIAN: Mt page happiness academymt 71839 bold **/
+.mt-page-happiness-academy.mt-71839 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> SLOVAK: Mt page akademia stastiamt 71751 bold **/
+.mt-page-akademia-stastia.mt-71751 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> SLOVENIAN: Mt page akademija srecemt 66839 bold **/
+.mt-page-akademija-srece.mt-66839 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> SWEDISH: Mt page happiness academymt 71413 bold **/
+.mt-page-happiness-academy.mt-71413 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** Happiness Academy >> THAI: Mt page happiness academymt 74637 bold **/
+.mt-page-happiness-academy.mt-74637 b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/*= RAEL ====================== */
+
+/** RAEL >> rael page some words font bold **/
+.mt-13 .elementor-size-default b {
+  font-family: Adagio-slab-Blod, gentona, sans-serif, raelway, roboto, arial !important;
+}
+
+/** RAEL >> H.A. header color -arabic **/
+.mt-71400 .elementor-size-default b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/** RAEL >> H.A. header color - SPANISH **/
+.mt-55731 .elementor-size-default b {
+  color: rgb(255, 0, 250) !important;
+}
+
+/*= Shop ====================== */
+
+/** Shop >> coming soon **/
+.mt-18 .no_online_links {
+  font-family: "Gentona light", gentona, sans-serif, raelway, roboto, arial !important;
+  font-size: 14px !important;
+  text-align: center !important;
+}
+
+/*( Desktop & Tablet )*/
+@media (min-width: 768px) and (max-width: 979px) {
+  /*= HOME ====================== */
+
+  /** HOME >> event tap: hover **/
+  .elementor-portfolio__filter:hover {
+    border-bottom: 0 none rgba(0, 0, 0, 0) !important;
+  }
+
+  /*= The message =============== */
+
+  /** The message >> apocalypse - font shadow **/
+  .elementor-element-e639ff7 p {
+    text-shadow: 0 0 3px rgb(255, 255, 255) !important;
+  }
+}
+
+/*( Phone )*/
+@media (max-width: 480px) {
+  /*= The message =============== */
+
+  /** The message >> apocalypse - font shadow **/
+  .elementor-element-e639ff7 p {
+    text-shadow: 0 0 3px rgb(255, 255, 255) !important;
+  }
+
+  /** The message >> Embassy: text white shadow **/
+  .elementor-element-246c672 p {
+    text-shadow: 0 0 5px rgb(255, 255, 255) !important;
+  }
+
+  /** The message >> Elohim: font white shadow **/
+  .elementor-element-bc1fc4e p {
+    text-shadow: 0 0 5px rgb(255, 255, 255) !important;
+  }
+
+  /** The message >> Prophets: font white shadow **/
+  .elementor-element-b6fdf38 p {
+    text-shadow: 0 0 5px rgb(255, 255, 255) !important;
+  }
+
+  /*= Happiness Academy ========= */
+
+  /** Happiness Academy >> "Happiness Academy, Change your life": font bigger, pink **/
+  .mt-49187 .elementor-size-default b {
+    font-size: 1.6em !important;
+  }
+}
