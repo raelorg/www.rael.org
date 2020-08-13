@@ -73,7 +73,7 @@ function render_custom_event_slider() {
         if ( !$start_date ) {
           continue;
         } ?>
-        <div class="event-item-slide">
+        <div class="event-item-slide slick-slide">
           <div class="ei-row">
             <div class="ei-column ei-col-10 event_date">
               <?php
@@ -99,7 +99,17 @@ function render_custom_event_slider() {
               </p>
               <p class="event-description">
                 <?php
-                $desc = get_field('description', $event->ID);
+                $terms = get_the_terms($event->ID,'category');
+                $field_desc='description';
+                if($terms){
+                  foreach($terms as $term){
+                    if($term->slug == 'online-event'){
+                      $field_desc='description_online_event';
+                      break;
+                    }
+                  }
+                }
+                $desc = get_field($field_desc, $event->ID);
                 if (strlen($desc) > 370) {
                   echo substr($desc, 0, 370) . '...';
                 } else {
@@ -269,5 +279,20 @@ function my_acf_google_map_api($api) {
   return $api;
 }
 add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
+
+/*
+* Show custom date range for events
+*/
+function render_event_date_range(){
+  global $post;
+  if (get_post_meta($post->ID, 'start_date', true)) {
+    $start_date = get_post_meta($post->ID,'start_date',true );
+    $sd_format = DateTime::createFromFormat('Ymd', $start_date);
+    $end_date = get_post_meta($post->ID,'end_date', true);
+    return get_events_date_range($sd_format,$end_date);
+  }
+}
+
+add_shortcode('event_date_range','render_event_date_range');
 
 /*  Arun Kumar work end here */
