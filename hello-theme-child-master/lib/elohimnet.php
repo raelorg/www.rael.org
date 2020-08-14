@@ -834,6 +834,35 @@ function footer_contact_us_populate_7( $form ) {
 } // footer_contact_us_populate_7
 
 // ------------------------------------------------
+// Validation supplémentaire pour éviter le spam
+// ------------------------------------------------
+add_filter( 'gform_validation_7', 'custom_validation_7' );
+function custom_validation_7( $validation_result ) {
+	$form = $validation_result['form'];
+
+	if (    ( is_numeric(rgpost( 'input_1' ))  ) 
+	     && ( is_numeric(rgpost( 'input_2' ))  ) ) {
+ 
+        // set the form validation to false
+        $validation_result['is_valid'] = false;
+ 
+        //finding Field with ID of 1 and marking it as failed validation
+        foreach( $form['fields'] as &$field ) {
+			if ( $field->id == '1' ) {
+                $field->failed_validation = true;
+                $field->validation_message = '*';
+                break;
+            }
+        }
+ 
+	}
+		
+	//Assign modified $form object back to the validation result
+	$validation_result['form'] = $form;
+	return $validation_result;	
+} // custom_validation_7
+
+// ------------------------------------------------
 // Déterminer le code de langue iso pour
 // certaines langues
 // ------------------------------------------------
