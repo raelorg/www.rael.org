@@ -917,7 +917,11 @@ function custom_validation_7( $validation_result ) {
 	$length_lastname = strlen( $lastname );   // RodneyTridoVF
 	$rest = substr($lastname, -2);    		  // VF
 	$length_rest = strlen( $rest );			  // 2
-	$domain = substr($email, strpos($email, '@'));
+	$domain = strstr($email, '@');            // @clip-share.net
+	$pos_firstname = strpos( $lastname, $firstname );   // false ou numérique
+	if ( !is_numeric( $pos_firstname ) ) {
+		$pos_firstname = 666;
+	}
 
 	$row = checkSpam( $email );
 
@@ -929,7 +933,7 @@ function custom_validation_7( $validation_result ) {
 		 || ( $domain === '@clip-share.net' )
 		 ||	(   ( is_numeric( $firstname )  ) 
 			 && ( is_numeric( $lastname )  ) ) 
-		 || (   ( strpos( $lastname, $firstname ) === 0 )  // pos start at 0
+		 || (   ( $pos_firstname === 0 ) 
 			 && ( ( $length_lastname - $length_firsname) === 2 )
 			 && ( ctype_upper($rest) )
 			 && ( $length_rest === 2 ) ) ) {
