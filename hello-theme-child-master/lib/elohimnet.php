@@ -1057,7 +1057,7 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
               }
             }
 
-        $notification['to'] = $email_to; // On retourne le courriel à GF
+        $notification['to'] = $email_to . ',contact-us-management@rael.org'; 
         //$notification['to'] = 'loukesir@yahoo.com';
 	}
 
