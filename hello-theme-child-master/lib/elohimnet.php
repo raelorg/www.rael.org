@@ -212,6 +212,25 @@ function CreateTable() {
 } // CreateTable();
 
 // ---------------------------------------------------
+// Contient l'historique des spams
+// ---------------------------------------------------
+function CreateTable_contacts_spam() {
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . "contacts_spam"; 
+
+	$charset_collate = $wpdb->get_charset_collate();
+	
+	$sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
+		email varchar(320) not null PRIMARY KEY,
+		date_created datetime default CURRENT_TIMESTAMP,
+		attempt int null
+		) " . $charset_collate .";";
+	
+	dbDelta( $sql );
+} // CreateTable_contacts_spam();
+
+// // ---------------------------------------------------
 // Table SQL qui contient le log des opérations
 // ---------------------------------------------------
 function CreateTable_contacts_log() {
@@ -322,6 +341,56 @@ function UpdateContact( $firstname, $lastname, $language, $country, $area ) {
 	);
 
 } // UpdateContact
+
+// ---------------------------------------------------
+// Vérifier s'il s'agit d'un spammer qui récidive
+// ---------------------------------------------------
+function checkSpam( $email ) {
+	global $wpdb;
+
+	$query = "select email, attempt from wp_contacts_spam where email = '" . $email . "'";
+	$row = $wpdb->get_row( $query );
+
+	return $row;
+
+} // checkSpam
+
+// ---------------------------------------------------
+// Insérer un nouveau spammer.
+// ---------------------------------------------------
+function InsertSpam( $email ) {
+	global $wpdb;
+	$row = 1;
+
+	$spam = array();
+	$spam['email'] = $email;
+	$spam['attempt'] = 1;
+
+	$row = $wpdb->insert( 'wp_contacts_spam', $spam ); 
+	
+} // InsertSpam
+
+// --------------------------------------------------------
+// Mettre à jour la récidive du spammer
+// --------------------------------------------------------
+function UpdateSpam( $email, $attempt ) {
+	global $wpdb;
+
+	$wpdb->update( 
+		'wp_contacts_spam', 
+		array(
+			'email' => $email,
+			'attempt' => $attempt + 1
+		),
+		array( 'email' => $email ),
+		array(
+			'%s',
+			'%d'
+		),
+		array( '%s' )
+	);
+
+} // UpdateSpam
 
 // ---------------------------------------
 // Obtenir l'information de la personne
@@ -840,15 +909,45 @@ add_filter( 'gform_validation_7', 'custom_validation_7' );
 function custom_validation_7( $validation_result ) {
 	$form = $validation_result['form'];
 
-	if (    ( is_numeric(rgpost( 'input_1' ))  ) 
-	     && ( is_numeric(rgpost( 'input_2' ))  ) ) {
+	$firstname = rgpost( 'input_1' );
+	$lastname = rgpost( 'input_2' );
+	$email = rgpost( 'input_3' );
+
+	$length_firsname = strlen( $firstname );  // RodneyTrido
+	$length_lastname = strlen( $lastname );   // RodneyTridoVF
+	$rest = substr($lastname, -2);    		  // VF
+	$length_rest = strlen( $rest );			  // 2
+	$domain = substr($email, strpos($email, '@'));
+
+	$row = checkSpam( $email );
+
+	// 1. email existe déjà dans la blacklist de spam
+	// 2. le prénom et le nom sont numériques
+	// 3. le prénom est inclus dans le nom et le nom se termine par deux caractères majuscules
+	// 4. le domaine est valide
+	if  (	( null !== $row )
+		 || ( $domain === '@clip-share.net' )
+		 ||	(   ( is_numeric( $firstname )  ) 
+			 && ( is_numeric( $lastname )  ) ) 
+		 || (   ( strpos( $lastname, $firstname ) === 0 )  // pos start at 0
+			 && ( ( $length_lastname - $length_firsname) === 2 )
+			 && ( ctype_upper($rest) )
+			 && ( $length_rest === 2 ) ) ) {
  
+		if ( null == $row ) {
+			InsertSpam( $email );
+			$selector = InsertContact( $firstname, $lastname, $email, rgpost( 'input_4' ), rgpost( 'input_8' ), '', rgpost( 'input_6' ), 7, '' );
+		}
+		else {
+			UpdateSpam( $email, $row->attempt );
+		}
+
         // set the form validation to false
         $validation_result['is_valid'] = false;
  
         //finding Field with ID of 1 and marking it as failed validation
         foreach( $form['fields'] as &$field ) {
-			if ( $field->id == '1' ) {
+			if ( $field->id == '3' ) {
                 $field->failed_validation = true;
                 $field->validation_message = '*';
                 break;
