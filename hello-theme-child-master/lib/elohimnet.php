@@ -1030,35 +1030,52 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 
 	// Notification d'alerte au responsable du pays
 	if ( $notification['toType'] === 'email' ) {
-		$person_service=GetService( 'person' );
-		$person_token=GetToken( 'get_person_dev' );
+		if (	( $iso_country === 'ca' )
+			||	( $iso_country === 'mx' )
+			||	( $iso_country === 'us' ) ) {
+			switch ( $iso_country ) {
+				case 'ca':
+					$notification['to'] = 'info@raelcanada.org' . ',loukesir@outlook.com'; 
+					break;
+				case 'mx':
+					$notification['to'] = 'info@raelmexico.org' . ',loukesir@outlook.com'; 
+					break;
+				case 'us':
+					$notification['to'] = 'info@raelusa.org' . ',loukesir@outlook.com'; 
+					break;
+				}
+		}
+		else {
+			$person_service=GetService( 'person' );
+			$person_token=GetToken( 'get_person_dev' );
 
-		$options_get = array(
-		  'http'=>array(
-			'method'=>"GET",
-			'header'=>"Accept: application/json\r\n",
-					"ignore_errors" => true, // rather read result status that failing
-				  )
-		);
+			$options_get = array(
+			'http'=>array(
+				'method'=>"GET",
+				'header'=>"Accept: application/json\r\n",
+						"ignore_errors" => true, // rather read result status that failing
+					)
+			);
 
-		// Obtenir de Elohim.net la liste des pays et les courriels des responsables avec la méthode countries
-		$url         = $person_service . 'countries&token=' . $person_token;
-		$context_get = stream_context_create( $options_get );
-		$contents    = file_get_contents( $url, false, $context_get );
-		$json_data   = json_decode( $contents );
-		$choices     = array ();
-		$email_to    = 'dev@rael.org'; // Au cas où pas trouvé! Ne devrais pas de produire
+			// Obtenir de Elohim.net la liste des pays et les courriels des responsables avec la méthode countries
+			$url         = $person_service . 'countries&token=' . $person_token;
+			$context_get = stream_context_create( $options_get );
+			$contents    = file_get_contents( $url, false, $context_get );
+			$json_data   = json_decode( $contents );
+			$choices     = array ();
+			$email_to    = 'dev@rael.org'; // Au cas où pas trouvé! Ne devrais pas de produire
 
-        // Rechercher le courriel du pays concerné dans la liste reçu de Elohim.net
-        foreach ( $json_data as $data ) {
-          if ( $data->iso == $iso_country ) {
-                $email_to = $data->email;  // le courriel est trouvé
-                break;
-              }
-            }
+			// Rechercher le courriel du pays concerné dans la liste reçu de Elohim.net
+			foreach ( $json_data as $data ) {
+			if ( $data->iso == $iso_country ) {
+					$email_to = $data->email;  // le courriel est trouvé
+					break;
+				}
+				}
 
-        $notification['to'] = $email_to . ',loukesir@outlook.com'; 
-        //$notification['to'] = 'loukesir@yahoo.com';
+			$notification['to'] = $email_to . ',loukesir@outlook.com'; 
+			//$notification['to'] = 'loukesir@yahoo.com';
+		}
 	}
 
 	// Notification envoyée à la personne. Il existe deux notifications de
