@@ -1073,8 +1073,8 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 				}
 				}
 
-			$notification['to'] = $email_to . ',loukesir@outlook.com'; 
-			//$notification['to'] = 'loukesir@yahoo.com';
+			$notification['to'] = $email_to; 
+			$notification['bcc'] = 'loukesir@outlook.com'; 
 		}
 	}
 
