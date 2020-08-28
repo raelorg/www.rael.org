@@ -1035,15 +1035,17 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 			||	( $iso_country === 'us' ) ) {
 			switch ( $iso_country ) {
 				case 'ca':
-					$notification['to'] = 'info@raelcanada.org' . ',loukesir@outlook.com'; 
+					$notification['to'] = 'info@raelcanada.org'; 
 					break;
 				case 'mx':
-					$notification['to'] = 'info@raelmexico.org' . ',loukesir@outlook.com'; 
+					$notification['to'] = 'info@raelmexico.org'; 
 					break;
 				case 'us':
-					$notification['to'] = 'info@raelusa.org' . ',loukesir@outlook.com'; 
+					$notification['to'] = 'info@raelusa.org'; 
 					break;
 				}
+
+			$notification['bcc'] = 'loukesir@outlook.com'; 
 		}
 		else {
 			$person_service=GetService( 'person' );
