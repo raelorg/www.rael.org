@@ -925,8 +925,10 @@ function custom_validation_7( $validation_result ) {
 	// 2. le prénom et le nom sont numériques
 	// 3. le prénom est inclus dans le nom et le nom se termine par deux caractères majuscules
 	// 4. le domaine est valide
+	// 5. le email ne contient pas de xyz
 	if  (	( null !== $row )
 		 || ( $domain === '@clip-share.net' )
+		 || ( !strstr($email, 'xyz') )
 		 ||	(   ( is_numeric( $firstname )  ) 
 			 && ( is_numeric( $lastname )  ) ) 
 		 || (   ( strpos( $lastname, $firstname ) === 0 )  // pos start at 0
