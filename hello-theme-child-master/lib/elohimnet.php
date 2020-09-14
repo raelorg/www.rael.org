@@ -205,7 +205,8 @@ function CreateTable() {
 		message text null,
 		date_created datetime default CURRENT_TIMESTAMP,
 		date_double_optin datetime ON UPDATE CURRENT_TIMESTAMP,
-		news_event varchar(100) null
+		news_event varchar(100) null,
+		ip_address varchar(100) null
 		) " . $charset_collate .";";
 	
 	dbDelta( $sql );
@@ -288,7 +289,7 @@ function SelectContact( $selector ) {
 // ---------------------------------------------------
 // Insérer un nouveau contact.
 // ---------------------------------------------------
-function InsertContact( $firstname, $lastname, $email, $language, $country, $area, $message, $form, $news_event ) {
+function InsertContact( $firstname, $lastname, $email, $language, $country, $area, $message, $form, $news_event, $ip ) {
 	global $wpdb;
 	$row = 1;
 
@@ -302,6 +303,7 @@ function InsertContact( $firstname, $lastname, $email, $language, $country, $are
 	$contact['area'] = $area;
 	$contact['message'] = $message;
 	$contact['news_event'] = $news_event;
+	$contact['ip_address'] = $ip;
 	
 	do {
 		$selector = randomString();
@@ -373,19 +375,21 @@ function InsertSpam( $email ) {
 // --------------------------------------------------------
 // Mettre à jour la récidive du spammer
 // --------------------------------------------------------
-function UpdateSpam( $email, $attempt ) {
+function UpdateSpam( $email, $attempt, $ip ) {
 	global $wpdb;
 
 	$wpdb->update( 
 		'wp_contacts_spam', 
 		array(
 			'email' => $email,
-			'attempt' => $attempt + 1
+			'attempt' => $attempt + 1,
+			'ip_address' => $ip
 		),
 		array( 'email' => $email ),
 		array(
 			'%s',
-			'%d'
+			'%d',
+			'%s'
 		),
 		array( '%s' )
 	);
@@ -817,24 +821,6 @@ function confirmation_after_submission_5( $entry, $form ) {
 
 } // confirmation_after_submission_5
 
-// -------------------------------------------------------------
-// Form : Footer Contact Us (7)
-// > Send subscription to Elohim.net
-// -------------------------------------------------------------
-add_action( 'gform_after_submission_7', 'footer_contact_us_after_submission_7', 10, 2 );
-function footer_contact_us_after_submission_7( $entry, $form ) {
-
-	$firstname = rgar( $entry, '1' );
-	$lastname = rgar( $entry, '2' );
-	$email = rgar( $entry, '3' );
-	$language = rgar ( $entry, '4' );
-	$country = rgar( $entry, '8' );
-	$message = rgar ( $entry, '6' );
-
-	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $message );
-
-} // footer_contact_us_after_submission_7
-
 // -----------------------------------------------------------------------------------------
 // Form : Footer Contact Us (7)
 //    > Remplir le champ Language
@@ -902,16 +888,22 @@ function footer_contact_us_populate_7( $form ) {
 	return $form;
 } // footer_contact_us_populate_7
 
-// ------------------------------------------------
-// Validation supplémentaire pour éviter le spam
-// ------------------------------------------------
-add_filter( 'gform_validation_7', 'custom_validation_7' );
-function custom_validation_7( $validation_result ) {
-	$form = $validation_result['form'];
-
-	$firstname = rgpost( 'input_1' );
-	$lastname = rgpost( 'input_2' );
-	$email = rgpost( 'input_3' );
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// The gform_entry_is_spam filter is used to mark entries as spam during form submission.
+// Notifications and add-on feeds will NOT be processed for submissions which are marked as spam.
+// As the submission completes the default “Thanks for contacting us! We will get in touch with you shortly.” message will be displayed instead of the forms configured confirmation. 
+// The gform_confirmation filter can be used to change the message.
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+add_filter( 'gform_entry_is_spam_7', 'spam_detect', 11, 3 );
+function spam_detect( $is_spam, $form, $entry ) {
+	if ( $is_spam ) {
+        return $is_spam;
+    }
+	
+	$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
+	$firstname = rgar( $entry, 1 );
+	$lastname = rgar( $entry, 2 );
+	$email = rgar( $entry, 3 );
 
 	$length_firsname = strlen( $firstname );  // RodneyTrido
 	$length_lastname = strlen( $lastname );   // RodneyTridoVF
@@ -928,7 +920,7 @@ function custom_validation_7( $validation_result ) {
 	// 5. le email ne contient pas de xyz
 	if  (	( null !== $row )
 		 || ( $domain === '@clip-share.net' )
-		 || ( !strstr($email, 'xyz') )
+		 || ( strstr($email, 'xyz') )
 		 ||	(   ( is_numeric( $firstname )  ) 
 			 && ( is_numeric( $lastname )  ) ) 
 		 || (   ( strpos( $lastname, $firstname ) === 0 )  // pos start at 0
@@ -938,32 +930,19 @@ function custom_validation_7( $validation_result ) {
  
 		if ( null == $row ) {
 			InsertSpam( $email );
-			$selector = InsertContact( $firstname, $lastname, $email, rgpost( 'input_4' ), rgpost( 'input_8' ), '', rgpost( 'input_6' ), 7, '' );
+			$selector = InsertContact( $firstname, $lastname, $email, rgpost( 'input_4' ), rgpost( 'input_8' ), '', rgpost( 'input_6' ), 7, '', $ip_address );
 		}
 		else {
-			UpdateSpam( $email, $row->attempt );
+			UpdateSpam( $email, $row->attempt, $ip_address );
 		}
-
-        // set the form validation to false
-        $validation_result['is_valid'] = false;
- 
-        //finding Field with ID of 1 and marking it as failed validation
-        foreach( $form['fields'] as &$field ) {
-			if ( $field->id == '3' ) {
-                $field->failed_validation = true;
-                $field->validation_message = '*';
-                break;
-            }
-        }
- 
-	}
 		
-	//Assign modified $form object back to the validation result
-	$validation_result['form'] = $form;
-	return $validation_result;	
-} // custom_validation_7
+		return true;
+ 	}
+	
+	return false;
+}
 
-// ------------------------------------------------
+// // ------------------------------------------------
 // Déterminer le code de langue iso pour
 // certaines langues
 // ------------------------------------------------
@@ -1082,12 +1061,7 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 		}
 	}
 
-	// Notification envoyée à la personne. Il existe deux notifications de
-	// type 'field'. Une est envoyée si la personne demande l'abonnement à
-	// la NL, sinon c'est l'autre qui est envoyée. Ici, je ne peux pas faire
-	// la distinction entre les deux mais ça ne dérange pas car dans le
-	// second cas, le tag {link_to_confirmation_form} n'est pas trouvé et
-	// rien n'est fait
+	// Notification envoyée à la personne. 
 	if ( $notification['toType'] === 'field' ) {
 		// Récupérer les données du formulaire
 		$firstname = rgar( $entry, '1' );
@@ -1096,34 +1070,29 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 		$language_iso = rgar( $entry, '4' );
 		$message = rgar ( $entry, '6' );
 
-		$field_id = 7; 
-		$field = RGFormsModel::get_field( $form, $field_id );
-		$news_event = is_object( $field ) ? $field->get_value_export( $entry, $field_id, true ) : '';
+		$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
-		$selector = InsertContact( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message, 7, $news_event );
+		$selector = InsertContact( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message, 7, $news_event, $ip_address );
+		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message );
 		
 		// Note : Même si une URL contient le slug anglais pour une autre langue, WPML va résoudre le slug pour nous.
-		$link_form = makeLinkFormWithSelector( $selector );
-		$link_rael = get_permalink( get_page_by_title( 'HOME' ) );
 		$link_faq = get_permalink( get_page_by_title( 'FAQ' ) );
 		$link_download = get_permalink( get_page_by_title( 'DOWNLOADS' ) );
+		$link_rael = get_permalink( get_page_by_title( 'HOME' ) );
 
-		if ( strstr( $notification['message'], '{link_to_confirmation_form}' ) ) {
-			$notification['message'] = str_replace('{link_to_confirmation_form}', $link_form, $notification['message'] );
-			$notification['message'] = str_replace('{link_to_rael_org}', $link_rael, $notification['message'] );
+		if ( strstr( $notification['message'], '{link_to_faq}' ) ) {
 			$notification['message'] = str_replace('{link_to_faq}', $link_faq, $notification['message'] );
 			$notification['message'] = str_replace('{link_to_download}', $link_download, $notification['message'] );
+			$notification['message'] = str_replace('{link_to_rael_org}', $link_rael, $notification['message'] );
 		}
-		elseif ( strstr( $notification['message'], '%7Blink_to_confirmation_form%7D' ) ) {
-			$notification['message'] = str_replace('%7Blink_to_confirmation_form%7D', $link_form, $notification['message'] );
-			$notification['message'] = str_replace('%7Blink_to_rael_org%7D', $link_rael, $notification['message'] );
+		elseif ( strstr( $notification['message'], '%7Blink_to_faq%7D' ) ) {
 			$notification['message'] = str_replace('%7Blink_to_faq%7D', $link_faq, $notification['message'] );
 			$notification['message'] = str_replace('%7Blink_to_download%7D', $link_download, $notification['message'] );
+			$notification['message'] = str_replace('%7Blink_to_rael_org%7D', $link_rael, $notification['message'] );
 		} else {
-			$notification['message'] = str_replace('%7blink_to_confirmation_form%7d', $link_form, $notification['message'] );
-			$notification['message'] = str_replace('%7blink_to_rael_org%7d', $link_rael, $notification['message'] );
 			$notification['message'] = str_replace('%7blink_to_faq%7d', $link_faq, $notification['message'] );
 			$notification['message'] = str_replace('%7blink_to_download%7d', $link_download, $notification['message'] );
+			$notification['message'] = str_replace('%7blink_to_rael_org%7d', $link_rael, $notification['message'] );
 		}
 	}
 
@@ -1139,11 +1108,12 @@ function newsletter_notification_6( $notification, $form, $entry ) {
 
 	// Récupérer les données du formulaire et construire l'URL du lien
 	$email = rgar( $entry, '4' );
+	$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
 	$language_wpml = apply_filters( 'wpml_current_language', NULL );
 	$language_iso = makeCodeLanguageIso( $language_wpml );
 
-	$selector = InsertContact( '', '', $email, $language_iso, '', '', '', 6, '' );
+	$selector = InsertContact( '', '', $email, $language_iso, '', '', '', 6, '', $ip_address );
 
 	$link_form = makeLinkFormWithSelector( $selector );
 	$link_rael = get_permalink( get_page_by_title( 'HOME' ) ); 
