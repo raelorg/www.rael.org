@@ -9,3 +9,22 @@ Version:        1.0.0
 Text Domain:    hello-elementor-child
 Tags:           flexible-header, custom-colors, custom-menu, custom-logo, editor-style, featured-images, rtl-language-support, threaded-comments, translation-ready
 */
+
+/* Added by Juliana Gonzalez ----------- Start Here ------------- */
+/* fix labels of signup form of footer going outside of screen on mobile */
+.gform_wrapper form.gf_simple_horizontal .gfield_description:not(.validation_message), .gform_wrapper form.gf_simple_horizontal .ginput_complex label, .gform_wrapper form.gf_simple_horizontal label.gfield_label {
+    display: none!important;
+    left: 0!important;
+}
+
+/* fix Image gallery going outside of screen on mobile */
+.uael-ins-sutro{
+	max-width:100%!important;
+	overflow:hidden!important;
+}
+
+.uael-img-carousel-wrap{
+	white-space: normal!important;
+}
+
+/* By Juliana Gonzalez ----------- End ------------- */

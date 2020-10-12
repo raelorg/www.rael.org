@@ -220,7 +220,8 @@ body.rtl .elementor-location-footer .elementor-sticky a[href="#"] {
     margin-right: 38px;
 }
 
-@media screen and (min-width: 1024px) {
+/* Modified by Juliana Gonzalez - Changed min width to 1025 instead of 1024*/
+@media screen and (min-width: 1025px) {
     $wpml-menu-row-height: 46px;
     $wpml-menu-row-count: 10;
     $wpml-menu-width: 830px;

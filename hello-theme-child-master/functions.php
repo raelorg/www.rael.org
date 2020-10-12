@@ -4,7 +4,6 @@ require_once "lib/assets.php";
 require_once "lib/cdn.php";
 require_once "lib/performance.php";
 require_once "lib/analytics.php";
-require_once "lib/cloudflare.php";
 require_once "lib/elohimnet.php";
 require_once "lib/redirects.php";
 
@@ -15,7 +14,8 @@ if ( isset( $_GET['debug'] ) ) {
 }
 
 function hello_elementor_child_enqueue_scripts() {
-  wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.0');
+  // Modified by Juliana Gonzalez - Modify version of css file
+  wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.2');
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
@@ -110,6 +110,7 @@ function render_custom_event_slider() {
                   }
                 }
                 $desc = get_field($field_desc, $event->ID);
+                $desc = wp_strip_all_tags($desc);
                 if (strlen($desc) > 370) {
                   echo substr($desc, 0, 370) . '...';
                 } else {
@@ -271,14 +272,6 @@ add_filter('uael_single_post_link', function ($link, $post_id, $settings) {
 }
 , 10, 3);
 
-// Method 1: Setting.
-
-function my_acf_google_map_api($api) {
-  $api['key'] = 'AIzaSyCqKjpzQEVndx1dxBx1FyNSAc6-qKEtcJk';
-
-  return $api;
-}
-add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
 
 /*
 * Show custom date range for events
@@ -296,3 +289,15 @@ function render_event_date_range(){
 add_shortcode('event_date_range','render_event_date_range');
 
 /*  Arun Kumar work end here */
+
+/*
+* Method 1: Setting.
+* Initialization of Google Maps in ACF
+* From: Alain Gauthier, 2020-08-26
+*/
+function my_acf_google_map_api($api) {
+  $api['key'] = 'AIzaSyCqKjpzQEVndx1dxBx1FyNSAc6-qKEtcJk';
+
+  return $api;
+}
+add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
