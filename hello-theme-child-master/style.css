@@ -27,11 +27,4 @@ Tags:           flexible-header, custom-colors, custom-menu, custom-logo, editor
 	white-space: normal!important;
 }
 
-/* By Juliana - 10/12/2020 */
-@media (max-width: 767px){
-	.uaoffcanvas-00fbce8 .uael-offcanvas-content {
-	    padding-bottom:50px;
-	}
-}
-
 /* By Juliana Gonzalez ----------- End ------------- */

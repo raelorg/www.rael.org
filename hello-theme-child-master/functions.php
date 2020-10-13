@@ -14,8 +14,8 @@ if ( isset( $_GET['debug'] ) ) {
 }
 
 function hello_elementor_child_enqueue_scripts() {
-  // Modified by Juliana Gonzalez - Modify version of css file 10/12/2020
-  wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.2.1');
+  // Modified by Juliana Gonzalez - Modify version of css file
+  wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.2');
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
