@@ -15,7 +15,7 @@ if ( isset( $_GET['debug'] ) ) {
 
 function hello_elementor_child_enqueue_scripts() {
   // Modified by Juliana Gonzalez - Modify version of css file
-  wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.2');
+  wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.2.2');
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
@@ -33,6 +33,12 @@ function change_message_9($message, $form) {
   return "<div></div>";
 }
 
+add_action('wp_head', 'add_facebook_meta_tag');
+function add_facebook_meta_tag(){
+?>
+<meta name="facebook-domain-verification" content="hkpezs9g9ernscf44grjm0e7o5adl0" />
+<?php
+};
 /* --------------------------- end-luc -------------------------------------- */
 
 /* Arun Kumar work start here */
