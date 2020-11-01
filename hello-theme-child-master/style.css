@@ -27,4 +27,17 @@ Tags:           flexible-header, custom-colors, custom-menu, custom-logo, editor
 	white-space: normal!important;
 }
 
+/* By Juliana - 10/12/2020 */
+@media (max-width: 767px){
+	.uaoffcanvas-00fbce8 .uael-offcanvas-content {
+	    padding-bottom:70px!important;
+	}
+}
+
+/* Added 11/1/2020 Fix for menu issue */
+.elementor-location-header{
+	z-index: 1001;
+	position: relative;
+}
+
 /* By Juliana Gonzalez ----------- End ------------- */
