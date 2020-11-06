@@ -5,7 +5,7 @@ Description:    Hello Elementor Child is a child theme of Hello Elementor, creat
 Author:         Elementor Team
 Author URI:     https://elementor.com/
 Template:       hello-elementor
-Version:        1.0.0
+Version:        1.0.1
 Text Domain:    hello-elementor-child
 Tags:           flexible-header, custom-colors, custom-menu, custom-logo, editor-style, featured-images, rtl-language-support, threaded-comments, translation-ready
 */
@@ -34,10 +34,9 @@ Tags:           flexible-header, custom-colors, custom-menu, custom-logo, editor
 	}
 }
 
-/* Added 11/1/2020 Fix for menu issue */
-.elementor-location-header{
-	z-index: 1001;
-	position: relative;
+/* Added 11/5/2020 Fix for menu issue */
+.elementor-location-header .menu-item .sub-menu{
+	z-index: 1004!important;
 }
 
 /* By Juliana Gonzalez ----------- End ------------- */
