@@ -11,16 +11,3 @@ jQuery(document).ready(function () {
   }
 });
 // Arun Kumar work end here
-
-// Gediminas work starts here
-// function used in Downloads page to navigate to different languages ebooks
-function goToPage(_page) {
-    if (_page) {
-        _protocol = window.location.protocol;
-        _hostname = window.location.hostname;
-        if (_protocol && _hostname) {
-            window.location.assign(_protocol + '//' + _hostname + _page);
-        }
-    }
-};
-// Gediminas work ends here
