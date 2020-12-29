@@ -307,3 +307,26 @@ function my_acf_google_map_api($api) {
   return $api;
 }
 add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
+
+/* Gediminas work starts here */
+
+/*
+ * Shortcode used in meditation page to make iframes translatable
+ * The attributes of this function that need to be translated must be defined in
+ * WPML -> Settings -> Custom XML Configuration
+*/
+function iframe_embed( $atts ) {
+	
+	$a = shortcode_atts( array (
+		'url' => 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/872025926&color=%230ecad4&auto_play=false&hide_related=false&' . 
+				 'show_comments=false&show_user=false&show_reposts=false&show_teaser=false', 	// default URL if not provided in params
+		'height' => '500',					// default iframe height if not provided in params
+	), $atts );
+
+	$iframe_to_embed='<iframe width="100%" height="' . $a[height] . '" scrolling="no" frameborder="no" allow="autoplay" src="https://www.' . $a[url] . '"></iframe>';
+	return $iframe_to_embed;
+}
+
+add_shortcode('translatable_iframe', 'iframe_embed' );
+
+/* Gediminas work ends here */
