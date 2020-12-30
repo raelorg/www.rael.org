@@ -323,7 +323,7 @@ function iframe_embed( $atts ) {
 		'height' => '500',					// default iframe height if not provided in params
 	), $atts );
 
-	$iframe_to_embed='<iframe width="100%" height="' . $a[height] . '" scrolling="no" frameborder="no" allow="autoplay" src="https://www.' . $a[url] . '"></iframe>';
+	$iframe_to_embed='<iframe width="100%" height="' . $a[height] . '" scrolling="no" frameborder="no" allow="autoplay" src="' . $a[url] . '"></iframe>';
 	return $iframe_to_embed;
 }
 
