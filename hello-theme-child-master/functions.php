@@ -33,12 +33,20 @@ function change_message_9($message, $form) {
   return "<div></div>";
 }
 
+/* meta_tag for FB pixel */
 add_action('wp_head', 'add_facebook_meta_tag');
 function add_facebook_meta_tag(){
 ?>
 <meta name="facebook-domain-verification" content="hkpezs9g9ernscf44grjm0e7o5adl0" />
 <?php
-};
+}
+
+// Add Google Tag code which is supposed to be placed after opening body tag.
+add_action( 'wp_body_open', 'wpdoc_add_custom_body_open_code' );
+ 
+function wpdoc_add_custom_body_open_code() {
+    echo '<!-- Google Tag Manager (noscript) --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58TMKC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->';
+}
 /* --------------------------- end-luc -------------------------------------- */
 
 /* Arun Kumar work start here */
@@ -323,7 +331,7 @@ function iframe_embed( $atts ) {
 		'height' => '500',					// default iframe height if not provided in params
 	), $atts );
 
-	$iframe_to_embed='<iframe width="100%" height="' . $a[height] . '" scrolling="no" frameborder="no" allow="autoplay" src="https://www.' . $a[url] . '"></iframe>';
+	$iframe_to_embed='<iframe width="100%" height="' . $a[height] . '" scrolling="no" frameborder="no" allow="autoplay" src="' . $a[url] . '"></iframe>';
 	return $iframe_to_embed;
 }
 
