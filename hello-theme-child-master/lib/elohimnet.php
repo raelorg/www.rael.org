@@ -1008,6 +1008,36 @@ add_filter( 'gform_notification_7', 'footer_contact_us_notification_7', 10, 3 );
 function footer_contact_us_notification_7( $notification, $form, $entry ) {
 
 	$iso_country = rgar( $entry, '8' );
+	$email_country = 'contact@rael.org';
+	$notification['bcc'] = 'loukesir@outlook.com'; 
+
+	// Rechercher le email country@rael.org du pays
+	$person_service=GetService( 'person' );
+	$person_token=GetToken( 'get_person_dev' );
+
+	$options_get = array(
+	'http'=>array(
+		'method'=>"GET",
+		'header'=>"Accept: application/json\r\n",
+				"ignore_errors" => true, // rather read result status that failing
+			)
+	);
+
+	// Obtenir de Elohim.net la liste des pays et les courriels des responsables avec la méthode countries
+	$url         = $person_service . 'countries&token=' . $person_token;
+	$context_get = stream_context_create( $options_get );
+	$contents    = file_get_contents( $url, false, $context_get );
+	$json_data   = json_decode( $contents );
+	$choices     = array ();
+	$email_country  = 'dev@rael.org'; // Au cas où pas trouvé! Ne devrais pas de produire
+
+	// Rechercher le courriel du pays concerné dans la liste reçu de Elohim.net
+	foreach ( $json_data as $data ) {
+		if ( $data->iso == $iso_country ) {
+			$email_country = $data->email;  // le courriel est trouvé
+			break;
+		}
+	}
 
 	// Notification d'alerte au responsable du pays
 	if ( $notification['toType'] === 'email' ) {
@@ -1025,39 +1055,9 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 					$notification['to'] = 'info@raelusa.org'; 
 					break;
 				}
-
-			$notification['bcc'] = 'loukesir@outlook.com'; 
 		}
 		else {
-			$person_service=GetService( 'person' );
-			$person_token=GetToken( 'get_person_dev' );
-
-			$options_get = array(
-			'http'=>array(
-				'method'=>"GET",
-				'header'=>"Accept: application/json\r\n",
-						"ignore_errors" => true, // rather read result status that failing
-					)
-			);
-
-			// Obtenir de Elohim.net la liste des pays et les courriels des responsables avec la méthode countries
-			$url         = $person_service . 'countries&token=' . $person_token;
-			$context_get = stream_context_create( $options_get );
-			$contents    = file_get_contents( $url, false, $context_get );
-			$json_data   = json_decode( $contents );
-			$choices     = array ();
-			$email_to    = 'dev@rael.org'; // Au cas où pas trouvé! Ne devrais pas de produire
-
-			// Rechercher le courriel du pays concerné dans la liste reçu de Elohim.net
-			foreach ( $json_data as $data ) {
-			if ( $data->iso == $iso_country ) {
-					$email_to = $data->email;  // le courriel est trouvé
-					break;
-				}
-				}
-
-			$notification['to'] = $email_to; 
-			$notification['bcc'] = 'loukesir@outlook.com'; 
+			$notification['to'] = $email_country; 
 		}
 	}
 
@@ -1094,6 +1094,8 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 			$notification['message'] = str_replace('%7blink_to_download%7d', $link_download, $notification['message'] );
 			$notification['message'] = str_replace('%7blink_to_rael_org%7d', $link_rael, $notification['message'] );
 		}
+
+		$notification['replyTo'] = $email_country;
 	}
 
 	return $notification;
