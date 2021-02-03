@@ -120,7 +120,7 @@ if(isset($wp_query->query_vars['selector'])) {
 // --------------------------------------------------------
 // Traduire l'étiquette Children pour le champ Country-Area
 // --------------------------------------------------------
-function GetChildrenLabel( $iso_language ) {
+function GetChildrenLabelArea( $iso_language ) {
     $children = array(
         "en" =>"Area",
         "es" =>"Zona",
@@ -181,7 +181,139 @@ function GetChildrenLabel( $iso_language ) {
         return 'Area';
     }
 
-} // GetChildrenLabel
+} // GetChildrenLabelArea
+
+// --------------------------------------------------------
+// Traduire l'étiquette parent pour le champ Country-Province
+// --------------------------------------------------------
+function GetParentLabelCountry( $iso_language ) {
+    $children = array(
+        "en" =>"Country",
+        "es" =>"País",
+        "de" =>"Land",
+		"fr" =>"Pays",
+		"ar" =>"بلد",
+        "bs" =>"Država",
+        "bg" =>"Страна",
+        "ca" =>"País",
+        "cs" =>"Země",
+        "sk" =>"Krajina",
+        "da" =>"Land",
+        "el" =>"Χώρα",
+        "et" =>"Riik",
+        "fa" =>"کشور",
+        "fi" =>"Maa",
+        "he" =>"מדינה",
+        "hi" =>"देश",
+        "hr" =>"Zemlja",
+        "hu" =>"Ország",
+        "hy" =>"Երկիր",
+        "id" =>"Negara",
+        "it" =>"Nazione",
+        "ja" =>"国",
+        "ko" =>"국가",
+        "ku" =>"Welat",
+        "lt" =>"Šalis",
+        "mk" =>"Земја",
+        "mn" =>"Улс",
+        "ne" =>"देश",
+        "nl" =>"Land",
+        "no" =>"Land",
+        "pl" =>"Kraj",
+        "pt-pt" =>"País",
+        "pt-br" =>"País",
+        "ro" =>"Țară",
+        "ru" =>"Страна",
+        "sl" =>"Država",
+        "sr" =>"Цоунтри",
+        "sv" =>"Land",
+        "ta" =>"நாடு",
+        "th" =>"ประเทศ",
+        "tr" =>"Ülke",
+        "uk" =>"Країна",
+        "vi" =>"Quốc gia",
+        "yi" =>"לאַנד",
+        "zh-hans" =>"国家",
+        "zh-hant" =>"國家",
+        "bel" =>"Краіна1",
+        "kz" =>"Ел",
+        "fp" =>"Bansa",
+        );
+
+    if (array_key_exists($iso_language, $children)) {
+        return $children[$iso_language];
+    } else {
+        return 'Country';
+    }
+
+} // GetParentLabelCountry
+
+
+// --------------------------------------------------------
+// Traduire l'étiquette Children pour le champ Country-Province
+// --------------------------------------------------------
+function GetChildrenLabelProvince( $iso_language ) {
+    $children = array(
+        "en" =>"State/Province",
+        "es" =>"Provincia",
+        "de" =>"Provinz",
+		"fr" =>"Province",
+		"ar" =>"المحافظة",
+        "bs" =>"Provincija",
+        "bg" =>"Провинция",
+        "ca" =>"Província",
+        "cs" =>"Provincie",
+        "sk" =>"Provincie",
+        "da" =>"Provins",
+        "el" =>"Επαρχία",
+        "et" =>"Provints",
+        "fa" =>"استان",
+        "fi" =>"Maakunta",
+        "he" =>"מָחוֹז",
+        "hi" =>"प्रांत",
+        "hr" =>"Pokrajina",
+        "hu" =>"Tartomány",
+        "hy" =>"Նահանգ",
+        "id" =>"Propinsi",
+        "it" =>"Provincia",
+        "ja" =>"州",
+        "ko" =>"지방",
+        "ku" =>"Herêm",
+        "lt" =>"Provincija",
+        "mk" =>"Провинција",
+        "mn" =>"Муж",
+        "ne" =>"प्रान्त",
+        "nl" =>"Provincie",
+        "no" =>"Provins",
+        "pl" =>"Województwo",
+        "pt-pt" =>"Província",
+        "pt-br" =>"Província",
+        "ro" =>"Provincie",
+        "ru" =>"Провинция",
+        "sl" =>"Provinca",
+        "sr" =>"Провинција",
+        "sv" =>"Provins",
+        "ta" =>"மாகாணம்",
+        "th" =>"จังหวัด",
+        "tr" =>"Bölge",
+        "uk" =>"Провінція",
+        "vi" =>"Tỉnh",
+        "yi" =>"פּראָווינץ",
+        "zh-hans" =>"省",
+        "zh-hant" =>"省",
+        "bel" =>"Правінцыя",
+        "kz" =>"Провинция",
+        "fp" =>"Lalawigan",
+        "nk" =>"지방",
+        );
+
+    if (array_key_exists($iso_language, $children)) {
+        return $children[$iso_language];
+    } else {
+        return 'Province ';
+    }
+
+} // GetChildrenLabelProvince
 
 // ---------------------------------------------------
 // Table SQL qui contient les contacts
@@ -551,7 +683,7 @@ function confirmation_pre_render_5( $form ) {
 				break;
 
 			case 251: // Country et Region ne peuvent pas être populé ici
-                $area = GetChildrenLabel( apply_filters( 'wpml_current_language', NULL ) );
+                $area = GetChildrenLabelArea( apply_filters( 'wpml_current_language', NULL ) );
 
                 $field->inputs = array(
                   array(
@@ -656,7 +788,7 @@ function confirmation_populate_region_5( $input_choices, $form_id, $field, $inpu
 // -----------------------------------------
 // Send subscription to Elohim.net
 // -----------------------------------------
-function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $regions, $message ) {
+function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message ) {
 
 	class PostPersonResult {
 		private $status;
@@ -738,6 +870,7 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 		'firstname' => $firstname,
 		'lastname' => $lastname,
 		'country' => $country,
+		'state' => $province,
 		'prefLanguage' => $language );
 
 	if ( ! empty( $regions ) ) {
@@ -796,7 +929,7 @@ function confirmation_after_submission_5( $entry, $form ) {
 	$regions = array( $region ) + $GLOBALS['subscriber_region'];
 
 	UpdateContact( $firstname, $lastname, $language, $country, $region );
-	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $regions, '' );
+	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '' );
 
 	?>
 	<!-- Facebook Pixel Code for India72aH -->
@@ -823,8 +956,7 @@ function confirmation_after_submission_5( $entry, $form ) {
 
 // -----------------------------------------------------------------------------------------
 // Form : Footer Contact Us (7)
-//    > Remplir le champ Language
-//    > La liste des langues comprend toutes les langues qui sont offertes sur Elohim.net
+//    > Remplir les champs Language et Country
 // -----------------------------------------------------------------------------------------
 add_filter( 'gform_pre_render_7', 'footer_contact_us_populate_7' );
 function footer_contact_us_populate_7( $form ) {
@@ -863,30 +995,90 @@ function footer_contact_us_populate_7( $form ) {
 				$field->choices = $choices;
 				break;
 
-			case 8: // Country
-				$url         = $person_service . 'countries&token=' . $person_token;
-				$context_get = stream_context_create( $options_get );
-				$contents    = file_get_contents( $url, false, $context_get );
-				$json_data   = json_decode( $contents );
-				$choices     = array ();
+			case 9: // Country & Province
+				$country = GetParentLabelCountry( apply_filters( 'wpml_current_language', NULL ) );
+				$province = GetChildrenLabelProvince( apply_filters( 'wpml_current_language', NULL ) );
 
-				foreach ( $json_data as $data ) {
-					if ( ! is_object( $data ) ) continue;
-					$choices[] = array(
-						'text' => $data->nativeName,
-						'value' => $data->iso,
-					);
-				}
-
-				array_multisort( $choices, SORT_ASC );
-
-				$field->choices = $choices;
+				$field->inputs = array(
+					array(
+					'id' => "{$field->id}.1",
+					'label' => '*' . $country
+					),
+					array(
+					'id' => "{$field->id}.2",
+					'label' => '*' . $province
+					),
+				);
 				break;
-		}
+			}
 	}
 
 	return $form;
 } // footer_contact_us_populate_7
+
+// -----------------------------------------------------------------------
+// Form : Footer Contact Us (7)
+//    > Remplir le champ Country
+// -----------------------------------------------------------------------
+add_filter( 'gform_chained_selects_input_choices_7_9_1', 'confirmation_populate_country_7', 10, 7 );
+function confirmation_populate_country_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+
+	$person_service=GetService( 'person' );
+	$person_token=GetToken( 'get_person_dev' );
+
+	$options_get = array(
+		'http'=>array(
+			'method'=>"GET",
+			'header'=>"Accept: application/json\r\n",
+			"ignore_errors" => true, // rather read result status that failing
+		)
+	);
+
+	$url         = $person_service . 'countries&token=' . $person_token;
+	$context_get = stream_context_create( $options_get );
+	$contents    = file_get_contents( $url, false, $context_get );
+	$json_data   = json_decode( $contents );
+	$choices     = array ();
+
+	foreach ( $json_data as $data ) {
+		if ( ! is_object( $data ) ) continue;
+		$choices[] = array(
+			'text' => $data->nativeName,
+			'value' => $data->iso,
+		);
+	}
+
+	array_multisort( $choices, SORT_ASC );
+
+	$field->choices = $choices;
+
+	return $choices;
+} // confirmation_populate_country_7
+
+// -----------------------------------------------------------------------
+// Form : Footer Contact Us (7)
+//    > Remplir le champ Province
+// -----------------------------------------------------------------------
+add_filter( 'gform_chained_selects_input_choices_7_9_2', 'confirmation_populate_province_7', 10, 7 );
+function confirmation_populate_province_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+	global $wpdb;
+
+	$selected_iso_country = $chain_value[ "{$field->id}.1" ];
+
+	$choices = array ();
+	$query   = "select province from wp_country_province where code_country = '" . $selected_iso_country . "' and active = 1 order by province";
+	$result  = $wpdb->get_results ( $query );
+
+	foreach ( $result as $data )
+	{
+		$choices[] = array(
+			'text' => $data->province,
+			'value' => $data->province
+		);
+	}
+
+	return $choices;
+} // confirmation_populate_province_7
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // The gform_entry_is_spam filter is used to mark entries as spam during form submission.
@@ -1007,7 +1199,7 @@ function makeLinkFormWithSelector( $selector ) {
 add_filter( 'gform_notification_7', 'footer_contact_us_notification_7', 10, 3 );
 function footer_contact_us_notification_7( $notification, $form, $entry ) {
 
-	$iso_country = rgar( $entry, '8' );
+	$iso_country = rgar( $entry, '9.1' );
 	$email_country = 'contact@rael.org';
 	$notification['bcc'] = 'loukesir@outlook.com'; 
 
@@ -1069,11 +1261,12 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 		$email = rgar( $entry, '3' );
 		$language_iso = rgar( $entry, '4' );
 		$message = rgar ( $entry, '6' );
+		$province = rgar( $entry, '9.2' );
 
 		$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
 		$selector = InsertContact( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message, 7, $news_event, $ip_address );
-		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message );
+		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message );
 		
 		// Note : Même si une URL contient le slug anglais pour une autre langue, WPML va résoudre le slug pour nous.
 		$link_faq = get_permalink( get_page_by_title( 'FAQ' ) );
