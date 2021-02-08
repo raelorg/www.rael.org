@@ -1199,14 +1199,86 @@ function makeLinkFormWithSelector( $selector ) {
 add_filter( 'gform_notification_7', 'footer_contact_us_notification_7', 10, 3 );
 function footer_contact_us_notification_7( $notification, $form, $entry ) {
 
-	$iso_country = rgar( $entry, '9.1' );
-	$email_country = 'contact@rael.org';
-	$notification['bcc'] = 'loukesir@outlook.com'; 
+	$html = 
+'<table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
+<tbody>
+	<tr>
+		<td>
+			<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
+				<tbody>
+					<tr bgcolor="#EAF2FA">
+						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Firstname</strong></font> </td>
+					</tr>
+					<tr bgcolor="#FFFFFF">
+						<td width="20">&nbsp;</td>
+						<td><font style="font-family:sans-serif; font-size:12px">field-fisrtname-1</font> </td>
+					</tr>
+					<tr bgcolor="#EAF2FA">
+						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Lastname</strong></font> </td>
+					</tr>
+					<tr bgcolor="#FFFFFF">
+						<td width="20">&nbsp;</td>
+						<td><font style="font-family:sans-serif; font-size:12px">field-lastname-2</font> </td>
+					</tr>
+					<tr bgcolor="#EAF2FA">
+						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font> </td>
+					</tr>
+					<tr bgcolor="#FFFFFF">
+						<td width="20">&nbsp;</td>
+						<td><font style="font-family:sans-serif; font-size:12px"><a href="field-email-3" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="LPlnk737062">loukesir2@videotron.ca</a></font> </td>
+					</tr>
+					<tr bgcolor="#EAF2FA">
+						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font> </td>
+					</tr>
+					<tr bgcolor="#FFFFFF">
+						<td width="20">&nbsp;</td>
+						<td><font style="font-family:sans-serif; font-size:12px">field-language-4</font> </td>
+					</tr>
+					<tr bgcolor="#EAF2FA">
+						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font> </td>
+					</tr>
+					<tr bgcolor="#FFFFFF">
+						<td width="20">&nbsp;</td>
+						<td><font style="font-family:sans-serif; font-size:12px">field-state-9.1</font> </td>
+					</tr>
+					<tr bgcolor="#EAF2FA">
+						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>State/Province/Area</strong></font> </td>
+					</tr>
+					<tr bgcolor="#FFFFFF">
+						<td width="20">&nbsp;</td>
+						<td><font style="font-family:sans-serif; font-size:12px">field-state-9.2</font> </td>
+					</tr>
+					<tr bgcolor="#EAF2FA">
+						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Message</strong></font> </td>
+					</tr>
+					<tr bgcolor="#FFFFFF">
+						<td width="20">&nbsp;</td>
+						<td><font style="font-family:sans-serif; font-size:12px">field-message-6</font> </td>
+					</tr>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+</tbody>
+</table>';
 
-	// Rechercher le email country@rael.org du pays
 	$person_service=GetService( 'person' );
 	$person_token=GetToken( 'get_person_dev' );
 
+	$firstname = rgar( $entry, '1' );
+	$lastname = rgar( $entry, '2' );
+	$email = rgar( $entry, '3' );
+	$language_iso = rgar( $entry, '4' );
+	$language = '';
+	$message = rgar ( $entry, '6' );
+	$iso_country = rgar( $entry, '9.1' );
+	$country_name = '';
+	$province = rgar( $entry, '9.2' );
+
+	$email_country = 'contact@rael.org';
+	$notification['bcc'] = 'loukesir@outlook.com'; // For followup
+
+	// Rechercher le email country@rael.org du pays
 	$options_get = array(
 	'http'=>array(
 		'method'=>"GET",
@@ -1227,6 +1299,7 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	foreach ( $json_data as $data ) {
 		if ( $data->iso == $iso_country ) {
 			$email_country = $data->email;  // le courriel est trouvé
+			$country_name = $data->nativeName;
 			break;
 		}
 	}
@@ -1251,17 +1324,39 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	// Notification d'alerte au responsable du pays
 	if ( $notification['toType'] === 'email' ) {
 		$notification['to'] = $email_country; 
+
+		// Rechercher la description de la langue
+		$url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
+		$context_get = stream_context_create( $options_get );
+		$contents    = file_get_contents( $url, false, $context_get );
+		$json_data   = json_decode( $contents );
+
+		foreach ( $json_data as $data ) {
+			if ( ! is_object( $data ) ) continue;
+
+			if ( $data->iso === $language_iso ) {
+				$language = $data->nativeName;
+			}
+		}
+
+		if ( strstr( $notification['message'], '[tous_champs]' ) ) {
+			$html = str_replace('field-fisrtname-1', $firstname, $html );
+			$html = str_replace('field-lastname-2', $lastname, $html );
+			$html = str_replace('field-email-3', $email, $html );
+			$html = str_replace('field-language-4', $language, $html );
+			$html = str_replace('field-state-9.1', $country_name, $html );
+			$html = str_replace('field-state-9.2', $province, $html );
+			$html = str_replace('field-message-6', $message, $html );
+
+			$html = str_replace('<br>', '', $html );
+
+			$notification['message'] = str_replace('[tous_champs]', $html, $notification['message'] );
+		}
 	}
 
 	// Notification envoyée à la personne. 
 	if ( $notification['toType'] === 'field' ) {
 		// Récupérer les données du formulaire
-		$firstname = rgar( $entry, '1' );
-		$lastname = rgar( $entry, '2' );
-		$email = rgar( $entry, '3' );
-		$language_iso = rgar( $entry, '4' );
-		$message = rgar ( $entry, '6' );
-		$province = rgar( $entry, '9.2' );
 
 		$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
