@@ -1225,7 +1225,7 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 					</tr>
 					<tr bgcolor="#FFFFFF">
 						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px"><a href="field-email-3" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="LPlnk737062">loukesir2@videotron.ca</a></font> </td>
+						<td><font style="font-family:sans-serif; font-size:12px"><a href="field-email-3" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="LPlnk737062">field-email-3</a></font> </td>
 					</tr>
 					<tr bgcolor="#EAF2FA">
 						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font> </td>
