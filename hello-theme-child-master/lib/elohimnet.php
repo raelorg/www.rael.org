@@ -1200,67 +1200,79 @@ add_filter( 'gform_notification_7', 'footer_contact_us_notification_7', 10, 3 );
 function footer_contact_us_notification_7( $notification, $form, $entry ) {
 
 	$html = 
-'<table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
-<tbody>
-	<tr>
-		<td>
-			<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
-				<tbody>
-					<tr bgcolor="#EAF2FA">
-						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Firstname</strong></font> </td>
-					</tr>
-					<tr bgcolor="#FFFFFF">
-						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px">field-fisrtname-1</font> </td>
-					</tr>
-					<tr bgcolor="#EAF2FA">
-						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Lastname</strong></font> </td>
-					</tr>
-					<tr bgcolor="#FFFFFF">
-						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px">field-lastname-2</font> </td>
-					</tr>
-					<tr bgcolor="#EAF2FA">
-						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font> </td>
-					</tr>
-					<tr bgcolor="#FFFFFF">
-						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px"><a href="field-email-3" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="LPlnk737062">field-email-3</a></font> </td>
-					</tr>
-					<tr bgcolor="#EAF2FA">
-						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font> </td>
-					</tr>
-					<tr bgcolor="#FFFFFF">
-						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px">field-language-4</font> </td>
-					</tr>
-					<tr bgcolor="#EAF2FA">
-						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font> </td>
-					</tr>
-					<tr bgcolor="#FFFFFF">
-						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px">field-state-9.1</font> </td>
-					</tr>
-					<tr bgcolor="#EAF2FA">
-						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>State/Province/Area</strong></font> </td>
-					</tr>
-					<tr bgcolor="#FFFFFF">
-						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px">field-state-9.2</font> </td>
-					</tr>
-					<tr bgcolor="#EAF2FA">
-						<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Message</strong></font> </td>
-					</tr>
-					<tr bgcolor="#FFFFFF">
-						<td width="20">&nbsp;</td>
-						<td><font style="font-family:sans-serif; font-size:12px">field-message-6</font> </td>
-					</tr>
-				</tbody>
-			</table>
-		</td>
-	</tr>
-</tbody>
-</table>';
+'<p>Hello, IPT manager!</p>
+
+<p>Please do NOT reply to this email, this is a <strong>notification</strong> from www.rael.org to let you know that someone wishes to get in touch with us.
+<strong>Please use the email address below to begin the contact :)</strong></p>
+
+<p><span style="color: #0ecad4;">** The profile for this person has already been created in Elohim.net **</span></p>
+
+
+<table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
+	<tbody>
+		<tr>
+			<td>
+				<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
+					<tbody>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Firstname</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-fisrtname-1</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Lastname</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-lastname-2</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px"><a href="field-email-3" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="LPlnk737062">field-email-3</a></font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-language-4</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-state-9.1</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>State/Province/Area</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-state-9.2</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Message</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-message-6</font> </td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<img class="alignnone wp-image-48617" src="https://luctestoct16.temp513.kinsta.cloud/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement
+
+&nbsp;
+';
 
 	$person_service=GetService( 'person' );
 	$person_token=GetToken( 'get_person_dev' );
@@ -1324,6 +1336,9 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	// Notification d'alerte au responsable du pays
 	if ( $notification['toType'] === 'email' ) {
 		$notification['to'] = $email_country; 
+		$notification['subject'] = 'Contact notification from www.rael.org'; 
+		$notification['name'] = 'International Raelian Movement'; 
+
 
 		// Rechercher la description de la langue
 		$url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
@@ -1339,19 +1354,15 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 			}
 		}
 
-		if ( strstr( $notification['message'], '[tous_champs]' ) ) {
-			$html = str_replace('field-fisrtname-1', $firstname, $html );
-			$html = str_replace('field-lastname-2', $lastname, $html );
-			$html = str_replace('field-email-3', $email, $html );
-			$html = str_replace('field-language-4', $language, $html );
-			$html = str_replace('field-state-9.1', $country_name, $html );
-			$html = str_replace('field-state-9.2', $province, $html );
-			$html = str_replace('field-message-6', $message, $html );
+		$html = str_replace('field-fisrtname-1', $firstname, $html );
+		$html = str_replace('field-lastname-2', $lastname, $html );
+		$html = str_replace('field-email-3', $email, $html );
+		$html = str_replace('field-language-4', $language, $html );
+		$html = str_replace('field-state-9.1', $country_name, $html );
+		$html = str_replace('field-state-9.2', $province, $html );
+		$html = str_replace('field-message-6', $message, $html );
 
-			$html = str_replace('<br>', '', $html );
-
-			$notification['message'] = str_replace('[tous_champs]', $html, $notification['message'] );
-		}
+		$notification['message'] = $html;
 	}
 
 	// Notification envoyée à la personne. 
