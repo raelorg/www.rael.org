@@ -5,7 +5,7 @@
 //
 // Three forms are involved:
 //   > Newsletter (6) - Stay in touch with us
-//   > Footer Contact Us (7), if newsletter subscription is checked
+//   > IPT (7), if newsletter subscription is checked
 //   > Sunscription Confirmation (5) - double opt-in
 //
 // Possible values for language, region and country are provided by elohim.net
@@ -14,7 +14,7 @@
 // > IP address : 34.125.247.108
 // > URL person pour obtenir le token GET : https://www.elohim.net/ws/dev/token.php?service=person&method=GET&ip=34.125.247.108
 // > URL person pour obtenir le token POST : https://www.elohim.net/ws/dev/token.php?service=person&method=POST&ip=34.125.247.108
-// > URL ml pour obteneir le token : https://www.elohim.net/ws/dev/token.php?ip=34.125.247.108
+// > URL ml pour obtenir le token : https://www.elohim.net/ws/dev/token.php?ip=34.125.247.108
 
 // For request method 'GET' and service 'person'
 // Dev token = 8291a2b1ce438173074c5310dfc912a071a4b8054850929bdca9bf6737d45f0cda3be26bd721a66876a64e52de0e58dbca0e4a821aa544f1b7f1f7c0669ade44
@@ -955,7 +955,7 @@ function confirmation_after_submission_5( $entry, $form ) {
 } // confirmation_after_submission_5
 
 // -----------------------------------------------------------------------------------------
-// Form : Footer Contact Us (7)
+// Form : IPT (7)
 //    > Remplir les champs Language et Country
 // -----------------------------------------------------------------------------------------
 add_filter( 'gform_pre_render_7', 'footer_contact_us_populate_7' );
@@ -1017,7 +1017,7 @@ function footer_contact_us_populate_7( $form ) {
 } // footer_contact_us_populate_7
 
 // -----------------------------------------------------------------------
-// Form : Footer Contact Us (7)
+// Form : IPT (7)
 //    > Remplir le champ Country
 // -----------------------------------------------------------------------
 add_filter( 'gform_chained_selects_input_choices_7_9_1', 'confirmation_populate_country_7', 10, 7 );
@@ -1056,7 +1056,7 @@ function confirmation_populate_country_7( $input_choices, $form_id, $field, $inp
 } // confirmation_populate_country_7
 
 // -----------------------------------------------------------------------
-// Form : Footer Contact Us (7)
+// Form : IPT (7)
 //    > Remplir le champ Province
 // -----------------------------------------------------------------------
 add_filter( 'gform_chained_selects_input_choices_7_9_2', 'confirmation_populate_province_7', 10, 7 );
@@ -1190,7 +1190,7 @@ function makeLinkFormWithSelector( $selector ) {
 } // makeLinkFormWithSelector
 
 // -----------------------------------------------------
-// Form : Footer Contact Us (7)
+// Form : IPT (7)
 //    > Préparer la notification au responsable du pays
 //    > Envoyer une notification au subscriber seulement si
 //      demandé par la personne. Cette condition est
@@ -1438,7 +1438,8 @@ function newsletter_notification_6( $notification, $form, $entry ) {
 add_action( 'hook_push_rejects_to_elohimnet', 'push_rejects_to_elohimnet', 13 );
 function push_rejects_to_elohimnet () {
 
-	//send_person_to_ElohimNet( 'محمد', 'رزبری', 'razbar1355@gmail.com', 'fa', 'ir', '', 'سلام.این سایت نسخه فارسی یا کردی داره؟' );
+	send_person_to_ElohimNet( 'John', 'EDMONDS', 'SEAGHOST15@YAHOO.COM', 'en', 'us', 'Florida', '', 'I am very interested to learn more.' );
+	send_person_to_ElohimNet( 'azul', 'Amirouch', 'azemour58@gmail.com', 'en', 'ma', 'Salé', '', 'hello i want to go away to planet like our earth but this planet has a volume as sun.' );
 	
 }
 
