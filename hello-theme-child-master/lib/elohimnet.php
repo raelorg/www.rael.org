@@ -5,7 +5,7 @@
 //
 // Three forms are involved:
 //   > Newsletter (6) - Stay in touch with us
-//   > Footer Contact Us (7), if newsletter subscription is checked
+//   > IPT (7), if newsletter subscription is checked
 //   > Sunscription Confirmation (5) - double opt-in
 //
 // Possible values for language, region and country are provided by elohim.net
@@ -14,7 +14,7 @@
 // > IP address : 34.125.247.108
 // > URL person pour obtenir le token GET : https://www.elohim.net/ws/dev/token.php?service=person&method=GET&ip=34.125.247.108
 // > URL person pour obtenir le token POST : https://www.elohim.net/ws/dev/token.php?service=person&method=POST&ip=34.125.247.108
-// > URL ml pour obteneir le token : https://www.elohim.net/ws/dev/token.php?ip=34.125.247.108
+// > URL ml pour obtenir le token : https://www.elohim.net/ws/dev/token.php?ip=34.125.247.108
 
 // For request method 'GET' and service 'person'
 // Dev token = 8291a2b1ce438173074c5310dfc912a071a4b8054850929bdca9bf6737d45f0cda3be26bd721a66876a64e52de0e58dbca0e4a821aa544f1b7f1f7c0669ade44
@@ -120,7 +120,7 @@ if(isset($wp_query->query_vars['selector'])) {
 // --------------------------------------------------------
 // Traduire l'étiquette Children pour le champ Country-Area
 // --------------------------------------------------------
-function GetChildrenLabel( $iso_language ) {
+function GetChildrenLabelArea( $iso_language ) {
     $children = array(
         "en" =>"Area",
         "es" =>"Zona",
@@ -181,7 +181,139 @@ function GetChildrenLabel( $iso_language ) {
         return 'Area';
     }
 
-} // GetChildrenLabel
+} // GetChildrenLabelArea
+
+// --------------------------------------------------------
+// Traduire l'étiquette parent pour le champ Country-Province
+// --------------------------------------------------------
+function GetParentLabelCountry( $iso_language ) {
+    $children = array(
+        "en" =>"Country",
+        "es" =>"País",
+        "de" =>"Land",
+		"fr" =>"Pays",
+		"ar" =>"بلد",
+        "bs" =>"Država",
+        "bg" =>"Страна",
+        "ca" =>"País",
+        "cs" =>"Země",
+        "sk" =>"Krajina",
+        "da" =>"Land",
+        "el" =>"Χώρα",
+        "et" =>"Riik",
+        "fa" =>"کشور",
+        "fi" =>"Maa",
+        "he" =>"מדינה",
+        "hi" =>"देश",
+        "hr" =>"Zemlja",
+        "hu" =>"Ország",
+        "hy" =>"Երկիր",
+        "id" =>"Negara",
+        "it" =>"Nazione",
+        "ja" =>"国",
+        "ko" =>"국가",
+        "ku" =>"Welat",
+        "lt" =>"Šalis",
+        "mk" =>"Земја",
+        "mn" =>"Улс",
+        "ne" =>"देश",
+        "nl" =>"Land",
+        "no" =>"Land",
+        "pl" =>"Kraj",
+        "pt-pt" =>"País",
+        "pt-br" =>"País",
+        "ro" =>"Țară",
+        "ru" =>"Страна",
+        "sl" =>"Država",
+        "sr" =>"Цоунтри",
+        "sv" =>"Land",
+        "ta" =>"நாடு",
+        "th" =>"ประเทศ",
+        "tr" =>"Ülke",
+        "uk" =>"Країна",
+        "vi" =>"Quốc gia",
+        "yi" =>"לאַנד",
+        "zh-hans" =>"国家",
+        "zh-hant" =>"國家",
+        "bel" =>"Краіна1",
+        "kz" =>"Ел",
+        "fp" =>"Bansa",
+        );
+
+    if (array_key_exists($iso_language, $children)) {
+        return $children[$iso_language];
+    } else {
+        return 'Country';
+    }
+
+} // GetParentLabelCountry
+
+
+// --------------------------------------------------------
+// Traduire l'étiquette Children pour le champ Country-Province
+// --------------------------------------------------------
+function GetChildrenLabelProvince( $iso_language ) {
+    $children = array(
+        "en" =>"State / Province / Area",
+        "es" =>"Estado / provincia / área",
+        "de" =>"Bundesland / Provinz / Gebiet",
+		"fr" =>"État / Province / Région",
+		"ar" =>"الولاية / المقاطعة / المنطقة",
+        "bs" =>"Država / pokrajina / područje",
+        "bg" =>"Щат / провинция / област",
+        "ca" =>"Estat / Província / Àrea",
+        "cs" =>"Stát / provincie / oblast",
+        "sk" =>"Štát / provincia / oblasť",
+        "da" =>"Stat / provins / område",
+        "el" =>"Πολιτεία / Επαρχία / Περιοχή",
+        "et" =>"Osariik / provints / piirkond",
+        "fa" =>"استان / استان / منطقه",
+        "fi" =>"Osavaltio / provinssi / alue",
+        "he" =>"מדינה / מחוז / אזור",
+        "hi" =>"राज्य / प्रांत / क्षेत्र",
+        "hr" =>"Država / pokrajina / područje",
+        "hu" =>"Állam / tartomány / terület",
+        "hy" =>"Նահանգ / մարզ / տարածք",
+        "id" =>"Negara Bagian / Provinsi / Area",
+        "it" =>"Stato / provincia / area",
+        "ja" =>"州/県/地域",
+        "ko" =>"주 /도 / 지역",
+        "ku" =>"Dewlet / Parêzgeh / Herêm",
+        "lt" =>"Valstybė / provincija / sritis",
+        "mk" =>"Држава / провинција / област",
+        "mn" =>"Муж / муж",
+        "ne" =>"राज्य / प्रान्त / क्षेत्र",
+        "nl" =>"Staat / provincie / gebied",
+        "no" =>"Stat / provins / område",
+        "pl" =>"Stan / prowincja / obszar",
+        "pt-pt" =>"Estado / Província / Área",
+        "pt-br" =>"Estado / Província / Área",
+        "ro" =>"Stat / Provincie / Zona",
+        "ru" =>"Штат / провинция / область",
+        "sl" =>"Država / provinca / območje",
+        "sr" =>"Држава / Покрајина / Област",
+        "sv" =>"Stat / provins / område",
+        "ta" =>"மாநிலம் / மாகாணம் / பகுதி",
+        "th" =>"รัฐ / จังหวัด / พื้นที่",
+        "tr" =>"Eyalet / İl / Bölge",
+        "uk" =>"Штат / провінція / область",
+        "vi" =>"Bang / Tỉnh / Khu vực",
+        "yi" =>"שטאַט / פּראַווינס / שטח",
+        "zh-hans" =>"州/省/地区",
+        "zh-hant" =>"州/省/地區",
+        "bel" =>"Штат / правінцыя / вобласць",
+        "kz" =>"Штат / провинция / аймақ",
+        "fp" =>"Estado / Lalawigan / Lugar",
+        "nk" =>"மாநிலம் / மாகாணம் / பகுதி",
+        );
+
+    if (array_key_exists($iso_language, $children)) {
+        return $children[$iso_language];
+    } else {
+        return 'Province ';
+    }
+
+} // GetChildrenLabelProvince
 
 // ---------------------------------------------------
 // Table SQL qui contient les contacts
@@ -551,7 +683,7 @@ function confirmation_pre_render_5( $form ) {
 				break;
 
 			case 251: // Country et Region ne peuvent pas être populé ici
-                $area = GetChildrenLabel( apply_filters( 'wpml_current_language', NULL ) );
+                $area = GetChildrenLabelArea( apply_filters( 'wpml_current_language', NULL ) );
 
                 $field->inputs = array(
                   array(
@@ -656,7 +788,7 @@ function confirmation_populate_region_5( $input_choices, $form_id, $field, $inpu
 // -----------------------------------------
 // Send subscription to Elohim.net
 // -----------------------------------------
-function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $regions, $message ) {
+function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message ) {
 
 	class PostPersonResult {
 		private $status;
@@ -738,6 +870,7 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 		'firstname' => $firstname,
 		'lastname' => $lastname,
 		'country' => $country,
+		'state' => $province,
 		'prefLanguage' => $language );
 
 	if ( ! empty( $regions ) ) {
@@ -796,7 +929,7 @@ function confirmation_after_submission_5( $entry, $form ) {
 	$regions = array( $region ) + $GLOBALS['subscriber_region'];
 
 	UpdateContact( $firstname, $lastname, $language, $country, $region );
-	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $regions, '' );
+	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '' );
 
 	?>
 	<!-- Facebook Pixel Code for India72aH -->
@@ -822,9 +955,8 @@ function confirmation_after_submission_5( $entry, $form ) {
 } // confirmation_after_submission_5
 
 // -----------------------------------------------------------------------------------------
-// Form : Footer Contact Us (7)
-//    > Remplir le champ Language
-//    > La liste des langues comprend toutes les langues qui sont offertes sur Elohim.net
+// Form : IPT (7)
+//    > Remplir les champs Language et Country
 // -----------------------------------------------------------------------------------------
 add_filter( 'gform_pre_render_7', 'footer_contact_us_populate_7' );
 function footer_contact_us_populate_7( $form ) {
@@ -863,30 +995,90 @@ function footer_contact_us_populate_7( $form ) {
 				$field->choices = $choices;
 				break;
 
-			case 8: // Country
-				$url         = $person_service . 'countries&token=' . $person_token;
-				$context_get = stream_context_create( $options_get );
-				$contents    = file_get_contents( $url, false, $context_get );
-				$json_data   = json_decode( $contents );
-				$choices     = array ();
+			case 9: // Country & Province
+				$country = GetParentLabelCountry( apply_filters( 'wpml_current_language', NULL ) );
+				$province = GetChildrenLabelProvince( apply_filters( 'wpml_current_language', NULL ) );
 
-				foreach ( $json_data as $data ) {
-					if ( ! is_object( $data ) ) continue;
-					$choices[] = array(
-						'text' => $data->nativeName,
-						'value' => $data->iso,
-					);
-				}
-
-				array_multisort( $choices, SORT_ASC );
-
-				$field->choices = $choices;
+				$field->inputs = array(
+					array(
+					'id' => "{$field->id}.1",
+					'label' => '*' . $country
+					),
+					array(
+					'id' => "{$field->id}.2",
+					'label' => '*' . $province
+					),
+				);
 				break;
-		}
+			}
 	}
 
 	return $form;
 } // footer_contact_us_populate_7
+
+// -----------------------------------------------------------------------
+// Form : IPT (7)
+//    > Remplir le champ Country
+// -----------------------------------------------------------------------
+add_filter( 'gform_chained_selects_input_choices_7_9_1', 'confirmation_populate_country_7', 10, 7 );
+function confirmation_populate_country_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+
+	$person_service=GetService( 'person' );
+	$person_token=GetToken( 'get_person_dev' );
+
+	$options_get = array(
+		'http'=>array(
+			'method'=>"GET",
+			'header'=>"Accept: application/json\r\n",
+			"ignore_errors" => true, // rather read result status that failing
+		)
+	);
+
+	$url         = $person_service . 'countries&token=' . $person_token;
+	$context_get = stream_context_create( $options_get );
+	$contents    = file_get_contents( $url, false, $context_get );
+	$json_data   = json_decode( $contents );
+	$choices     = array ();
+
+	foreach ( $json_data as $data ) {
+		if ( ! is_object( $data ) ) continue;
+		$choices[] = array(
+			'text' => $data->nativeName,
+			'value' => $data->iso,
+		);
+	}
+
+	array_multisort( $choices, SORT_ASC );
+
+	$field->choices = $choices;
+
+	return $choices;
+} // confirmation_populate_country_7
+
+// -----------------------------------------------------------------------
+// Form : IPT (7)
+//    > Remplir le champ Province
+// -----------------------------------------------------------------------
+add_filter( 'gform_chained_selects_input_choices_7_9_2', 'confirmation_populate_province_7', 10, 7 );
+function confirmation_populate_province_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+	global $wpdb;
+
+	$selected_iso_country = $chain_value[ "{$field->id}.1" ];
+
+	$choices = array ();
+	$query   = "select province from wp_country_province where code_country = '" . $selected_iso_country . "' and active = 1 order by province";
+	$result  = $wpdb->get_results ( $query );
+
+	foreach ( $result as $data )
+	{
+		$choices[] = array(
+			'text' => $data->province,
+			'value' => $data->province
+		);
+	}
+
+	return $choices;
+} // confirmation_populate_province_7
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // The gform_entry_is_spam filter is used to mark entries as spam during form submission.
@@ -998,7 +1190,7 @@ function makeLinkFormWithSelector( $selector ) {
 } // makeLinkFormWithSelector
 
 // -----------------------------------------------------
-// Form : Footer Contact Us (7)
+// Form : IPT (7)
 //    > Préparer la notification au responsable du pays
 //    > Envoyer une notification au subscriber seulement si
 //      demandé par la personne. Cette condition est
@@ -1007,73 +1199,180 @@ function makeLinkFormWithSelector( $selector ) {
 add_filter( 'gform_notification_7', 'footer_contact_us_notification_7', 10, 3 );
 function footer_contact_us_notification_7( $notification, $form, $entry ) {
 
-	$iso_country = rgar( $entry, '8' );
+	$html = 
+'<p>Hello, IPT manager!</p>
+
+<p>Please do NOT reply to this email, this is a <strong>notification</strong> from www.rael.org to let you know that someone wishes to get in touch with us.
+<strong>Please use the email address below to begin the contact :)</strong></p>
+
+<p><span style="color: #0ecad4;">** The profile for this person has already been created in Elohim.net **</span></p>
+
+
+<table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
+	<tbody>
+		<tr>
+			<td>
+				<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
+					<tbody>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Firstname</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-fisrtname-1</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Lastname</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-lastname-2</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px"><a href="field-email-3" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="LPlnk737062">field-email-3</a></font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-language-4</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-state-9.1</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>State/Province/Area</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-state-9.2</font> </td>
+						</tr>
+						<tr bgcolor="#EAF2FA">
+							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Message</strong></font> </td>
+						</tr>
+						<tr bgcolor="#FFFFFF">
+							<td width="20">&nbsp;</td>
+							<td><font style="font-family:sans-serif; font-size:12px">field-message-6</font> </td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<img class="alignnone wp-image-48617" src="https://luctestoct16.temp513.kinsta.cloud/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement
+
+&nbsp;
+';
+
+	$person_service=GetService( 'person' );
+	$person_token=GetToken( 'get_person_dev' );
+
+	$firstname = rgar( $entry, '1' );
+	$lastname = rgar( $entry, '2' );
+	$email = rgar( $entry, '3' );
+	$language_iso = rgar( $entry, '4' );
+	$language = '';
+	$message = rgar ( $entry, '6' );
+	$iso_country = rgar( $entry, '9.1' );
+	$country_name = '';
+	$province = rgar( $entry, '9.2' );
+
+	$email_country = 'contact@rael.org';
+	$notification['bcc'] = 'loukesir@outlook.com'; // For followup
+
+	// Rechercher le email country@rael.org du pays
+	$options_get = array(
+	'http'=>array(
+		'method'=>"GET",
+		'header'=>"Accept: application/json\r\n",
+				"ignore_errors" => true, // rather read result status that failing
+			)
+	);
+
+	// Obtenir de Elohim.net la liste des pays et les courriels des responsables avec la méthode countries
+	$url         = $person_service . 'countries&token=' . $person_token;
+	$context_get = stream_context_create( $options_get );
+	$contents    = file_get_contents( $url, false, $context_get );
+	$json_data   = json_decode( $contents );
+	$choices     = array ();
+	$email_country  = 'dev@rael.org'; // Au cas où pas trouvé! Ne devrais pas de produire
+
+	// Rechercher le courriel du pays concerné dans la liste reçu de Elohim.net
+	foreach ( $json_data as $data ) {
+		if ( $data->iso == $iso_country ) {
+			$email_country = $data->email;  // le courriel est trouvé
+			$country_name = $data->nativeName;
+			break;
+		}
+	}
+
+	// Exceptions pour le Canada, Mexique et USA
+	if (	( $iso_country === 'ca' )
+		||	( $iso_country === 'mx' )
+		||	( $iso_country === 'us' ) ) {
+		switch ( $iso_country ) {
+			case 'ca':
+				$email_country = 'info@raelcanada.org'; 
+				break;
+			case 'mx':
+				$email_country = 'info@raelmexico.org'; 
+				break;
+			case 'us':
+				$email_country = 'info@raelusa.org'; 
+				break;
+		}
+	}
 
 	// Notification d'alerte au responsable du pays
 	if ( $notification['toType'] === 'email' ) {
-		if (	( $iso_country === 'ca' )
-			||	( $iso_country === 'mx' )
-			||	( $iso_country === 'us' ) ) {
-			switch ( $iso_country ) {
-				case 'ca':
-					$notification['to'] = 'info@raelcanada.org'; 
-					break;
-				case 'mx':
-					$notification['to'] = 'info@raelmexico.org'; 
-					break;
-				case 'us':
-					$notification['to'] = 'info@raelusa.org'; 
-					break;
-				}
+		$notification['to'] = $email_country; 
+		$notification['subject'] = 'Contact notification from www.rael.org'; 
+		$notification['name'] = 'International Raelian Movement'; 
 
-			$notification['bcc'] = 'loukesir@outlook.com'; 
+
+		// Rechercher la description de la langue
+		$url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
+		$context_get = stream_context_create( $options_get );
+		$contents    = file_get_contents( $url, false, $context_get );
+		$json_data   = json_decode( $contents );
+
+		foreach ( $json_data as $data ) {
+			if ( ! is_object( $data ) ) continue;
+
+			if ( $data->iso === $language_iso ) {
+				$language = $data->nativeName;
+			}
 		}
-		else {
-			$person_service=GetService( 'person' );
-			$person_token=GetToken( 'get_person_dev' );
 
-			$options_get = array(
-			'http'=>array(
-				'method'=>"GET",
-				'header'=>"Accept: application/json\r\n",
-						"ignore_errors" => true, // rather read result status that failing
-					)
-			);
+		$html = str_replace('field-fisrtname-1', $firstname, $html );
+		$html = str_replace('field-lastname-2', $lastname, $html );
+		$html = str_replace('field-email-3', $email, $html );
+		$html = str_replace('field-language-4', $language, $html );
+		$html = str_replace('field-state-9.1', $country_name, $html );
+		$html = str_replace('field-state-9.2', $province, $html );
+		$html = str_replace('field-message-6', $message, $html );
 
-			// Obtenir de Elohim.net la liste des pays et les courriels des responsables avec la méthode countries
-			$url         = $person_service . 'countries&token=' . $person_token;
-			$context_get = stream_context_create( $options_get );
-			$contents    = file_get_contents( $url, false, $context_get );
-			$json_data   = json_decode( $contents );
-			$choices     = array ();
-			$email_to    = 'dev@rael.org'; // Au cas où pas trouvé! Ne devrais pas de produire
-
-			// Rechercher le courriel du pays concerné dans la liste reçu de Elohim.net
-			foreach ( $json_data as $data ) {
-			if ( $data->iso == $iso_country ) {
-					$email_to = $data->email;  // le courriel est trouvé
-					break;
-				}
-				}
-
-			$notification['to'] = $email_to; 
-			$notification['bcc'] = 'loukesir@outlook.com'; 
-		}
+		$notification['message'] = $html;
 	}
 
 	// Notification envoyée à la personne. 
 	if ( $notification['toType'] === 'field' ) {
 		// Récupérer les données du formulaire
-		$firstname = rgar( $entry, '1' );
-		$lastname = rgar( $entry, '2' );
-		$email = rgar( $entry, '3' );
-		$language_iso = rgar( $entry, '4' );
-		$message = rgar ( $entry, '6' );
 
 		$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
 		$selector = InsertContact( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message, 7, $news_event, $ip_address );
-		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message );
+		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message );
 		
 		// Note : Même si une URL contient le slug anglais pour une autre langue, WPML va résoudre le slug pour nous.
 		$link_faq = get_permalink( get_page_by_title( 'FAQ' ) );
@@ -1094,6 +1393,8 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 			$notification['message'] = str_replace('%7blink_to_download%7d', $link_download, $notification['message'] );
 			$notification['message'] = str_replace('%7blink_to_rael_org%7d', $link_rael, $notification['message'] );
 		}
+
+		$notification['replyTo'] = $email_country;
 	}
 
 	return $notification;
@@ -1137,7 +1438,8 @@ function newsletter_notification_6( $notification, $form, $entry ) {
 add_action( 'hook_push_rejects_to_elohimnet', 'push_rejects_to_elohimnet', 13 );
 function push_rejects_to_elohimnet () {
 
-	//send_person_to_ElohimNet( 'محمد', 'رزبری', 'razbar1355@gmail.com', 'fa', 'ir', '', 'سلام.این سایت نسخه فارسی یا کردی داره؟' );
+	send_person_to_ElohimNet( 'John', 'EDMONDS', 'SEAGHOST15@YAHOO.COM', 'en', 'us', 'Florida', '', 'I am very interested to learn more.' );
+	send_person_to_ElohimNet( 'azul', 'Amirouch', 'azemour58@gmail.com', 'en', 'ma', 'Salé', '', 'hello i want to go away to planet like our earth but this planet has a volume as sun.' );
 	
 }
 

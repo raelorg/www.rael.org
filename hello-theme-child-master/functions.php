@@ -25,7 +25,7 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
 /* --------------------------- begin-luc ------------------------------------ */
 
-/* Remove submit button for Contact Us page form */
+/* Remove submit button for IPT form */
 add_filter('gform_submit_button_9', '__return_false');
 
 /* Don't show messsage for Contact Us page form */
@@ -33,12 +33,65 @@ function change_message_9($message, $form) {
   return "<div></div>";
 }
 
+/* meta_tag for FB pixel */
 add_action('wp_head', 'add_facebook_meta_tag');
 function add_facebook_meta_tag(){
 ?>
 <meta name="facebook-domain-verification" content="hkpezs9g9ernscf44grjm0e7o5adl0" />
 <?php
-};
+}
+
+// Add Google Tag code which is supposed to be placed after opening body tag.
+add_action( 'wp_body_open', 'wpdoc_add_custom_body_open_code' );
+ 
+function wpdoc_add_custom_body_open_code() {
+    echo '<!-- Google Tag Manager (noscript) --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58TMKC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->';
+}
+
+// Block redirection according to browser language
+function skip_redirection() {
+
+	global $post;
+
+	$pages_to_skip = [71863, // 'https://www.rael.org/ebook/intelligent-design/'
+                    72111, // 'https://www.rael.org/ar/ebook/intelligent-design/'
+                    87178, // 'https://www.rael.org/bg/ebook/intelligent-design/'
+                    72063, // 'https://www.rael.org/zh-hans/ebook/intelligent-design-1/'
+                    72081, // 'https://www.rael.org/zh-hant/ebook/intelligent-design-1/'
+                    79768, // 'https://www.rael.org/cs/ebook/intelligent-design/'
+                    87622, // 'https://www.rael.org/da/ebook/intelligent-design/'
+                    81041, // 'https://www.rael.org/nl/ebook/intelligent-design/'
+                    71929, // 'https://www.rael.org/fr/ebook/intelligent-design-1/'
+                    72224, // 'https://www.rael.org/fp/ebook/intelligent-design/'
+                    72150, // 'https://www.rael.org/de/ebook/intelligent-design-1/'
+                    71926, // 'https://www.rael.org/he/ebook/intelligent-design/'
+                    72651, // 'https://www.rael.org/hu/letoltesek/'
+                    295185, // 'https://www.rael.org/id/ebook/desain-cerdas/'
+                    71915, // 'https://www.rael.org/it/ebook/intelligent-design-1/'
+                    72097, // 'https://www.rael.org/ja/ebook/intelligent-design/'
+                    71887, // 'https://www.rael.org/ko/ebook/intelligent-design-1/'
+                    81450, // 'https://www.rael.org/lt/ebook/intelligent-design/'
+                    72214, // 'https://www.rael.org/mn/ebook/intelligent-design/'
+                    72130, // 'https://www.rael.org/fa/ebook/intelligent-design-1/'
+                    79839, // 'https://www.rael.org/pl/ebook/intelligent-design/'
+                    72209, // 'https://www.rael.org/pt-pt/ebook/intelligent-design-1/'
+                    72185, // 'https://www.rael.org/ro/ebook/intelligent-design/'
+                    72115, // 'https://www.rael.org/ru/ebook/intelligent-design-1/'
+                    88716, // 'https://www.rael.org/sk/ebook/intelligent-design-1/'
+                    72195, // 'https://www.rael.org/sl/ebook/intelligent-design-1/'
+                    71909, // 'https://www.rael.org/es/ebook/intelligent-design'
+                    96486, // 'https://www.rael.org/sv/ebook/intelligent-design/'
+                    87864, // 'https://www.rael.org/th/ebook/intelligent-design-1/'
+                    281629 // 'https://www.rael.org/tr/ebook/zeki-dizayn/'
+                   ];
+ 
+	if ( ! is_admin() && $post && in_array( $post->ID, $pages_to_skip, true ) ) {
+        add_filter( 'wpml_enqueue_browser_redirect_language', '__return_false' );
+    }
+}
+ 
+add_action( 'get_header', 'skip_redirection' );
+
 /* --------------------------- end-luc -------------------------------------- */
 
 /* Arun Kumar work start here */
