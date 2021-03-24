@@ -25,7 +25,7 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
 /* --------------------------- begin-luc ------------------------------------ */
 
-/* Remove submit button for IPT form */
+/* Remove submit button for Contact Us page form */
 add_filter('gform_submit_button_9', '__return_false');
 
 /* Don't show messsage for Contact Us page form */
