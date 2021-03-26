@@ -23,4 +23,27 @@ function goToPage(_page) {
         }
     }
 };
+
+// function to navigate user back to previous page from country page after clicking on X
+function closeCountryPage() {
+	if (document.referrer) {								// if user navigated to country from another rael.org page
+		window.location.assign(document.referrer);
+	} else {												// if user entered the country page directly
+		var _protocol = window.location.protocol;
+		var	_hostname = window.location.hostname;
+		var _uri = "";
+
+		var _path = window.location.pathname.toLowerCase();
+	
+		if (_path && !(_path.startsWith('/country'))) {				// if not an English site, we will take the country code
+			_uri = _path.substring(0, _path.indexOf("/", 1));
+		}
+
+		if(_protocol && _hostname) {
+			window.location.assign(_protocol + '//' + _hostname + _uri);
+		} else {
+			window.location.assign("https://www.rael.org");
+		}
+	}
+}
 // Gediminas work ends here
