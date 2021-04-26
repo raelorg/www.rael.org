@@ -25,6 +25,11 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
 /* --------------------------- begin-luc ------------------------------------ */
 
+add_filter( 'freshforms_post_has_gform', 'fffg_fresh_these_posts' );
+function fffg_fresh_these_posts(){
+	return array( 71652, 76941, 60364, 55859, 72894, 76352, 69653, 76352, 24, 71655, 55887, 71594, 55828, 295223, 55830, 55266, 49436, 77959, 74337, 58478, 69921, 71579, 63825, 72061, 71705, 69463, 55733, 70882, 79583, 49391, 71273, 76855, 60506, 60073, 72900, 76075, 77846, 72636, 57424, 71592, 56258, 295197, 56076, 69456, 51812, 77843, 74330, 58476, 72487, 77842, 68666, 73994, 71710, 71147, 55279, 77841, 79556, 324122 );
+}
+
 /* Remove submit button for Contact Us page form */
 add_filter('gform_submit_button_9', '__return_false');
 
@@ -383,3 +388,53 @@ function iframe_embed( $atts ) {
 add_shortcode('translatable_iframe', 'iframe_embed' );
 
 /* Gediminas work ends here */
+
+/* Matt Doyle (matt@elated.com) work starts here */
+/*
+ * 1. Troubleshooting
+ *     As mentioned in the video you sent, the HTML source of the Italian version of the contact page on the live site includes invalid content type attributes for most of the script tags. 
+ *     For example: <script src='https://www.rael.org/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js'></script>
+ *     ...has been changed to: <script src='https://www.rael.org/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js' type="0b70962dac147251d3fac53d-text/javascript"></script>
+ *
+ *     These invalid attributes prevent the JavaScript code from running when initially loaded, and are deliberately inserted by Cloudflare's Rocket Loader feature.
+ *
+ *     The Rocket Loader script inserted at the end of the page (rocket-loader.min.js) goes through each of the included scripts and converts them to valid JavaScript includes so that they can run. 
+ *     (It does this so that it can control the order of JavaScript execution in the page, resulting in faster page loads.)
+ *
+ *     However, sometimes Rocket Loader runs the scripts in an order that breaks something on the page, and I believe this is what's happened here. Specifically, the jQuery library is being loaded at 
+ *     the wrong time, and this is then causing the Gravity Forms Chained Selected JavaScript code to fail:
+ *
+ *     <script src='https://mk0raelorgiua5hd7uvs.kinstacdn.com/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js' type="0b70962dac147251d3fac53d-text/javascript"></script>
+ *
+ *     I verified this by temporarily editing the Italian contact page source to remove the '0b70962dac147251d3fac53d-' string for that jQuery include, making the include valid. 
+ *     The chained select fields then worked.
+ *
+ *     (I am guessing that this issue only happened on certain language versions of the contact page because those pages had been fetched by Cloudflare after Rocket Loader had been enabled.)
+ * 
+ * 2. Fixing
+ *     The fix is to add a data-cfasync="false" attribute to the script tag that includes the jQuery library in your pages. This attribute prevents Rocket Loader from touching the jQuery library, while 
+ *     still allowing the other scripts in your page to be optimised. (The type attribute also needs to be removed from the tag for this to work.)
+ *
+ *     The code is based on this Stack Overflow answer.
+ *     https://stackoverflow.com/questions/60883508/how-to-add-cloudflares-data-cfasync-false-attribute-to-script-elements-in-word/60884017#60884017
+ */
+
+/**
+ * Add a filter function to the `script_loader_tag` hook that excludes
+ * the jQuery library from Cloudflare's Rocket Loader (since RL breaks
+ * jQuery on this site):
+ *
+ * 1. Remove `type='text/javascript'` from the `script` tag (required by
+ *    Rocket Loader).
+ *
+ * 2. Add the `data-cfasync='false'` attribute to the tag.
+ */
+add_filter( 'script_loader_tag', function ( $tag, $handle ) {
+  if ( 'jquery-core' === $handle ) {
+    return str_replace( "type='text/javascript' src", "data-cfasync='false' src", $tag );
+  } else {
+    return $tag;
+  }
+}, 10, 2 );
+
+/* Matt Doyle (matt@elated.com) work ends here */
