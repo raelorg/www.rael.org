@@ -109,7 +109,7 @@ add_shortcode('custom_event_slider', 'render_custom_event_slider');
 
 function render_custom_event_slider() {
   $args = [
-    'orderby' => 'start_date',
+    'orderby' => 'end_date',
     'order' => 'ASC',
     'post_type' => 'events',
     'posts_per_page' => '-1',
@@ -118,8 +118,8 @@ function render_custom_event_slider() {
         'key' => 'event_slider',
         'value' => '1',
       ],
-      'start_date' => [
-        'key' => 'start_date',
+      'end_date' => [
+        'key' => 'end_date',
         'value' => date("Ymd"),
         'compare' => '>=',
       ],
@@ -249,12 +249,12 @@ add_filter('uael_post_the_date_format', function ($date, $post_id, $date_format)
 
 add_filter( 'uael_posts_query_args', function( $query, $settings ) {
   if($settings['post_type_filter']=='events'){
-    $query['meta_key']='start_date';
+    $query['meta_key']='end_date';
     $query['orderby']='meta_value';
     $query['order']='ASC';
     $query['meta_query']=array(
       array(
-        'key' => 'start_date',
+        'key' => 'end_date',
         'value' => date("Ymd"),
         'compare' => '>=',
         'type' => 'DATE'
