@@ -109,7 +109,7 @@ add_shortcode('custom_event_slider', 'render_custom_event_slider');
 
 function render_custom_event_slider() {
   $args = [
-    'orderby' => 'start_date',
+    'orderby' => 'end_date',
     'order' => 'ASC',
     'post_type' => 'events',
     'posts_per_page' => '-1',
@@ -118,8 +118,8 @@ function render_custom_event_slider() {
         'key' => 'event_slider',
         'value' => '1',
       ],
-      'start_date' => [
-        'key' => 'start_date',
+      'end_date' => [
+        'key' => 'end_date',
         'value' => date("Ymd"),
         'compare' => '>=',
       ],
@@ -249,12 +249,12 @@ add_filter('uael_post_the_date_format', function ($date, $post_id, $date_format)
 
 add_filter( 'uael_posts_query_args', function( $query, $settings ) {
   if($settings['post_type_filter']=='events'){
-    $query['meta_key']='start_date';
+    $query['meta_key']='end_date';
     $query['orderby']='meta_value';
     $query['order']='ASC';
     $query['meta_query']=array(
       array(
-        'key' => 'start_date',
+        'key' => 'end_date',
         'value' => date("Ymd"),
         'compare' => '>=',
         'type' => 'DATE'
@@ -430,7 +430,7 @@ add_shortcode('translatable_iframe', 'iframe_embed' );
  * 2. Add the `data-cfasync='false'` attribute to the tag.
  */
 add_filter( 'script_loader_tag', function ( $tag, $handle ) {
-  if ( 'jquery-core' === $handle ) {
+  if ( 'jquery-core' === $handle || 'wp-hooks' === $handle ) {
     return str_replace( "type='text/javascript' src", "data-cfasync='false' src", $tag );
   } else {
     return $tag;
@@ -438,3 +438,74 @@ add_filter( 'script_loader_tag', function ( $tag, $handle ) {
 }, 10, 2 );
 
 /* Matt Doyle (matt@elated.com) work ends here */
+
+
+/* Matt Doyle (matt@elated.com) work starts here */
+
+/*
+Hi Jasmin,
+I've fixed the Gravity Forms issue on that page now:
+https://www.rael.org/contact/
+The issue was indeed caused by Rocket Loader once more. The Gravity Forms plugin adds some inline JavaScript to the page, which is needed to make the form work - here's a brief snippet of it:
+<script type="text/javascript">if(!gform){document.addEventListener("gform_main_scripts_loaded",function(){ ... }}</script>
+As with the previous issue, Rocket Loader was deferring that script so that it ran after the page was fully loaded. This then meant that the script wasn't available when the other Gravity Forms scripts in the page needed to use it, hence the JavaScript errors and the chained selects not working.
+That inline JavaScript is output by a function called ensure_hook_js_output() inside wp-content/plugins/gravityforms/gravityforms.php. Unfortunately, since there is no hook available to modify that function's output, I would need to modify the Gravity Forms plugin directly to add the data-cfasync='false' attribute to that script tag in order to exclude it from Rocket Loader. This would be a bad idea, since the modification would need to be reapplied each time you updated the plugin.
+So instead I've taken a different approach: Filter the final markup just before WordPress sends it to the browser, in order to add the data-cfasync='false' attribute to the script tag. To do this, I added the following code to the end of your theme's functions.php:
+
+This code is based on this Stack Overflow answer.
+This approach isn't a perfect solution, since there's a chance that filtering the final output like this could lead to performance issues or conflicts with a plugin or theme update in the future. However, it's the best option I can see in the circumstances.
+There was also another script that Rocket Loader was deferring (https://www.rael.org/wp-includes/js/dist/hooks.min.js), which was causing the remaining JavaScript errors in the page. Since this script was included as an external file, I was able to fix this easily by including its handle in the code I added last time:
+  if ( 'jquery-core' === $handle || 'wp-hooks' === $handle ) {
+This ensures that, like jQuery, the wp-hooks script is no longer being deferred by Rocket Loader.
+I hope this solves your issue. If you continue to have issues with this page and Rocket Loader then it may be a good idea to use a Cloudflare Page Rule to exclude the /contact/ page from Rocket Loader - as you've done for Elementor - or even to use an alternative to Rocket Loader (like WP Rocket) that is less aggressive at deferring JavaScript.
+Please let me know if you have any questions on the above, or if you're happy that everything's working, please feel free to mark the task complete using the button at the top of the page in the workroom.
+
+Also, to answer your earlier question:
+when we 'WP rocket' plugin was enabled ('Rocket loader' disabled), there is a setting 'JS deffer.. ' that was ON. Do you think when we deactivate the WP rocket plugin, it triggered something?
+No, I don't believe that would have been connected with this particular issue, since it was Rocket Loader that was deferring the script, rather than WP Rocket. As to why this suddenly started happening I can't be sure, but I'd guess it was due to a recent Gravity Forms update.
+I look forward to hearing back from you soon.
+Thanks Jasmin!
+Matt  
+*/
+
+/**
+ * Begin output buffering when WordPress starts.
+ */
+add_action( 'init', function() {
+  ob_start();
+});
+
+/**
+ * When WordPress is ready to output the markup, flush the output buffer,
+ * then apply any filters to the markup before sending it to the browser.
+ */
+add_action('shutdown', function() {
+  $final = '';
+
+  // Iterate over each output buffer that was created during WordPress's
+  // execution, collecting that buffer's output into the final output.
+
+  $levels = ob_get_level();
+
+  for ($i = 0; $i < $levels; $i++) {
+    $final .= ob_get_clean();
+  }
+
+  // Apply any filters to the final output.
+  echo apply_filters('rael_final_output', $final);
+}, 0);
+
+/**
+ * This filter inserts the `data-cfasync='false'` attribute in the Gravity
+ * Forms inline `script` tag, to prevent the script being deferred by 
+ * Rocket Loader.
+ */
+add_filter('rael_final_output', function($output) {
+  return str_replace(
+    '<script>if(!gform){document.addEventListener("gform_main_scripts_loaded"',
+    '<script data-cfasync="false">if(!gform){document.addEventListener("gform_main_scripts_loaded"',
+    $output);
+});
+
+/* Matt Doyle (matt@elated.com) work ends here */
+
