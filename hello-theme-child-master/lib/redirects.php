@@ -1,7 +1,6 @@
 <?php
 /** start - by Kevin
  * 
-/**
  * Redirects
  *
  * Provides a place to handle redirects programmatically, which
@@ -57,7 +56,9 @@ class Rael_Redirects {
       "es.rael.org" => "/es/",
       "sv.rael.org" => "/sv/",
       "th.rael.org" => "/th/",
-    ];
+      "tw.rael.org" => "/zh-hant/",
+	  "pt.rael.org" => "/pt-pt/",
+	  "cn.rael.org" => "/zh-hans/"];
 
     $subdirectory = isset( $rules[$this->http_host] ) ? $rules[$this->http_host] : null;
     if ( !$subdirectory ) {
