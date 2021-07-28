@@ -1064,7 +1064,7 @@ function confirmation_populate_province_7( $input_choices, $form_id, $field, $in
 	global $wpdb;
 
 	$selected_iso_country = $chain_value[ "{$field->id}.1" ];
-
+	
 	$choices = array ();
 	$query   = "select province from wp_country_province where code_country = '" . $selected_iso_country . "' and active = 1 order by province";
 	$result  = $wpdb->get_results ( $query );
@@ -1202,11 +1202,7 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	$html = 
 '<p>Hello, IPT manager!</p>
 
-<p>Please do NOT reply to this email, this is a <strong>notification</strong> from www.rael.org to let you know that someone wishes to get in touch with us.
-<strong>Please use the email address below to begin the contact :)</strong></p>
-
-<p><span style="color: #0ecad4;">** The profile for this person has already been created in Elohim.net **</span></p>
-
+<p>Please do NOT reply to this email, this is a <strong>notification</strong> from www.rael.org to let you know that someone wishes to get in touch with us.</p>
 
 <table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
 	<tbody>
@@ -1269,7 +1265,7 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 		</tr>
 	</tbody>
 </table>
-<img class="alignnone wp-image-48617" src="https://luctestoct16.temp513.kinsta.cloud/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement
+<img class="alignnone wp-image-48617" src="https://www.rael.org/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement
 
 &nbsp;
 ';
