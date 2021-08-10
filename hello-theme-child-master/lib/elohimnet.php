@@ -11,22 +11,23 @@
 // Possible values for language, region and country are provided by elohim.net
 
 
-// > IP address : 34.125.247.108
-// > URL person pour obtenir le token GET : https://www.elohim.net/ws/dev/token.php?service=person&method=GET&ip=34.125.247.108
-// > URL person pour obtenir le token POST : https://www.elohim.net/ws/dev/token.php?service=person&method=POST&ip=34.125.247.108
-// > URL ml pour obtenir le token : https://www.elohim.net/ws/dev/token.php?ip=34.125.247.108
+// > IP address : 35.184.191.73
+// > URL person pour obtenir le token GET : https://www.elohim.net/ws/dev/token.php?service=person&method=GET&ip=35.184.191.73
+// > URL person pour obtenir le token POST : https://www.elohim.net/ws/dev/token.php?service=person&method=POST&ip=35.184.191.73
+// > URL ml pour obtenir le token : https://www.elohim.net/ws/dev/token.php?ip=35.184.191.73
 
 // For request method 'GET' and service 'person'
-// Dev token = 8291a2b1ce438173074c5310dfc912a071a4b8054850929bdca9bf6737d45f0cda3be26bd721a66876a64e52de0e58dbca0e4a821aa544f1b7f1f7c0669ade44
-// Prod token = 6f9f762e3ad247360de2da415f8721d54423e99e9fc3fc65ad2ba61a1f8cbb6c38a85f9e0054b8c6937893a4e8f55027e009ed77bb89302bac54c79fbeacfbb3
+// Dev token = f4e7e6bc5aeff25a34aec50c6c3dcbb3f7903240ffc1b08e54c80a5c159c4ff99b2c5decc5145be36f288ee543888fda2e872701dbb4ae018a4d4d6f52e333d8
+// Prod token = 5e9632d6f9aeef96691a095ae59e596c83de6657efe2b2a3cb71a6f53d4d59d9aa3407987ff0c9c2a64337c9b1ca8618166b7a5057842886bcd1895fb0d0b805
 
 // For request method 'POST' and service 'person'
-// Dev token = a8f66a5db8be6fe8b4dce8241f0ec17fffdd37d25f4787ea64ce320562010f92bd3c5f717db4e2910d1dc657f6f54d10dff1cf11bdeff68316c90e199304f2ae
+// Dev token = edb7d47704b583be7f78bbb3bc93409d6b37a7ae7a85f24ccbec14166e9443f97447cf5ba5fa925e97fa4dec912ebe2089c31c12609146f1c06e061d67acd06a
 // Prod token = 24f4676829358cc37fb1df83f4ed6dee3a475b9515acf7decba45b5d2fefe86bca2490278f05ca9c16d5f4addc02bf59df17e02ea5e43924839ed0d3bf722175
 
 // For request method 'GET' and service 'ml'
-// Dev token = 5cf518176dc8d2e198898c124e8efaa75b5dab77af72ff084ee8640c050fab2f4c1ef35b88b9699b0210fd9a09c4e66ca8e5671639134f2f60d18fd9216a07fa
-// Prod token = 013bfad9cd6faea1e65e1eabaa2450523ba28f4828478cc69cbb7575be9a8d748cbcb98a1c94605017e2bcd5efb48bc0db54265622fe2ba35ce512014a90ea70
+// Dev token = 96e50aa58a1e36e998fdb89d84a0619c0e52803693ca77e2179bbc2eba3c27b7562ca419e1187e6ab465e5b2921eeaf2ba7fcc425cfadbab53b2e87a058154eb
+// Prod token = 92eb94d00c2ae8cea7ad2172f2c3ffd9069abf6fba3fadceb8783ebc46881f7bfbf21ab64a5633e7845bb2745fac0b3b68eaf446ca461ef28ae2b1695dce7576
+
 
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
@@ -50,22 +51,22 @@ function GetToken( $service ) {
 
   switch ( $service ) {
     case 'ml_pro':
-        $token = '013bfad9cd6faea1e65e1eabaa2450523ba28f4828478cc69cbb7575be9a8d748cbcb98a1c94605017e2bcd5efb48bc0db54265622fe2ba35ce512014a90ea70';
+        $token = '92eb94d00c2ae8cea7ad2172f2c3ffd9069abf6fba3fadceb8783ebc46881f7bfbf21ab64a5633e7845bb2745fac0b3b68eaf446ca461ef28ae2b1695dce7576';
         break;
     case 'ml_dev':
-        $token = '5cf518176dc8d2e198898c124e8efaa75b5dab77af72ff084ee8640c050fab2f4c1ef35b88b9699b0210fd9a09c4e66ca8e5671639134f2f60d18fd9216a07fa';
+        $token = '96e50aa58a1e36e998fdb89d84a0619c0e52803693ca77e2179bbc2eba3c27b7562ca419e1187e6ab465e5b2921eeaf2ba7fcc425cfadbab53b2e87a058154eb';
         break;
     case 'get_person_prod':
-        $token = '6f9f762e3ad247360de2da415f8721d54423e99e9fc3fc65ad2ba61a1f8cbb6c38a85f9e0054b8c6937893a4e8f55027e009ed77bb89302bac54c79fbeacfbb3';
+        $token = '5e9632d6f9aeef96691a095ae59e596c83de6657efe2b2a3cb71a6f53d4d59d9aa3407987ff0c9c2a64337c9b1ca8618166b7a5057842886bcd1895fb0d0b805';
         break;
     case 'get_person_dev':
-        $token = '8291a2b1ce438173074c5310dfc912a071a4b8054850929bdca9bf6737d45f0cda3be26bd721a66876a64e52de0e58dbca0e4a821aa544f1b7f1f7c0669ade44';
+        $token = 'f4e7e6bc5aeff25a34aec50c6c3dcbb3f7903240ffc1b08e54c80a5c159c4ff99b2c5decc5145be36f288ee543888fda2e872701dbb4ae018a4d4d6f52e333d8';
         break;
     case 'post_person_prod':
         $token = '24f4676829358cc37fb1df83f4ed6dee3a475b9515acf7decba45b5d2fefe86bca2490278f05ca9c16d5f4addc02bf59df17e02ea5e43924839ed0d3bf722175';
         break;
     case 'post_person_dev':
-        $token = 'a8f66a5db8be6fe8b4dce8241f0ec17fffdd37d25f4787ea64ce320562010f92bd3c5f717db4e2910d1dc657f6f54d10dff1cf11bdeff68316c90e199304f2ae';
+        $token = 'edb7d47704b583be7f78bbb3bc93409d6b37a7ae7a85f24ccbec14166e9443f97447cf5ba5fa925e97fa4dec912ebe2089c31c12609146f1c06e061d67acd06a';
         break;
   }
 
