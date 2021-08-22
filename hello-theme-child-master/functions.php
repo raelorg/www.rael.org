@@ -439,34 +439,7 @@ add_filter( 'script_loader_tag', function ( $tag, $handle ) {
 
 /* Matt Doyle (matt@elated.com) work ends here */
 
-
 /* Matt Doyle (matt@elated.com) work starts here */
-
-/*
-Hi Jasmin,
-I've fixed the Gravity Forms issue on that page now:
-https://www.rael.org/contact/
-The issue was indeed caused by Rocket Loader once more. The Gravity Forms plugin adds some inline JavaScript to the page, which is needed to make the form work - here's a brief snippet of it:
-<script type="text/javascript">if(!gform){document.addEventListener("gform_main_scripts_loaded",function(){ ... }}</script>
-As with the previous issue, Rocket Loader was deferring that script so that it ran after the page was fully loaded. This then meant that the script wasn't available when the other Gravity Forms scripts in the page needed to use it, hence the JavaScript errors and the chained selects not working.
-That inline JavaScript is output by a function called ensure_hook_js_output() inside wp-content/plugins/gravityforms/gravityforms.php. Unfortunately, since there is no hook available to modify that function's output, I would need to modify the Gravity Forms plugin directly to add the data-cfasync='false' attribute to that script tag in order to exclude it from Rocket Loader. This would be a bad idea, since the modification would need to be reapplied each time you updated the plugin.
-So instead I've taken a different approach: Filter the final markup just before WordPress sends it to the browser, in order to add the data-cfasync='false' attribute to the script tag. To do this, I added the following code to the end of your theme's functions.php:
-
-This code is based on this Stack Overflow answer.
-This approach isn't a perfect solution, since there's a chance that filtering the final output like this could lead to performance issues or conflicts with a plugin or theme update in the future. However, it's the best option I can see in the circumstances.
-There was also another script that Rocket Loader was deferring (https://www.rael.org/wp-includes/js/dist/hooks.min.js), which was causing the remaining JavaScript errors in the page. Since this script was included as an external file, I was able to fix this easily by including its handle in the code I added last time:
-  if ( 'jquery-core' === $handle || 'wp-hooks' === $handle ) {
-This ensures that, like jQuery, the wp-hooks script is no longer being deferred by Rocket Loader.
-I hope this solves your issue. If you continue to have issues with this page and Rocket Loader then it may be a good idea to use a Cloudflare Page Rule to exclude the /contact/ page from Rocket Loader - as you've done for Elementor - or even to use an alternative to Rocket Loader (like WP Rocket) that is less aggressive at deferring JavaScript.
-Please let me know if you have any questions on the above, or if you're happy that everything's working, please feel free to mark the task complete using the button at the top of the page in the workroom.
-
-Also, to answer your earlier question:
-when we 'WP rocket' plugin was enabled ('Rocket loader' disabled), there is a setting 'JS deffer.. ' that was ON. Do you think when we deactivate the WP rocket plugin, it triggered something?
-No, I don't believe that would have been connected with this particular issue, since it was Rocket Loader that was deferring the script, rather than WP Rocket. As to why this suddenly started happening I can't be sure, but I'd guess it was due to a recent Gravity Forms update.
-I look forward to hearing back from you soon.
-Thanks Jasmin!
-Matt  
-*/
 
 /**
  * Begin output buffering when WordPress starts.
@@ -505,6 +478,74 @@ add_filter('rael_final_output', function($output) {
     '<script>if(!gform){document.addEventListener("gform_main_scripts_loaded"',
     '<script data-cfasync="false">if(!gform){document.addEventListener("gform_main_scripts_loaded"',
     $output);
+});
+
+/* Matt Doyle (matt@elated.com) work ends here */
+
+/* Matt Doyle (matt@elated.com) work starts here */
+
+
+/**
+ * Insert AdRoll pixel into the page HEAD.
+ */
+add_action('wp_head', function() {
+?>
+<script type="text/javascript">
+    adroll_adv_id = "YP2ZA24FSRHVFOXA6H4TJN";
+    adroll_pix_id = "CN2GLR4VF5DM7E5CN4Q7PM";
+    adroll_version = "2.0";
+
+    (function(w, d, e, o, a) {
+        w.__adroll_loaded = true;
+        w.adroll = w.adroll || [];
+        w.adroll.f = [ 'setProperties', 'identify', 'track' ];
+        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
+                + "/roundtrip.js";
+        for (a = 0; a < w.adroll.f.length; a++) {
+            w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
+                return function() {
+                    w.adroll.push([ n, arguments ])
+                }
+            })(w.adroll.f[a])
+        }
+
+        e = d.createElement('script');
+        o = d.getElementsByTagName('script')[0];
+        e.async = 1;
+        e.src = roundtripUrl;
+        o.parentNode.insertBefore(e, o);
+    })(window, document);
+    adroll.track("pageView");
+</script>
+<?php
+});
+
+/**
+ * Attach AdRoll event tracking handlers to the download buttons
+ * on /ebook/intelligent-design/ .
+ */
+add_action('wp_footer', function() {
+?>
+<script type="text/javascript">
+	const ebookDownloadButton = document.getElementById('ebook-download');
+	if ( ebookDownloadButton ) {
+		ebookDownloadButton.addEventListener( "click", function() {
+			try { 
+			__adroll.track("pageView", {"segment_name":"25629b2f"});
+			} catch(err) {};
+		});
+	};      
+
+	const audiobookDownloadButton = document.getElementById('audiobook-download');
+	if ( audiobookDownloadButton ) {
+		audiobookDownloadButton.addEventListener( "click", function() {
+			try { 
+				__adroll.track("pageView", {"segment_name":"25629b2f"});
+			} catch(err) {};
+		});
+	};      
+</script>
+<?php
 });
 
 /* Matt Doyle (matt@elated.com) work ends here */
