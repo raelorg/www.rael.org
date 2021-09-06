@@ -549,4 +549,3 @@ add_action('wp_footer', function() {
 });
 
 /* Matt Doyle (matt@elated.com) work ends here */
-
