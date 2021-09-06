@@ -777,7 +777,7 @@ function confirmation_populate_region_5( $input_choices, $form_id, $field, $inpu
 
   	foreach ( $json_data as $data ) {
     	$choices[] = array(
-      		'text' => $data->name,
+      		'text' => $data->nativeName,
       		'value' => $data->id,
       		'isSelected' => ( ( ! empty( $GLOBALS['subscriber_region'] ) ) and ( $GLOBALS['subscriber_region'][0] === $data->id ) ),
     	);
@@ -931,27 +931,6 @@ function confirmation_after_submission_5( $entry, $form ) {
 
 	UpdateContact( $firstname, $lastname, $language, $country, $region );
 	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '' );
-
-	?>
-	<!-- Facebook Pixel Code for India72aH -->
-	<script>
-		!function(f,b,e,v,n,t,s)
-		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-		n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];
-		s.parentNode.insertBefore(t,s)}(window, document,'script',
-		'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '2064272210260681');
-		fbq('track', 'PageView');
-		fbq('track', 'CompleteRegistration');
-    </script>
-	<noscript>
-		<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2064272210260681&ev=PageView&noscript=1" />
-	</noscript>
-	<!-- End Facebook Pixel Code for India72aH -->	
-	<?php
 
 } // confirmation_after_submission_5
 
