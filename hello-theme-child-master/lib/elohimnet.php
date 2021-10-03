@@ -684,16 +684,17 @@ function confirmation_pre_render_5( $form ) {
 				break;
 
 			case 251: // Country et Region ne peuvent pas être populé ici
+				$country = GetParentLabelCountry( apply_filters( 'wpml_current_language', NULL ) );
                 $area = GetChildrenLabelArea( apply_filters( 'wpml_current_language', NULL ) );
 
                 $field->inputs = array(
                   array(
                     'id' => "{$field->id}.1",
-                    'label' => $field->label
+                    'label' => '*' . $country
                   ),
                   array(
                     'id' => "{$field->id}.2",
-                    'label' => $area
+                    'label' => '*' . $area
                   ),
                 );
 				break;
