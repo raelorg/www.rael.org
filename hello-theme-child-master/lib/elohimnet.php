@@ -393,7 +393,24 @@ function GetUniqueIdSession() {
 } // GetUniqueIdSession
 
 // ---------------------------------------------------
-// To track hacking, register false contact selector.
+// Register false contact selector for the nl-profile form only (double opt-in).
+// See also the function InsertFormsLog()
+//
+// When a person requests a news subscription with their email address, they receive a notification 
+// with a confirmation link that directs to the nl-profile form. This link has a special unique 
+// parameter called 'selector' for each contact request. This 'selector' is kept in the database to 
+// be able to complete the double opt-in.
+//
+// Example of the selector in the database before the double opt-in is done:
+//    "selector","form","email","firstname","lastname","country","language","area","message","date_created","date_double_optin","news_event","ip_address","country_from_ip","selector_return"
+//    "__7lo)fMl5Pw9Xn3iZc623CC","6","milad.shabani24@yahoo.com",,,,"en",,,"2021-09-04 08:59:31",NULL,,"5.188.214.222","US",NULL
+//
+// Example of the selector in the database after the double opt-in is done:
+//    "selector","form","email","firstname","lastname","country","language","area","message","date_created","date_double_optin","news_event","ip_address","country_from_ip","selector_return"
+//    "3nFaxjWmMvLI4rzE*pSIS)!v","6","a.navarrete11@hotmail.com","ANA MA","NAVARRETE","mx","es","152",,"2021-12-07 17:47:26","2021-12-23 21:42:19",,"189.217.215.163","MX","Yes"
+//
+// If someone tries to access this form with a 'selector' that does not exist in rael.org, it is not normal! If this happens often, 
+// it may explain why there are a lot of visits but few double opt-ins.
 // ---------------------------------------------------
 function InsertBadSelector( $selector ) {
 	global $wpdb;
@@ -507,7 +524,7 @@ function UpdateContact( $firstname, $lastname, $language, $country, $area ) {
 } // UpdateContact
 
 // ---------------------------------------------------
-// Vérifier s'il s'agit d'un spammer qui récidive
+// Check if it is a repeat spammer
 // ---------------------------------------------------
 function checkSpam( $email ) {
 	global $wpdb;
@@ -520,7 +537,7 @@ function checkSpam( $email ) {
 } // checkSpam
 
 // ---------------------------------------------------
-// Insérer un nouveau spammer.
+// Insert a new spammer.
 // ---------------------------------------------------
 function InsertSpam( $email ) {
 	global $wpdb;
@@ -535,7 +552,7 @@ function InsertSpam( $email ) {
 } // InsertSpam
 
 // --------------------------------------------------------
-// Mettre à jour la récidive du spammer
+// Update spammer recurrence
 // --------------------------------------------------------
 function UpdateSpam( $email, $attempt, $ip ) {
 	global $wpdb;
@@ -559,7 +576,36 @@ function UpdateSpam( $email, $attempt, $ip ) {
 } // UpdateSpam
 
 // ---------------------------------------------------
-// Insérer un nouveau log.
+// Insert a log to detect if the form is working.
+// See also the function InsertBadSelector()
+//
+// How to detect if the form is working? Whenever we've had an issue in the past it's because Cloudflare or 
+// Rocket loader was preventing the Province field from loading with the selected country. The load function 
+// of the Province field was not called. In this situation, it was not possible to submit the form because Country 
+// and Province are required. This is what we want to detect.
+// 
+// Solution
+// Now that the country is preselected, it is possible to check whether the execution of the Country and Province 
+// fields have been executed by recording the passage of the execution in the database. We always expect to have two 
+// entries for the same session. 
+//
+// > Here is an example if the form is working:
+//    "id", "id_session","form","relation","date","language","country","ip_address","selector","checked","comment"
+//    "4123","VUL_PHnYPRqCFauNycwyKtK5","IPT","Country","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
+//    "4124","VUL_PHnYPRqCFauNycwyKtK5","IPT","Country","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
+//    "4125","VUL_PHnYPRqCFauNycwyKtK5","IPT","Province","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
+//    "4126","VUL_PHnYPRqCFauNycwyKtK5","IPT","Province","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
+//
+// > Here is an example if the form is not working:
+//	"4019","-W_0FkPpG.oMVI!rNTFW.djz","IPT","Country","2021-12-27 09:43:27","fp","DE","144.76.23.194","N/A",NULL,NULL
+//	"4020","-W_0FkPpG.oMVI!rNTFW.djz","IPT","Country","2021-12-27 09:43:27","fp","DE","144.76.23.194","N/A",NULL,NULL
+//
+// As Wordpress loads twice, the information is saved twice. The SQL query to detect if the form is not working is as follows:
+//     > SELECT `id_session`,`form`,count(*) as nb_logs 
+//       FROM `raelorg_forms_log` 
+//       WHERE `checked` IS NULL 
+//       GROUP BY `id_session`,`form` 
+//       HAVING COUNT(*) < 4
 // ---------------------------------------------------
 function InsertFormsLog( $id_session, $form, $relation, $country, $ip, $selector ) {
 	global $wpdb;
@@ -578,7 +624,7 @@ function InsertFormsLog( $id_session, $form, $relation, $country, $ip, $selector
 } // InsertFormsLog
 
 // ---------------------------------------
-// Obtenir l'information de la personne
+// Get information of the person.
 // ---------------------------------------
 function GetPersonFromElohimNet( $email ) {
 
