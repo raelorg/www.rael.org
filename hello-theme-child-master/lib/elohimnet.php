@@ -415,13 +415,10 @@ function GetUniqueIdSession() {
 function InsertBadSelector( $selector ) {
 	global $wpdb;
 
-	$country = do_shortcode("[userip_location type=countryCode]");
-	$ip = do_shortcode("[userip_location type=ip]");
-
 	$row = array();
 	$row['selector'] = $selector;
-	$row['ip_address'] = $ip;
-	$row['country'] = $country;
+	$row['ip_address'] = $GLOBALS['raelorg_ip_address']; 
+	$row['country'] = $GLOBALS['raelorg_country_from_ip'];
 
 	$wpdb->insert( 'raelorg_contacts_bad_selector', $row ); 
 	
@@ -482,7 +479,7 @@ function InsertContact( $firstname, $lastname, $email, $language, $country, $are
 	$contact['message'] = $message;
 	$contact['news_event'] = $news_event;
 	$contact['ip_address'] = $ip;
-	$contact['country_from_ip'] = do_shortcode("[userip_location type=countryCode]");
+	$contact['country_from_ip'] = $GLOBALS['raelorg_country_from_ip'];
 	
 	do {
 		$selector = randomString();
@@ -668,7 +665,9 @@ function confirmation_pre_render_5( $form ) {
 	//do_action( 'hook_push_rejects_to_elohimnet' );
 
 	$GLOBALS['raelorg_session_ID'] = GetUniqueIdSession();
-	
+	$GLOBALS['raelorg_ip_address'] = do_shortcode("[userip_location type=ip]");
+	$GLOBALS['raelorg_country_from_ip'] = do_shortcode("[userip_location type=countryCode]");
+
 	?>
     <script type="text/javascript">
         jQuery(document).ready(function(){
@@ -808,10 +807,7 @@ function confirmation_pre_render_5( $form ) {
 add_filter( 'gform_chained_selects_input_choices_5_251_1', 'confirmation_populate_country_5', 10, 7 );
 function confirmation_populate_country_5( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 
-	$country_iso = do_shortcode("[userip_location type=countryCode]");
-	$ip = do_shortcode("[userip_location type=ip]");
-	
-	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Country', $country_iso, $ip, get_query_var( 'selector' ) );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], get_query_var( 'selector' ) );
 	
 	$ml_service=GetService( 'ml' );
 	$ml_token=GetToken( 'ml_dev' );
@@ -837,7 +833,7 @@ function confirmation_populate_country_5( $input_choices, $form_id, $field, $inp
 
 	foreach ( $json_data as $data ) {
 		$selected = false;
-		if (strtolower($data->iso) == strtolower($country_iso)) {
+		if (strtolower($data->iso) == strtolower($GLOBALS['raelorg_country_from_ip'])) {
 			$selected = true;
 		}
 		
@@ -865,10 +861,7 @@ function confirmation_populate_region_5( $input_choices, $form_id, $field, $inpu
 
   	$selected_country = $chain_value[ "{$field->id}.1" ];
 
-	$country_iso = do_shortcode("[userip_location type=countryCode]");
-	$ip = do_shortcode("[userip_location type=ip]");
-	
-	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Area', $country_iso, $ip, get_query_var( 'selector' ) );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Area', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], get_query_var( 'selector' ) );
 	
   	$options_get = array(
     	'http'=>array(
@@ -1055,6 +1048,8 @@ add_filter( 'gform_pre_render_7', 'footer_contact_us_populate_7' );
 function footer_contact_us_populate_7( $form ) {
 
 	$GLOBALS['raelorg_session_ID'] = GetUniqueIdSession();
+	$GLOBALS['raelorg_ip_address'] = do_shortcode("[userip_location type=ip]");
+	$GLOBALS['raelorg_country_from_ip'] = do_shortcode("[userip_location type=countryCode]");
 	
 	$person_service=GetService( 'person' );
 	$person_token=GetToken( 'get_person_dev' );
@@ -1118,10 +1113,7 @@ function footer_contact_us_populate_7( $form ) {
 add_filter( 'gform_chained_selects_input_choices_7_9_1', 'confirmation_populate_country_7', 10, 7 );
 function confirmation_populate_country_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 
-	$country_iso = do_shortcode("[userip_location type=countryCode]");
-	$ip = do_shortcode("[userip_location type=ip]");
-
-	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Country', $country_iso, $ip, 'N/A' );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], 'N/A' );
 
 	$person_service=GetService( 'person' );
 	$person_token=GetToken( 'get_person_dev' );
@@ -1144,7 +1136,7 @@ function confirmation_populate_country_7( $input_choices, $form_id, $field, $inp
 		if ( ! is_object( $data ) ) continue;
 
 		$selected = false;
-		if (strtolower($data->iso) == strtolower($country_iso)) {
+		if (strtolower($data->iso) == strtolower($GLOBALS['raelorg_country_from_ip'])) {
 			$selected = true;
 		}
 		
@@ -1170,12 +1162,9 @@ add_filter( 'gform_chained_selects_input_choices_7_9_2', 'confirmation_populate_
 function confirmation_populate_province_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 	global $wpdb;
 
-	$country_iso = do_shortcode("[userip_location type=countryCode]");
-	$ip = do_shortcode("[userip_location type=ip]");
-
 	$selected_iso_country = $chain_value[ "{$field->id}.1" ];
 
-	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Province', $country_iso, $ip, 'N/A' );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Province', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], 'N/A' );
 	
 	$choices = array ();
 	$query   = "select province from raelorg_country_province where code_country = '" . $selected_iso_country . "' and active = 1 order by province";
