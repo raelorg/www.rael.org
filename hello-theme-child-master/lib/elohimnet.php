@@ -32,46 +32,6 @@
 
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-
-// ---------------------------------------------------------
-// Send the email alert from the CRON task
-// ---------------------------------------------------------
-function raelorg_cron_execution()
-{
-	global $wpdb;
-
-	$query   = "SELECT `id_session`,`form`,count(*) as nb_logs FROM `raelorg_forms_log` WHERE `checked` IS NULL GROUP BY `id_session`,`form` HAVING COUNT(*) < 4";
-	$result  = $wpdb->get_results ( $query );
-
-	$headers = array('Content-Type: text/html; charset=UTF-8');
-	$to = 'loukesir@outlook.com';
-	$subject = 'Rael.org Daily Alert Report';
-	$body = 'Today the following cases have been detected:' . '<br><br>';
-
-	foreach ( $result as $data )
-	{
-		$body = $body . '==> id_session: ' . $data->id_session . '; form: ' . $data->form . '; nb_logs: ' . $data->nb_logs . ';<br>';
-	}
-
-	wp_mail( $to, $subject, $body, $headers );
-}
-add_action( 'raelorg_cron_alert', 'raelorg_cron_execution' );
-
-// -------------------------------------------------------------------------------------
-// Configure a CRON task to alert us in case the IPT or NL forms do not work.
-//
-if ( ! wp_next_scheduled( 'raelorg_cron_alert' ) ) {
-	// Force start 1 minute later
-	wp_schedule_event(time() + (1 * 1 * 1 * 60), 'daily', 'raelorg_cron_alert' );
-}
-
-// To stop the CRON task, remove the comment of the following 2 lines of code:
-//$timestamp = wp_next_scheduled( 'raelorg_cron_execution' );
-//wp_unschedule_event( $timestamp, 'raelorg_cron_execution' );
-//
-// -------------------------------------------------------------------------------------
- 
-
 function GetService( $service_name ) {
   $url = '';
 
@@ -114,50 +74,208 @@ function GetToken( $service ) {
   return $token;
 } // GetToken
 
-// --------------------------------------------
-// Keep parameters received from URL
-// --------------------------------------------
-function add_query_vars($aVars) {
-  $aVars[] = "subscriber_email";
-  $aVars[] = "subscriber_firstname";
-  $aVars[] = "subscriber_lastname";
-  $aVars[] = "subscriber_country";
-  $aVars[] = "subscriber_preferedlanguage";
-  $aVars[] = "subscriber_region";
-  $aVars[] = "selector";
-  return $aVars;
-}
-add_filter('query_vars', 'add_query_vars');
+// ---------------------------------------
+// Get information of the person.
+// ---------------------------------------
+function GetPersonFromElohimNet( $email ) {
 
-$subscriber_firstname = '';
-$subscriber_lastname = '';
-$subscriber_email = '';
-$subscriber_country = '';
-$subscriber_preferedlanguage = '';
-$subscriber_region = [];
-$selector = '';
+  $person_service = GetService( 'person' );
+  $person_token = GetToken( 'get_person_dev' );
 
-if(isset($wp_query->query_vars['subscriber_firstname'])) {
-  $subscriber_firstname = urldecode($wp_query->query_vars['subscriber_firstname']);
+  $options_get = array(
+    'http'=>array(
+      'method'=>"GET",
+      'header'=>"Accept: application/json\r\n",
+            "ignore_errors" => true, // rather read result status that failing
+          )
+  );
+
+  $data = array(
+    'email' => $email,
+    'token' => $person_token
+  );
+
+  $context_get = stream_context_create($options_get);
+  $contents = file_get_contents($person_service . http_build_query($data), false, $context_get);
+
+  $status_line = $http_response_header[0];
+  preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+  $status = $match[1];
+
+  if($status == 200){
+    return $contents;
+  } else {
+    return 'Not found';
+  }
+
+} // GetPersonFromElohimNet
+
+// -----------------------------------------
+// Send person to Elohim.net
+// -----------------------------------------
+function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message ) {
+
+	class PostPersonResult {
+		private $status;
+		private $debugContent;
+		private $email;
+
+		public function __construct($status, $debugContent, $email) {
+		  $this->status = $status;
+		  $this->debugContent = $debugContent;
+		  $this->email = $email;
+		}
+
+		function insertContactLog ( $attempt, $type_post ) {
+			global $wpdb;
+
+			$contact_log = array();
+			$contact_log['email'] = $this->email;
+			$contact_log['status'] = $this->status;
+			$contact_log['debug_content'] = $this->debugContent;
+			$contact_log['attempt'] = $attempt;
+			$contact_log['type_post'] = $type_post;
+
+			$wpdb->insert( 'raelorg_contacts_log', $contact_log ); 
+		}
+
+		function displayForDev( $attempt, $type_post ) {
+			$this->insertContactLog( $attempt, $type_post );
+
+			if ($this->status == 201) {
+				error_log( "SendPersonToIPT Created " . $this->email );
+			} else if ($this->status == 202) {
+				error_log( "SendPersonToIPT Updated " . $this->email );
+			} else {
+				error_log( "Failed, status=" . $this->status . ", content=" . $this->debugContent );
+			}
+		}
+
+		public function getStatus() {
+      		return $this->status;
+    	}
+		
+	} // PostPersonResult
+
+	function getRestResponseStatus($http_response_header) {
+		$status_line = $http_response_header[0];
+		preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+		$status = $match[1];
+		return $status;
+	}
+
+	function doPostPerson($personData, $email) {
+		$person_service         = GetService( 'person' );
+		$person_post_token      = GetToken( 'post_person_dev' );
+		$postPersonGenericQuery = $person_service . http_build_query( array( 'token' => $person_post_token ) );
+
+		$json_data = json_encode($personData);
+		$options_post = array(
+		  'http' => array(
+			'method' => "POST",
+			'header' =>
+			"Content-type: application/json\r\n" .
+			"Accept: application/json\r\n" .
+			"Connection: close\r\n" .
+			"Content-length: " . strlen($json_data) . "\r\n",
+			'protocol_version' => 1.1,
+			'content' => $json_data
+		  )
+		);
+		
+		$context_ressource = stream_context_create($options_post);
+		
+		$content = file_get_contents($postPersonGenericQuery, false, $context_ressource);
+		return new PostPersonResult(getRestResponseStatus($http_response_header), $content, $email);
+	}
+
+    // Prepare the table with the data we have
+	$person = array(
+		'email' => $email,
+		'firstname' => $firstname,
+		'lastname' => $lastname,
+		'country' => $country,
+		'state' => $province,
+		'prefLanguage' => $language );
+
+	if ( ! empty( $regions ) ) {
+    	$person['mailingListsIds'] = $regions;
+  	}
+
+    // Send registration to Elohim.net
+	$attempt = 0;
+	  
+	do {
+		$result = doPostPerson($person, $email);
+		++$attempt;
+	} while (   ( $result->getStatus() != 200 ) &&
+				( $result->getStatus() != 201 ) &&
+				( $result->getStatus() != 202 ) &&
+			    ( $attempt < 3 ) );
+  	
+	$result->displayForDev( $attempt, 'profile' );
+	
+	// Send the message to Elohim.net
+	if ( ! empty( $message ) ) {
+	    $person_message = array(
+    	  	"fromEmail" => $email,
+      		"message" => $message,
+    );
+
+	$attempt = 0;
+	  
+	do {
+	    $result = doPostPerson($person_message, $email);
+		++$attempt;
+	} while (   ( $result->getStatus() != 200 ) &&
+				( $result->getStatus() != 201 ) &&
+				( $result->getStatus() != 202 ) &&
+			    ( $attempt < 3 ) );
+	  
+    $result->displayForDev( $attempt, 'message' );
+  }
+
+} // send_person_to_ElohimNet
+
+
+// ---------------------------------------------------------
+// Send the email alert from the CRON task
+// ---------------------------------------------------------
+function raelorg_cron_execution()
+{
+	global $wpdb;
+
+	$query   = "SELECT `id_session`,`form`,count(*) as nb_logs FROM `raelorg_forms_log` WHERE `checked` IS NULL GROUP BY `id_session`,`form` HAVING COUNT(*) < 2";
+	$result  = $wpdb->get_results ( $query );
+
+	$headers = array('Content-Type: text/html; charset=UTF-8');
+	$to = 'loukesir@outlook.com';
+	$subject = 'Rael.org Daily Alert Report';
+	$body = 'Today the following cases have been detected:' . '<br><br>';
+
+	foreach ( $result as $data )
+	{
+		$body = $body . '==> id_session: ' . $data->id_session . '; form: ' . $data->form . '; nb_logs: ' . $data->nb_logs . ';<br>';
+	}
+
+	wp_mail( $to, $subject, $body, $headers );
 }
-if(isset($wp_query->query_vars['subscriber_lastname'])) {
-  $subscriber_lastname = urldecode($wp_query->query_vars['subscriber_lastname']);
+add_action( 'raelorg_cron_alert', 'raelorg_cron_execution' );
+
+// -------------------------------------------------------------------------------------
+// Configure a CRON task to alert us in case the IPT or NL forms do not work.
+//
+if ( ! wp_next_scheduled( 'raelorg_cron_alert' ) ) {
+	// Force start 1 minute later
+	wp_schedule_event(time() + (1 * 1 * 1 * 60), 'daily', 'raelorg_cron_alert' );
 }
-if(isset($wp_query->query_vars['subscriber_email'])) {
-  $subscriber_email = urldecode($wp_query->query_vars['subscriber_email']);
-}
-if(isset($wp_query->query_vars['subscriber_country'])) {
-  $subscriber_country = urldecode($wp_query->query_vars['subscriber_country']);
-}
-if(isset($wp_query->query_vars['subscriber_preferedlanguage'])) {
-  $subscriber_preferedlanguage = urldecode($wp_query->query_vars['subscriber_preferedlanguage']);
-}
-if(isset($wp_query->query_vars['subscriber_region'])) {
-  $subscriber_region = urldecode($wp_query->query_vars['subscriber_region']);
-}
-if(isset($wp_query->query_vars['selector'])) {
-  $selector = urldecode($wp_query->query_vars['selector']);
-}
+
+// To stop the CRON task, remove the comment of the following 2 lines of code:
+//$timestamp = wp_next_scheduled( 'raelorg_cron_execution' );
+//wp_unschedule_event( $timestamp, 'raelorg_cron_execution' );
+//
+// -------------------------------------------------------------------------------------
+ 
 
 // --------------------------------------------------------
 // Translate the Children label for the Country-Area field
@@ -366,7 +484,7 @@ function randomString() {
     $string = '';
 	
     for ($p = 0; $p < $length; $p++) {
-        $string .= $characters[mt_rand(0, strlen($characters))];
+        $string .= $characters[mt_rand(0, strlen($characters)-1)];
     }
 
 	return $string;
@@ -451,12 +569,11 @@ function SelectContact( $selector ) {
 
 	if ( null !== $row ) {
 		$GLOBALS['selector'] = $selector;
+		UpdateContactReturn( $selector );
 	} else {
 		InsertBadSelector( $selector );
 	}
 	
-	UpdateContactReturn( $selector );
-
 	return $row;
 
 } // SelectContact
@@ -589,20 +706,17 @@ function UpdateSpam( $email, $attempt, $ip ) {
 // > Here is an example if the form is working:
 //    "id", "id_session","form","relation","date","language","country","ip_address","selector","checked","comment"
 //    "4123","VUL_PHnYPRqCFauNycwyKtK5","IPT","Country","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
-//    "4124","VUL_PHnYPRqCFauNycwyKtK5","IPT","Country","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
 //    "4125","VUL_PHnYPRqCFauNycwyKtK5","IPT","Province","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
-//    "4126","VUL_PHnYPRqCFauNycwyKtK5","IPT","Province","2021-12-27 14:57:31","en","DE","144.76.23.209","N/A",NULL,NULL
 //
 // > Here is an example if the form is not working:
-//	"4019","-W_0FkPpG.oMVI!rNTFW.djz","IPT","Country","2021-12-27 09:43:27","fp","DE","144.76.23.194","N/A",NULL,NULL
-//	"4020","-W_0FkPpG.oMVI!rNTFW.djz","IPT","Country","2021-12-27 09:43:27","fp","DE","144.76.23.194","N/A",NULL,NULL
+//	  "4019","-W_0FkPpG.oMVI!rNTFW.djz","IPT","Country","2021-12-27 09:43:27","fp","DE","144.76.23.194","N/A",NULL,NULL
 //
-// As Wordpress loads twice, the information is saved twice. The SQL query to detect if the form is not working is as follows:
+// The SQL query to detect if the form is not working is as follows:
 //     > SELECT `id_session`,`form`,count(*) as nb_logs 
 //       FROM `raelorg_forms_log` 
 //       WHERE `checked` IS NULL 
 //       GROUP BY `id_session`,`form` 
-//       HAVING COUNT(*) < 4
+//       HAVING COUNT(*) < 2
 // ---------------------------------------------------
 function InsertFormsLog( $id_session, $form, $relation, $country, $ip, $selector ) {
 	global $wpdb;
@@ -616,45 +730,68 @@ function InsertFormsLog( $id_session, $form, $relation, $country, $ip, $selector
 	$log['ip_address'] = $ip;
 	$log['selector'] = $selector;
 
-	$wpdb->insert( 'raelorg_forms_log', $log ); 
+    $query = "select 1 from raelorg_forms_log where id_session = '" . $id_session . "' and form = '" . $form . "' and relation = '" . $relation . "'";
+	$row = $wpdb->get_row( $query );
 	
+	if ( null == $row ) {
+		$wpdb->insert( 'raelorg_forms_log', $log ); 
+	}
+
 } // InsertFormsLog
 
-// ---------------------------------------
-// Get information of the person.
-// ---------------------------------------
-function GetPersonFromElohimNet( $email ) {
+// ------------------------------------------------
+// Determine the iso language code
+// ------------------------------------------------
+function makeCodeLanguageIso( $language_wpml ) {
 
-  $person_service = GetService( 'person' );
-  $person_token = GetToken( 'get_person_dev' );
+	$language_iso = $language_wpml;
 
-  $options_get = array(
-    'http'=>array(
-      'method'=>"GET",
-      'header'=>"Accept: application/json\r\n",
-            "ignore_errors" => true, // rather read result status that failing
-          )
-  );
+	// For some languages the code used by WPML is different from the iso code of Elohim.net
+	switch ( $language_wpml ){
+		case 'zh-hans':
+			$language_iso = 'cn';  // Chinois simplifié
+			break;
+		case 'zh-hant':
+			$language_iso = 'tw';  // Chinois traditionnel
+			break;
+		case 'pt-pt':
+			$language_iso = 'pt';    // Portuguais
+			break;
+	}
 
-  $data = array(
-    'email' => $email,
-    'token' => $person_token
-  );
+	return $language_iso;
+} // makeCodeLanguageIso
 
-  $context_get = stream_context_create($options_get);
-  $contents = file_get_contents($person_service . http_build_query($data), false, $context_get);
+// ------------------------------------------------
+// Determine the WPML language code
+// ------------------------------------------------
+function makeCodeLanguageUrl( $language_iso ) {
 
-  $status_line = $http_response_header[0];
-  preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
-  $status = $match[1];
+	$language_url = $language_iso;
 
-  if($status == 200){
-    return $contents;
-  } else {
-    return 'Not found';
-  }
+	// For some languages the code used by WPML is different from the iso code of Elohim.net
+	switch ( $language_iso ){
+		case 'cn':
+			$language_url = 'zh-hans';  // Chinois simplifié
+			break;
+		case 'tw':
+			$language_url = 'zh-hant';  // Chinois traditionnel
+			break;
+		case 'pt':
+			$language_url = 'pt-pt';    // Portuguais
+			break;
+	}
 
-} // GetPersonFromElohimNet
+	return $language_url;
+} // makeCodeLanguageUrl
+
+function makeLinkFormWithSelector( $selector ) {
+
+	$link = get_permalink( get_page_by_title( '📩 Newsletter profile' ) ) . '?selector=' . $selector;
+
+	return $link;
+} // makeLinkFormWithSelector
+
 
 // ----------------------------------------------------
 // Form : Subscription Confirmation (5)
@@ -664,9 +801,11 @@ add_filter( 'gform_pre_render_5', 'confirmation_pre_render_5' );
 function confirmation_pre_render_5( $form ) {
 	//do_action( 'hook_push_rejects_to_elohimnet' );
 
+	$GLOBALS['selector'] = $_GET['selector'];
 	$GLOBALS['raelorg_session_ID'] = GetUniqueIdSession();
-	$GLOBALS['raelorg_ip_address'] = do_shortcode("[userip_location type=ip]");
-	$GLOBALS['raelorg_country_from_ip'] = do_shortcode("[userip_location type=countryCode]");
+	$GLOBALS['raelorg_ip_address'] = GFFormsModel::get_ip();
+	$GLOBALS['subscriber_country'] = "";
+	$GLOBALS['subscriber_region'] = "";
 
 	?>
     <script type="text/javascript">
@@ -677,44 +816,11 @@ function confirmation_pre_render_5( $form ) {
     </script>
 	<?php
 
-	$selector = get_query_var( 'selector' ); // From URL
-	$contact = SelectContact( $selector );
+	$contact = SelectContact( $GLOBALS['selector'] );
 	
-	// Check if the contact already exist in Elohim.net
-	$person_json = GetPersonFromElohimNet( $contact->email );
-
-	if ( null !== $contact ) { // if contact found in raelorg_contacts
-		$GLOBALS['subscriber_email'] = $contact->email;
-		$GLOBALS['subscriber_firstname'] = $contact->firstname;
-		$GLOBALS['subscriber_lastname'] = $contact->lastname;
+	if ( $contact !== null) {
 		$GLOBALS['subscriber_country'] = $contact->country;
-		$GLOBALS['subscriber_preferedlanguage'] = $contact->language;
-		$GLOBALS['subscriber_region'][0] = $contact->area; 
-	} 	
-	
-	if ( ! ($person_json === 'Not found') ) {   // if found in Elohim.net
-		$person = json_decode( $person_json );
-
-		// Priority is given to the parameters stored in raelorg_contacts if present.
-		if ( empty( $contact->firstname ) ) {
-			$GLOBALS['subscriber_firstname'] = $person->{"firstname"};
-		}
-
-		if ( empty( $contact->lastname ) ) {
-			$GLOBALS['subscriber_lastname'] = $person->{"lastname"};
-		}
-
-		if ( empty( $contact->country ) ) {
-			$GLOBALS['subscriber_country'] = $person->{"country"};
-		}
-
-		if ( empty( $contact->language ) ) {
-			$GLOBALS['subscriber_preferedlanguage'] = $person->{"prefLanguage"};
-		}
-
-		if ( empty( $contact->area ) ) {
-			$GLOBALS['subscriber_region'] = $person->{"mailingListsIds"};
-		}
+		$GLOBALS['subscriber_region'] = $contact->area; 
 	}
 
 	// Fill fields
@@ -722,26 +828,24 @@ function confirmation_pre_render_5( $form ) {
 
 		switch ( $field->id ) {
 			case 253: // Email
-				$field->defaultValue = $GLOBALS['subscriber_email'];
+				if ( $contact !== null ) {
+					$field->defaultValue = $contact->email;
+				}
 				break;
 
 			case 248: // fisrtname
-				if ( ! empty( $contact->firstname ) ) {
-					$field->defaultValue = $GLOBALS['subscriber_firstname'];
+				if ( $contact !== null )  {
+					$field->defaultValue = $contact->firstname;
 				}
 				break;
 
 			case 249: // lastname
-				if ( ! empty( $contact->lastname ) ) {
-					$field->defaultValue = $GLOBALS['subscriber_lastname'];
+				if ( $contact !== null )  {
+					$field->defaultValue = $contact->lastname;
 				}
 				break;
 
 			case 245: // Prefered Language
-				if ( empty( $GLOBALS['subscriber_email'] ) ) {
-					break; //continue;
-				}
-
 				$options_get = array(
 					'http'=>array(
 						'method'=>"GET",
@@ -762,7 +866,7 @@ function confirmation_pre_render_5( $form ) {
 				$context_get  = stream_context_create( $options_get );
 				$contents     = file_get_contents( $url, false, $context_get );
 				$json_data    = json_decode( $contents, true );
-				$language_iso = ( empty( $GLOBALS['subscriber_preferedlanguage'] ) ? '00' : $GLOBALS['subscriber_preferedlanguage'] );
+				$language_iso = ( empty( $contact->language ) ? '00' : $contact->language );
 				$choices      = array ();
 
 				foreach ( $json_data as $key => $item ) {
@@ -807,7 +911,7 @@ function confirmation_pre_render_5( $form ) {
 add_filter( 'gform_chained_selects_input_choices_5_251_1', 'confirmation_populate_country_5', 10, 7 );
 function confirmation_populate_country_5( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 
-	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], get_query_var( 'selector' ) );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], $GLOBALS['selector'] );
 	
 	$ml_service=GetService( 'ml' );
 	$ml_token=GetToken( 'ml_dev' );
@@ -861,7 +965,7 @@ function confirmation_populate_region_5( $input_choices, $form_id, $field, $inpu
 
   	$selected_country = $chain_value[ "{$field->id}.1" ];
 
-	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Area', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], get_query_var( 'selector' ) );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Area', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], $GLOBALS['selector'] );
 	
   	$options_get = array(
     	'http'=>array(
@@ -885,139 +989,12 @@ function confirmation_populate_region_5( $input_choices, $form_id, $field, $inpu
     	$choices[] = array(
       		'text' => $data->nativeName,
       		'value' => $data->id,
-      		'isSelected' => ( ( ! empty( $GLOBALS['subscriber_region'] ) ) and ( $GLOBALS['subscriber_region'][0] === $data->id ) ),
+      		'isSelected' => ( ( ! empty( $GLOBALS['subscriber_region'] ) ) and ( $GLOBALS['subscriber_region'] === $data->id ) ),
     	);
   	}
 
   	return $choices;
 } // confirmation_populate_region_5
-
-// -----------------------------------------
-// Send subscription to Elohim.net
-// -----------------------------------------
-function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message ) {
-
-	class PostPersonResult {
-		private $status;
-		private $debugContent;
-		private $email;
-
-		public function __construct($status, $debugContent, $email) {
-		  $this->status = $status;
-		  $this->debugContent = $debugContent;
-		  $this->email = $email;
-		}
-
-		function insertContactLog ( $attempt, $type_post ) {
-			global $wpdb;
-
-			$contact_log = array();
-			$contact_log['email'] = $this->email;
-			$contact_log['status'] = $this->status;
-			$contact_log['debug_content'] = $this->debugContent;
-			$contact_log['attempt'] = $attempt;
-			$contact_log['type_post'] = $type_post;
-
-			$wpdb->insert( 'raelorg_contacts_log', $contact_log ); 
-		}
-
-		function displayForDev( $attempt, $type_post ) {
-			$this->insertContactLog( $attempt, $type_post );
-
-			if ($this->status == 201) {
-				error_log( "SendPersonToIPT Created " . $this->email );
-			} else if ($this->status == 202) {
-				error_log( "SendPersonToIPT Updated " . $this->email );
-			} else {
-				error_log( "Failed, status=" . $this->status . ", content=" . $this->debugContent );
-			}
-		}
-
-		public function getStatus() {
-      		return $this->status;
-    	}
-		
-	} // PostPersonResult
-
-	function getRestResponseStatus($http_response_header) {
-		$status_line = $http_response_header[0];
-		preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
-		$status = $match[1];
-		return $status;
-	}
-
-	function doPostPerson($personData, $email) {
-		$person_service         = GetService( 'person' );
-		$person_post_token      = GetToken( 'post_person_dev' );
-		$postPersonGenericQuery = $person_service . http_build_query( array( 'token' => $person_post_token ) );
-
-		$json_data = json_encode($personData);
-		$options_post = array(
-		  'http' => array(
-			'method' => "POST",
-			'header' =>
-			"Content-type: application/json\r\n" .
-			"Accept: application/json\r\n" .
-			"Connection: close\r\n" .
-			"Content-length: " . strlen($json_data) . "\r\n",
-			'protocol_version' => 1.1,
-			'content' => $json_data
-		  )
-		);
-		
-		$context_ressource = stream_context_create($options_post);
-		
-		$content = file_get_contents($postPersonGenericQuery, false, $context_ressource);
-		return new PostPersonResult(getRestResponseStatus($http_response_header), $content, $email);
-	}
-
-    // Prepare the table with the data we have
-	$person = array(
-		'email' => $email,
-		'firstname' => $firstname,
-		'lastname' => $lastname,
-		'country' => $country,
-		'state' => $province,
-		'prefLanguage' => $language );
-
-	if ( ! empty( $regions ) ) {
-    	$person['mailingListsIds'] = $regions;
-  	}
-
-    // Send registration to Elohim.net
-	$attempt = 0;
-	  
-	do {
-		$result = doPostPerson($person, $email);
-		++$attempt;
-	} while (   ( $result->getStatus() != 200 ) &&
-				( $result->getStatus() != 201 ) &&
-				( $result->getStatus() != 202 ) &&
-			    ( $attempt < 3 ) );
-  	
-	$result->displayForDev( $attempt, 'profile' );
-	
-	// Send the message to Elohim.net
-	if ( ! empty( $message ) ) {
-	    $person_message = array(
-    	  	"fromEmail" => $email,
-      		"message" => $message,
-    );
-
-	$attempt = 0;
-	  
-	do {
-	    $result = doPostPerson($person_message, $email);
-		++$attempt;
-	} while (   ( $result->getStatus() != 200 ) &&
-				( $result->getStatus() != 201 ) &&
-				( $result->getStatus() != 202 ) &&
-			    ( $attempt < 3 ) );
-	  
-    $result->displayForDev( $attempt, 'message' );
-  }
-
-} // send_person_to_ElohimNet
 
 // --------------------------------------------------
 // Form : Subscription Confirmation (5)
@@ -1032,13 +1009,60 @@ function confirmation_after_submission_5( $entry, $form ) {
 	$language = rgar ( $entry, '245' );
 	$country = rgar( $entry, '251.1' );
 	$region = rgar( $entry, '251.2' );
+	
+	$regions = array( $region ) + array( $GLOBALS['subscriber_region'] );
 
-	$regions = array( $region ) + $GLOBALS['subscriber_region'];
+	$GLOBALS['selector'] = $_GET['selector'];
 
 	UpdateContact( $firstname, $lastname, $language, $country, $region );
 	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '' );
 
 } // confirmation_after_submission_5
+
+// ----------------------------------------------------------------------
+// Form : Newsletter (6)
+// > Send the double opt-in notification to the person.
+// ----------------------------------------------------------------------
+add_filter( 'gform_notification_6', 'newsletter_notification_6', 10, 3 );
+function newsletter_notification_6( $notification, $form, $entry ) {
+
+	// Retrieve the form data and build the link URL
+	$email = rgar( $entry, '4' );
+	$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
+	$GLOBALS['raelorg_country_from_ip'] = "";
+
+	$language_wpml = apply_filters( 'wpml_current_language', NULL );
+	$language_iso = makeCodeLanguageIso( $language_wpml );
+
+	while ( $GLOBALS['raelorg_country_from_ip'] == "" )
+		{
+			$ip_data = @json_decode(wp_remote_retrieve_body(wp_remote_get( "http://ip-api.com/json/".$ip_address)));
+
+			if ( $ip_data->status == "success" ) {
+				$GLOBALS['raelorg_country_from_ip'] = $ip_data->countryCode;
+			}
+		}
+
+	$selector = InsertContact( '', '', $email, $language_iso, '', '', '', 6, '', $ip_address );
+
+	$link_form = makeLinkFormWithSelector( $selector );
+	$link_rael = get_permalink( get_page_by_title( 'HOME' ) ); 
+
+	if ( strstr( $notification['message'], '{link_to_confirmation_form}' ) ) {
+		$notification['message'] = str_replace('{link_to_confirmation_form}', $link_form, $notification['message'] );
+		$notification['message'] = str_replace('{link_to_rael_org}', $link_rael, $notification['message'] );
+	}
+	elseif ( strstr( $notification['message'], '%7Blink_to_confirmation_form%7D' ) ) {
+		$notification['message'] = str_replace('%7Blink_to_confirmation_form%7D', $link_form, $notification['message'] );
+		$notification['message'] = str_replace('%7Blink_to_rael_org%7D', $link_rael, $notification['message'] );
+	} else {
+		$notification['message'] = str_replace('%7blink_to_confirmation_form%7d', $link_form, $notification['message'] );
+		$notification['message'] = str_replace('%7blink_to_rael_org%7d', $link_rael, $notification['message'] );
+	}
+
+	return $notification;
+} // newsletter_notification_6
+
 
 // -----------------------------------------------------------------------------------------
 // Form : IPT (7)
@@ -1048,8 +1072,17 @@ add_filter( 'gform_pre_render_7', 'footer_contact_us_populate_7' );
 function footer_contact_us_populate_7( $form ) {
 
 	$GLOBALS['raelorg_session_ID'] = GetUniqueIdSession();
-	$GLOBALS['raelorg_ip_address'] = do_shortcode("[userip_location type=ip]");
-	$GLOBALS['raelorg_country_from_ip'] = do_shortcode("[userip_location type=countryCode]");
+	$GLOBALS['raelorg_ip_address'] = GFFormsModel::get_ip();
+	$GLOBALS['raelorg_country_from_ip'] = "";
+
+	while ( $GLOBALS['raelorg_country_from_ip'] == "" )
+		{
+			$ip_data = @json_decode(wp_remote_retrieve_body(wp_remote_get( "http://ip-api.com/json/".$GLOBALS['raelorg_ip_address'])));
+
+			if ( $ip_data->status == "success" ) {
+				$GLOBALS['raelorg_country_from_ip'] = $ip_data->countryCode;
+			}
+		}
 	
 	$person_service=GetService( 'person' );
 	$person_token=GetToken( 'get_person_dev' );
@@ -1235,59 +1268,6 @@ function spam_detect( $is_spam, $form, $entry ) {
 	return false;
 } // spam_detect
 
-// ------------------------------------------------
-// Determine the iso language code
-// ------------------------------------------------
-function makeCodeLanguageIso( $language_wpml ) {
-
-	$language_iso = $language_wpml;
-
-	// For some languages the code used by WPML is different from the iso code of Elohim.net
-	switch ( $language_wpml ){
-		case 'zh-hans':
-			$language_iso = 'cn';  // Chinois simplifié
-			break;
-		case 'zh-hant':
-			$language_iso = 'tw';  // Chinois traditionnel
-			break;
-		case 'pt-pt':
-			$language_iso = 'pt';    // Portuguais
-			break;
-	}
-
-	return $language_iso;
-} // makeCodeLanguageIso
-
-// ------------------------------------------------
-// Determine the WPML language code
-// ------------------------------------------------
-function makeCodeLanguageUrl( $language_iso ) {
-
-	$language_url = $language_iso;
-
-	// For some languages the code used by WPML is different from the iso code of Elohim.net
-	switch ( $language_iso ){
-		case 'cn':
-			$language_url = 'zh-hans';  // Chinois simplifié
-			break;
-		case 'tw':
-			$language_url = 'zh-hant';  // Chinois traditionnel
-			break;
-		case 'pt':
-			$language_url = 'pt-pt';    // Portuguais
-			break;
-	}
-
-	return $language_url;
-} // makeCodeLanguageUrl
-
-function makeLinkFormWithSelector( $selector ) {
-
-	$link = get_permalink( get_page_by_title( '📩 Newsletter profile' ) ) . '?selector=' . $selector;
-
-	return $link;
-} // makeLinkFormWithSelector
-
 // -----------------------------------------------------
 // Form : IPT (7)
 //    > Prepare the notification to the country respondent
@@ -1409,23 +1389,6 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 		}
 	}
 
-	// Exceptions for Canada, Mexico and USA
-	if (	( $iso_country === 'ca' )
-		||	( $iso_country === 'mx' )
-		||	( $iso_country === 'us' ) ) {
-		switch ( $iso_country ) {
-			case 'ca':
-				$email_country = 'info@raelcanada.org'; 
-				break;
-			case 'mx':
-				$email_country = 'info@raelmexico.org'; 
-				break;
-			case 'us':
-				$email_country = 'info@raelusa.org'; 
-				break;
-		}
-	}
-
 	// Alert notification to the country respondent
 	if ( $notification['toType'] === 'email' ) {
 		$notification['to'] = $email_country; 
@@ -1493,39 +1456,74 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	return $notification;
 } // footer_contact_us_notification_7
 
-// ----------------------------------------------------------------------
-// Form : Newsletter (6)
-// > Send the double opt-in notification to the person.
-// ----------------------------------------------------------------------
-add_filter( 'gform_notification_6', 'newsletter_notification_6', 10, 3 );
-function newsletter_notification_6( $notification, $form, $entry ) {
+// ----------------------------------------------------
+// Form : Demo Event (11)
+// > Pre-populate the form
+// ----------------------------------------------------
+add_filter( 'gform_pre_render_11', 'pre_render_11' );
+function pre_render_11( $form ) {
 
-	// Retrieve the form data and build the link URL
-	$email = rgar( $entry, '4' );
-	$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
+	$person_service=GetService( 'person' );
+	$person_token=GetToken( 'get_person_dev' );
 
-	$language_wpml = apply_filters( 'wpml_current_language', NULL );
-	$language_iso = makeCodeLanguageIso( $language_wpml );
+	$options_get = array(
+		'http'=>array(
+			'method'=>"GET",
+			'header'=>"Accept: application/json\r\n",
+			"ignore_errors" => true, // rather read result status that failing
+		)
+	);
 
-	$selector = InsertContact( '', '', $email, $language_iso, '', '', '', 6, '', $ip_address );
+	// Fill fields
+	foreach ( $form['fields'] as $field )  {
 
-	$link_form = makeLinkFormWithSelector( $selector );
-	$link_rael = get_permalink( get_page_by_title( 'HOME' ) ); 
+		switch ( $field->id ) {
+            case 6: // Country
+                $url         = $person_service . 'countries&token=' . $person_token;
+                $context_get = stream_context_create( $options_get );
+                $contents    = file_get_contents( $url, false, $context_get );
+                $json_data   = json_decode( $contents );
+                $items       = array ();
+            
+                foreach ( $json_data as $data ) {
+                    if ( ! is_object( $data ) ) continue;
+            
+                    $items[] = array(
+                        'text' => $data->nativeName,
+                        'value' => $data->iso
+                    );
+                }
+            
+                array_multisort( $items, SORT_ASC );
 
-	if ( strstr( $notification['message'], '{link_to_confirmation_form}' ) ) {
-		$notification['message'] = str_replace('{link_to_confirmation_form}', $link_form, $notification['message'] );
-		$notification['message'] = str_replace('{link_to_rael_org}', $link_rael, $notification['message'] );
-	}
-	elseif ( strstr( $notification['message'], '%7Blink_to_confirmation_form%7D' ) ) {
-		$notification['message'] = str_replace('%7Blink_to_confirmation_form%7D', $link_form, $notification['message'] );
-		$notification['message'] = str_replace('%7Blink_to_rael_org%7D', $link_rael, $notification['message'] );
-	} else {
-		$notification['message'] = str_replace('%7blink_to_confirmation_form%7d', $link_form, $notification['message'] );
-		$notification['message'] = str_replace('%7blink_to_rael_org%7d', $link_rael, $notification['message'] );
-	}
+                $field->choices = $items;
+                break;
 
-	return $notification;
-} // newsletter_notification_6
+			case 7: // Prefered Language
+                $url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
+                $context_get = stream_context_create( $options_get );
+                $contents    = file_get_contents( $url, false, $context_get );
+                $json_data   = json_decode( $contents );
+                $items       = array ();
+
+                foreach ( $json_data as $data ) {
+                    if ( ! is_object( $data ) ) continue;
+            
+                    $items[] = array(
+                        'text' => $data->nativeName,
+                        'value' => $data->iso
+                    );
+                }
+
+                array_multisort( $items, SORT_ASC );
+
+                $field->choices = $items;
+                break;
+		}
+	} // foreach
+
+	return $form;
+} // pre_render_11
 
 
 add_action( 'hook_push_rejects_to_elohimnet', 'push_rejects_to_elohimnet', 13 );
