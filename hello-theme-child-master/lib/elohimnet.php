@@ -259,6 +259,9 @@ function raelorg_cron_execution()
 	}
 
 	wp_mail( $to, $subject, $body, $headers );
+	
+	// Keep only last 7 days
+	$wpdb->query("DELETE FROM `raelorg_forms_log` WHERE `date` > DATE_ADD(now(), INTERVAL -7 DAY);");
 }
 add_action( 'raelorg_cron_alert', 'raelorg_cron_execution' );
 
@@ -801,11 +804,25 @@ add_filter( 'gform_pre_render_5', 'confirmation_pre_render_5' );
 function confirmation_pre_render_5( $form ) {
 	//do_action( 'hook_push_rejects_to_elohimnet' );
 
+	$ml_token = GetToken( 'ml_dev' );
+	$ml_service   = GetService( 'ml' );
+	
 	$GLOBALS['selector'] = $_GET['selector'];
 	$GLOBALS['raelorg_session_ID'] = GetUniqueIdSession();
 	$GLOBALS['raelorg_ip_address'] = GFFormsModel::get_ip();
 	$GLOBALS['subscriber_country'] = "";
 	$GLOBALS['subscriber_region'] = "";
+	$GLOBALS['raelorg_country_from_ip'] = "";
+	$GLOBALS['raelorg_countries'] = array();
+
+	while ( $GLOBALS['raelorg_country_from_ip'] == "" )
+		{
+			$ip_data = @json_decode(wp_remote_retrieve_body(wp_remote_get( "http://ip-api.com/json/".$GLOBALS['raelorg_ip_address'])));
+
+			if ( $ip_data->status == "success" ) {
+				$GLOBALS['raelorg_country_from_ip'] = $ip_data->countryCode;
+			}
+		}
 
 	?>
     <script type="text/javascript">
@@ -822,6 +839,13 @@ function confirmation_pre_render_5( $form ) {
 		$GLOBALS['subscriber_country'] = $contact->country;
 		$GLOBALS['subscriber_region'] = $contact->area; 
 	}
+
+	$options_get = array(
+		'http'=>array(
+			'method'=>"GET",
+			'header'=>"Accept: application/json\r\n"
+		)
+	);
 
 	// Fill fields
 	foreach ( $form['fields'] as $field )  {
@@ -846,22 +870,12 @@ function confirmation_pre_render_5( $form ) {
 				break;
 
 			case 245: // Prefered Language
-				$options_get = array(
-					'http'=>array(
-						'method'=>"GET",
-						'header'=>"Accept: application/json\r\n"
-					)
-				);
-
-				$ml_token = GetToken( 'ml_dev' );
-
 				$data = array(
 					'values' => 'languages',
 					'token' => $ml_token
 				);
 
 				// The language list includes only the languages that have the mailing
-				$ml_service   = GetService( 'ml' );
 				$url          = $ml_service . http_build_query( $data );
 				$context_get  = stream_context_create( $options_get );
 				$contents     = file_get_contents( $url, false, $context_get );
@@ -897,6 +911,32 @@ function confirmation_pre_render_5( $form ) {
                     'label' => '*' . $area
                   ),
                 );
+				
+				// Bug into Chained Selects List:
+				// > Loading countries into a global variable to avoid twice http request 
+				// > The list of countries includes only those that have mailing
+				$data = array(
+					'values' => 'countries',
+					'token' => $ml_token
+				);
+
+				$url         = $ml_service . http_build_query( $data );
+				$context_get = stream_context_create( $options_get );
+				$contents    = file_get_contents( $url, false, $context_get );
+				$json_data   = json_decode( $contents );
+
+				foreach ( $json_data as $data ) {
+					$selected = false;
+					if (strtolower($data->iso) == strtolower($GLOBALS['raelorg_country_from_ip'])) {
+						$selected = true;
+					}
+		
+					$GLOBALS['raelorg_countries'][] = array(
+							'text' => $data->nativeName,
+							'value' => $data->iso,
+							'isSelected' => $selected || ( ( ! empty( $GLOBALS['subscriber_country'] ) ) and ( $GLOBALS['subscriber_country'] === $data->iso ) ),
+					);
+				}
 				break;
 		}
 	} // foreach
@@ -913,44 +953,7 @@ function confirmation_populate_country_5( $input_choices, $form_id, $field, $inp
 
 	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], $GLOBALS['selector'] );
 	
-	$ml_service=GetService( 'ml' );
-	$ml_token=GetToken( 'ml_dev' );
-
-	$options_get = array(
-		'http'=>array(
-			'method'=>"GET",
-			'header'=>"Accept: application/json\r\n"
-		)
-	);
-
-	$data = array(
-		'values' => 'countries',
-		'token' => $ml_token
-	);
-
-	// The list of countries includes only those that have mailing
-	$url         = $ml_service . http_build_query( $data );
-	$context_get = stream_context_create( $options_get );
-	$contents    = file_get_contents( $url, false, $context_get );
-	$json_data   = json_decode( $contents );
-	$choices     = array ();
-
-	foreach ( $json_data as $data ) {
-		$selected = false;
-		if (strtolower($data->iso) == strtolower($GLOBALS['raelorg_country_from_ip'])) {
-			$selected = true;
-		}
-		
-		$choices[] = array(
-			'text' => $data->nativeName,
-			'value' => $data->iso,
-			'isSelected' => $selected || ( ( ! empty( $GLOBALS['subscriber_country'] ) ) and ( $GLOBALS['subscriber_country'] === $data->iso ) ),
-		);
-	}
-
-	array_multisort( $choices, SORT_ASC );
-
-	return $choices;
+	return $GLOBALS['raelorg_countries'];
 } // confirmation_populate_country_5
 
 // ------------------------------------------------------------------
@@ -1068,12 +1071,13 @@ function newsletter_notification_6( $notification, $form, $entry ) {
 // Form : IPT (7)
 //    > Fill in the Language field
 // -----------------------------------------------------------------------------------------
-add_filter( 'gform_pre_render_7', 'footer_contact_us_populate_7' );
-function footer_contact_us_populate_7( $form ) {
+add_filter( 'gform_pre_render_7', 'contact_us_populate_7' );
+function contact_us_populate_7( $form ) {
 
 	$GLOBALS['raelorg_session_ID'] = GetUniqueIdSession();
 	$GLOBALS['raelorg_ip_address'] = GFFormsModel::get_ip();
 	$GLOBALS['raelorg_country_from_ip'] = "";
+	$GLOBALS['raelorg_countries'] = array();
 
 	while ( $GLOBALS['raelorg_country_from_ip'] == "" )
 		{
@@ -1132,67 +1136,54 @@ function footer_contact_us_populate_7( $form ) {
 					'label' => '*' . $province
 					),
 				);
+				
+				// Bug into Chained Selects List:
+				// > Loading countries into a global variable to avoid twice http request 
+				$url         = $person_service . 'countries&token=' . $person_token;
+				$context_get = stream_context_create( $options_get );
+				$contents    = file_get_contents( $url, false, $context_get );
+				$json_data   = json_decode( $contents );
+
+				foreach ( $json_data as $data ) {
+					if ( ! is_object( $data ) ) continue;
+
+					$selected = false;
+					if (strtolower($data->iso) == strtolower($GLOBALS['raelorg_country_from_ip'])) {
+						$selected = true;
+					}
+					
+					$GLOBALS['raelorg_countries'][] = array(
+						'text' => $data->nativeName,
+						'value' => $data->iso,
+						'isSelected' => $selected
+					);
+				}
 				break;
 			}
 	}
 
 	return $form;
-} // footer_contact_us_populate_7
+} // contact_us_populate_7
 
 // -----------------------------------------------------------------------
 // Form : IPT (7)
 //    > Fill in the Country field
 // -----------------------------------------------------------------------
-add_filter( 'gform_chained_selects_input_choices_7_9_1', 'confirmation_populate_country_7', 10, 7 );
-function confirmation_populate_country_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+add_filter( 'gform_chained_selects_input_choices_7_9_1', 'contact_us_populate_country_7', 10, 7 );
+function contact_us_populate_country_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 
 	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], 'N/A' );
 
-	$person_service=GetService( 'person' );
-	$person_token=GetToken( 'get_person_dev' );
-
-	$options_get = array(
-		'http'=>array(
-			'method'=>"GET",
-			'header'=>"Accept: application/json\r\n",
-			"ignore_errors" => true, // rather read result status that failing
-		)
-	);
-
-	$url         = $person_service . 'countries&token=' . $person_token;
-	$context_get = stream_context_create( $options_get );
-	$contents    = file_get_contents( $url, false, $context_get );
-	$json_data   = json_decode( $contents );
-	$choices     = array ();
-
-	foreach ( $json_data as $data ) {
-		if ( ! is_object( $data ) ) continue;
-
-		$selected = false;
-		if (strtolower($data->iso) == strtolower($GLOBALS['raelorg_country_from_ip'])) {
-			$selected = true;
-		}
-		
-		$choices[] = array(
-			'text' => $data->nativeName,
-			'value' => $data->iso,
-			'isSelected' => $selected
-		);
-	}
-
-	array_multisort( $choices, SORT_ASC );
-
-	$field->choices = $choices;
-
-	return $choices;
-} // confirmation_populate_country_7
+	return $GLOBALS['raelorg_countries'];
+	
+} // contact_us_populate_country_7
 
 // -----------------------------------------------------------------------
 // Form : IPT (7)
 //    > Fill in the Province field
 // -----------------------------------------------------------------------
-add_filter( 'gform_chained_selects_input_choices_7_9_2', 'confirmation_populate_province_7', 10, 7 );
-function confirmation_populate_province_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+add_filter( 'gform_chained_selects_input_choices_7_9_2', 'contact_us_populate_province_7', 10, 7 );
+function contact_us_populate_province_7( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 	global $wpdb;
 
 	$selected_iso_country = $chain_value[ "{$field->id}.1" ];
@@ -1212,7 +1203,7 @@ function confirmation_populate_province_7( $input_choices, $form_id, $field, $in
 	}
 
 	return $choices;
-} // confirmation_populate_province_7
+} // contact_us_populate_province_7
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // The gform_entry_is_spam filter is used to mark entries as spam during form submission.
