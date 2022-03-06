@@ -32,6 +32,9 @@
 
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Get web service URL
+// ---------------------------------------------------------------------------------------------------------------------------------
 function GetService( $service_name ) {
   $url = '';
 
@@ -42,11 +45,22 @@ function GetService( $service_name ) {
     case 'person':
         $url = 'https://elohim.net/ws/person/?';
         break;
-  }
+	case 'seminar':
+		$url = 'https://elohim.net/ws/seminar/?';
+		break;
+	}
 
   return $url;
 } // GetService
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+// > IP address : 34.121.1.40
+// > URL person pour obtenir le token GET : https://www.elohim.net/ws/dev/token.php?service=person&method=GET&ip=34.121.1.40
+// > URL person pour obtenir le token POST : https://www.elohim.net/ws/dev/token.php?service=person&method=POST&ip=34.121.1.40
+// > URL ml pour obtenir le token : https://www.elohim.net/ws/dev/token.php?ip=34.121.1.40
+// > URL person pour obtenir le token GET : https://www.elohim.net/ws/dev/token.php?service=seminar&method=GET&ip=34.121.1.40
+// > URL person pour obtenir le token POST : https://www.elohim.net/ws/dev/token.php?service=seminar&method=POST&ip=34.121.1.40
+// ---------------------------------------------------------------------------------------------------------------------------------
 function GetToken( $service ) {
   $token = '';
 
@@ -69,10 +83,40 @@ function GetToken( $service ) {
     case 'post_person_dev':
         $token = '567623881841c67f11a9ee3252d3f7a9e35b786e47b0d0e15305d74fb6e9ff0e4a666c17ecdef4f3bc985f007d7241f442342c09924b2eee3e2fb45c7f18fbcf';
         break;
-  }
+	case 'get_seminar_prod':
+		$token = '24f4676829358cc37fb1df83f4ed6dee3a475b9515acf7decba45b5d2fefe86bca2490278f05ca9c16d5f4addc02bf59df17e02ea5e43924839ed0d3bf722175';
+		break;
+	case 'get_seminar_dev':
+		$token = '0c3bd890ba9948a4e3a72e410c8df234bc06b81b5dd62cd9dce4b6e6ab57936c6c192013445eb194577eac74baeb1d94c451b6e29a8be642a4670fa2fce4a3c6';
+		break;
+	case 'post_seminar_prod':
+		$token = 'dc3485b995a17300e588f6f159576e3f7ddb122ca4282e4203f270866054015383642d9ea97c1a932b943f1250ed78708b9899363f73915d100ad3174fc44f5d';
+		break;
+	case 'post_seminar_dev':
+		$token = 'eaf6561e3b74c471c757630df8f7aaf2d2d7f51550ce2729b1386c0c29d5e4e3665b0f65feaccfdf66bc0325c6aa40d0e15664836c93cb1ed6f5823ab2231594';
+		break;
+	}
 
   return $token;
 } // GetToken
+
+// --------------------------------------------------------------------
+// Get the country iso code from the IP addres of the current connexion
+// --------------------------------------------------------------------
+function GetCountryCodeFromIP( $ip ) {
+	$country_iso_from_ip = '';
+
+	while ( $country_iso_from_ip == "" ) {
+	 	$ip_data = @json_decode(wp_remote_retrieve_body(wp_remote_get( "http://ip-api.com/json/".$ip)));
+
+	 	if ( $ip_data->status == "success" ) {
+	 		$country_iso_from_ip = $ip_data->countryCode;
+		}
+	}
+
+	return $country_iso_from_ip;
+
+} // GetCountryCodeFromIP
 
 // ---------------------------------------
 // Get information of the person.
@@ -109,6 +153,73 @@ function GetPersonFromElohimNet( $email ) {
   }
 
 } // GetPersonFromElohimNet
+
+// --------------------------------------------------
+// Find the language description
+// --------------------------------------------------
+function getLanguageDescription( $language_iso ) {
+	$person_service=GetService( 'person' );
+	$person_token=GetToken( 'get_person_dev' );
+
+	$options_get = array(
+		'http'=>array(
+			'method'=>"GET",
+			'header'=>"Accept: application/json\r\n",
+					"ignore_errors" => true, // rather read result status that failing
+				)
+		);
+	
+	$language = '';
+
+	$url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
+	$context_get = stream_context_create( $options_get );
+	$contents    = file_get_contents( $url, false, $context_get );
+	$json_data   = json_decode( $contents );
+
+	foreach ( $json_data as $data ) {
+		if ( ! is_object( $data ) ) continue;
+
+		if ( $data->iso === $language_iso ) {
+			$language = $data->nativeName;
+		}
+	}
+
+	return $language;
+} // getLanguageDescription
+
+// --------------------------------------------------
+// Find the country description
+// --------------------------------------------------
+function GetCountryDescription( $country_iso ) {
+	$person_service=GetService( 'person' );
+	$person_token=GetToken( 'get_person_dev' );
+
+	$country = '';
+
+	$options_get = array(
+		'http'=>array(
+			'method'=>"GET",
+			'header'=>"Accept: application/json\r\n",
+					"ignore_errors" => true, // rather read result status that failing
+				)
+		);
+	
+	// Obtain from Elohim.net the list of countries and the e-mails of the respondents
+	$url         = $person_service . 'countries&token=' . $person_token;
+	$context_get = stream_context_create( $options_get );
+	$contents    = file_get_contents( $url, false, $context_get );
+	$json_data   = json_decode( $contents );
+
+	// Find the email of the country concerned in the list received from Elohim.net
+	foreach ( $json_data as $data ) {
+		if ( $data->iso == $country_iso ) {
+			$country = $data->nativeName;
+			break;
+		}
+	}
+
+	return $country;
+} // GetCountryDescription
 
 // -----------------------------------------
 // Send person to Elohim.net
@@ -261,7 +372,7 @@ function raelorg_cron_execution()
 	wp_mail( $to, $subject, $body, $headers );
 	
 	// Keep only last 7 days
-	$wpdb->query("DELETE FROM `raelorg_forms_log` WHERE `date` > DATE_ADD(now(), INTERVAL -7 DAY);");
+	$wpdb->query("DELETE FROM `raelorg_forms_log` WHERE `date` < DATE_ADD(now(), INTERVAL -7 DAY);");
 }
 add_action( 'raelorg_cron_alert', 'raelorg_cron_execution' );
 
@@ -1264,8 +1375,8 @@ function spam_detect( $is_spam, $form, $entry ) {
 //    > Prepare the notification to the country respondent
 //    > Send a notification to the person
 // -----------------------------------------------------
-add_filter( 'gform_notification_7', 'footer_contact_us_notification_7', 10, 3 );
-function footer_contact_us_notification_7( $notification, $form, $entry ) {
+add_filter( 'gform_notification_7', 'contact_us_notification_7', 10, 3 );
+function contact_us_notification_7( $notification, $form, $entry ) {
 
 	$html = 
 '<p>Hello, IPT manager!</p>
@@ -1344,11 +1455,9 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	$firstname = rgar( $entry, '1' );
 	$lastname = rgar( $entry, '2' );
 	$email = rgar( $entry, '3' );
-	$language_iso = rgar( $entry, '4' );
-	$language = '';
+	$language = GetLanguageDescription(rgar( $entry, '4' ));
 	$message = rgar ( $entry, '6' );
 	$iso_country = rgar( $entry, '9.1' );
-	$country_name = '';
 	$province = rgar( $entry, '9.2' );
 
 	$email_country = 'contact@rael.org';
@@ -1368,8 +1477,8 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	$context_get = stream_context_create( $options_get );
 	$contents    = file_get_contents( $url, false, $context_get );
 	$json_data   = json_decode( $contents );
-	$choices     = array ();
 	$email_country  = 'dev@rael.org'; // In case not found! Shouldn't be producing.
+	$country_name = '';
 
 	// Find the email of the country concerned in the list received from Elohim.net
 	foreach ( $json_data as $data ) {
@@ -1385,21 +1494,6 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 		$notification['to'] = $email_country; 
 		$notification['subject'] = 'Contact notification from www.rael.org'; 
 		$notification['name'] = 'International Raelian Movement'; 
-
-
-		// Find the language description
-		$url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
-		$context_get = stream_context_create( $options_get );
-		$contents    = file_get_contents( $url, false, $context_get );
-		$json_data   = json_decode( $contents );
-
-		foreach ( $json_data as $data ) {
-			if ( ! is_object( $data ) ) continue;
-
-			if ( $data->iso === $language_iso ) {
-				$language = $data->nativeName;
-			}
-		}
 
 		$html = str_replace('field-fisrtname-1', $firstname, $html );
 		$html = str_replace('field-lastname-2', $lastname, $html );
@@ -1445,76 +1539,7 @@ function footer_contact_us_notification_7( $notification, $form, $entry ) {
 	}
 
 	return $notification;
-} // footer_contact_us_notification_7
-
-// ----------------------------------------------------
-// Form : Demo Event (11)
-// > Pre-populate the form
-// ----------------------------------------------------
-add_filter( 'gform_pre_render_11', 'pre_render_11' );
-function pre_render_11( $form ) {
-
-	$person_service=GetService( 'person' );
-	$person_token=GetToken( 'get_person_dev' );
-
-	$options_get = array(
-		'http'=>array(
-			'method'=>"GET",
-			'header'=>"Accept: application/json\r\n",
-			"ignore_errors" => true, // rather read result status that failing
-		)
-	);
-
-	// Fill fields
-	foreach ( $form['fields'] as $field )  {
-
-		switch ( $field->id ) {
-            case 6: // Country
-                $url         = $person_service . 'countries&token=' . $person_token;
-                $context_get = stream_context_create( $options_get );
-                $contents    = file_get_contents( $url, false, $context_get );
-                $json_data   = json_decode( $contents );
-                $items       = array ();
-            
-                foreach ( $json_data as $data ) {
-                    if ( ! is_object( $data ) ) continue;
-            
-                    $items[] = array(
-                        'text' => $data->nativeName,
-                        'value' => $data->iso
-                    );
-                }
-            
-                array_multisort( $items, SORT_ASC );
-
-                $field->choices = $items;
-                break;
-
-			case 7: // Prefered Language
-                $url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
-                $context_get = stream_context_create( $options_get );
-                $contents    = file_get_contents( $url, false, $context_get );
-                $json_data   = json_decode( $contents );
-                $items       = array ();
-
-                foreach ( $json_data as $data ) {
-                    if ( ! is_object( $data ) ) continue;
-            
-                    $items[] = array(
-                        'text' => $data->nativeName,
-                        'value' => $data->iso
-                    );
-                }
-
-                array_multisort( $items, SORT_ASC );
-
-                $field->choices = $items;
-                break;
-		}
-	} // foreach
-
-	return $form;
-} // pre_render_11
+} // contact_us_notification_7
 
 
 add_action( 'hook_push_rejects_to_elohimnet', 'push_rejects_to_elohimnet', 13 );
@@ -1524,4 +1549,5 @@ function push_rejects_to_elohimnet () {
 	send_person_to_ElohimNet( 'azul', 'Amirouch', 'azemour58@gmail.com', 'en', 'ma', 'Salé', '', 'hello i want to go away to planet like our earth but this planet has a volume as sun.' );
 	
 }
+
 
