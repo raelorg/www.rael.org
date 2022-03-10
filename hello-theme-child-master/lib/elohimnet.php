@@ -1455,7 +1455,7 @@ function contact_us_notification_7( $notification, $form, $entry ) {
 	$firstname = rgar( $entry, '1' );
 	$lastname = rgar( $entry, '2' );
 	$email = rgar( $entry, '3' );
-	$language = GetLanguageDescription(rgar( $entry, '4' ));
+	$language_iso = rgar( $entry, '4' );
 	$message = rgar ( $entry, '6' );
 	$iso_country = rgar( $entry, '9.1' );
 	$province = rgar( $entry, '9.2' );
@@ -1494,6 +1494,7 @@ function contact_us_notification_7( $notification, $form, $entry ) {
 		$notification['to'] = $email_country; 
 		$notification['subject'] = 'Contact notification from www.rael.org'; 
 		$notification['name'] = 'International Raelian Movement'; 
+	    $language = GetLanguageDescription($language_iso);
 
 		$html = str_replace('field-fisrtname-1', $firstname, $html );
 		$html = str_replace('field-lastname-2', $lastname, $html );
