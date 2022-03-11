@@ -221,6 +221,46 @@ function GetCountryDescription( $country_iso ) {
 	return $country;
 } // GetCountryDescription
 
+// --------------------------------------------------------------------------
+// Get a participant registration
+// --------------------------------------------------------------------------
+function getParticipant( $email, $sem_code ) {
+	$seminar_service=GetService( 'seminar' );
+	$seminar_token=GetToken( 'get_seminar_dev' );
+
+	$options_get = array(
+		'http'=>array(
+		'method'=>"GET",
+	 	'header'=>"Accept: application/json\r\n",
+	 		"ignore_errors" => true, // rather read result status that failing
+	 		)
+	);
+
+	$data = array(
+	 	'email' => $email,
+	 	'sem_code' => $sem_code,
+	 	'token' => $sem_code
+	);
+
+	$context_get = stream_context_create($options_get);
+	$contents = file_get_contents($seminar_service . http_build_query($data), false, $context_get);
+	$data = explode(",", $contents);
+
+	$status_line = $http_response_header[0];
+	preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+	$status = $match[1];
+
+	if($status == 200){
+		error_log('getParticipant - Found: ' . $status);
+	
+		return $data;	 
+	} else {
+		error_log('getParticipant - Not found');
+
+		return 'Not found';
+	}
+}
+
 // -----------------------------------------
 // Send person to Elohim.net
 // -----------------------------------------
