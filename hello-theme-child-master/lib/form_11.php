@@ -1,82 +1,5 @@
 <?php
 
-function send_participant_to_ElohimNet( $participant ) {
-
-	class PostParticipantResult {
-		private $status;
-		private $debugContent;
-		private $email;
-
-		public function __construct($status, $debugContent, $email) {
-			$this->status = $status;
-			$this->debugContent = $debugContent;
-			$this->email = $email;
-		}
-
-		function displayForDev( $attempt, $type_post ) {
-			if ($this->status == 201) {
-				error_log( "SendParticipant Created " . $this->email );
-			} else if ($this->status == 202) {
-				error_log( "Sendparticipant Updated " . $this->email );
-			} else {
-				error_log( "Failed, status=" . $this->status . ", content=" . $this->debugContent );
-			}
-		}
-
-		public function getStatus() {
-      		return $this->status;
-    	}
-		
-	} 
-
-	function getRestResponseStatus($http_response_header) {
-		$status_line = $http_response_header[0];
-		preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
-		$status = $match[1];
-		return $status;
-	}
-
-	function doPostParticipant( $participantData ) {
-        $seminar_service=GetService( 'seminar' );
-        $seminar_post_token=GetToken( 'post_seminar_dev' );
-
-		$postParticipantGenericQuery = $seminar_service . http_build_query( array( 'token' => $seminar_post_token ) );
-
-		$json_data = json_encode($participantData);
-
-		$options_post = array(
-		'http' => array(
-			'method' => "POST",
-			'header' =>
-			"Content-type: application/json\r\n" .
-			"Accept: application/json\r\n" .
-			"Connection: close\r\n" .
-			"Content-length: " . strlen($json_data) . "\r\n",
-			'protocol_version' => 1.1,
-			'content' => $json_data
-		)
-		);
-		
-		$context_ressource = stream_context_create($options_post);
-		
-		$content = file_get_contents($postParticipantGenericQuery, false, $context_ressource);
-
-		return new PostParticipantResult(getRestResponseStatus($http_response_header), $content, $participantData['email']);
-	}
-
-    // Send registration to Elohim.net
-	$attempt = 0;
-	do {
-		$result = doPostParticipant( $participant );
-		++$attempt;
-	} while (   ( $result->getStatus() != 200 ) &&
-				( $result->getStatus() != 201 ) &&
-				( $result->getStatus() != 202 ) &&
-			    ( $attempt < 3 ) );
-  	
-	$result->displayForDev( $attempt, 'profile' );
-} // send_participant_to_ElohimNet
-
 // ----------------------------------------------------
 // Form : Demo Event (11)
 // > Pre-populate the form
@@ -86,13 +9,19 @@ function pre_render_11( $form ) {
 	$person_service=GetService( 'person' );
 	$person_token=GetToken( 'get_person_dev' );
 
+	$found = false;
+
+	$participant;
+
 	// Registration modification
 	if ( isset($_GET['selector']) ) {
 		$GLOBALS['selector'] = $_GET['selector'];
 
 		$row = SelectContact($GLOBALS['selector']);
 
-		$data = GetParticipant($row->email, 150);
+		$json_data = GetParticipant($row->email, $row->sem_code);
+		$participant = json_decode($json_data);
+		$found = true;
 	}
 
 	$options_get = array(
@@ -103,12 +32,40 @@ function pre_render_11( $form ) {
 		)
 	);
 
-    $country_iso_from_ip = GetCountryCodeFromIP(GFFormsModel::get_ip());
+	if ( $found ) {
+		$country_iso_from_ip = $participant->country_iso;	
+		$language_iso = $participant->language_iso;
+	}
+	else {
+	    $country_iso_from_ip = GetCountryCodeFromIP(GFFormsModel::get_ip());
+		$language_iso = apply_filters( 'wpml_current_language', NULL );
+	}
 
 	// Fill fields
 	foreach ( $form['fields'] as $field )  {
 
 		switch ( $field->id ) {
+			case 1: // Name
+				if ( $found ) {
+					$field->inputs[1]['defaultValue'] = $participant->firstname;
+					$field->inputs[3]['defaultValue'] = $participant->lastname;
+				}
+				break;
+			case 2: // Email
+				if ( $found ) {
+					$field->inputs[0]['defaultValue'] = $participant->email;
+					$field->inputs[1]['defaultValue'] = $participant->email;
+					?>
+    				<script type="text/javascript">
+        				jQuery(document).ready(function(){
+							jQuery("#input_11_2").attr("readonly", "readonly");
+							jQuery("#input_11_2_2").attr("readonly", "readonly");
+        				});
+    				</script>
+    				<?php
+				}
+				break;
+
             case 4: // Country
                 $url         = $person_service . 'countries&token=' . $person_token;
                 $context_get = stream_context_create( $options_get );
@@ -143,8 +100,6 @@ function pre_render_11( $form ) {
                 $json_data   = json_decode( $contents );
                 $items       = array ();
 
-				$language_iso = apply_filters( 'wpml_current_language', NULL );
-				
                 foreach ( $json_data as $data ) {
                     if ( ! is_object( $data ) ) continue;
             
@@ -258,10 +213,9 @@ function notification_11( $notification, $form, $entry ) {
 	$sem_code = 150;
 	$page_title = 'Demo Event';
 	$page_cancel = 'Event cancellation';
-
-	$seminar_service=GetService( 'seminar' );
-	$seminar_token=GetToken( 'get_seminar_dev' );
-
+	$season = 'winter';
+	$status = 'Registered';
+	$year = '2022';
 	$message = rgar ( $entry, '6' );
 
 	$participant = array(
@@ -280,8 +234,8 @@ function notification_11( $notification, $form, $entry ) {
         'dinner' => 0.00,       // ($field_value === 'Yes') ? '30' : '10',
         'donation' => 0.00,     // rgar ( $entry, '41' ),
 		'sem_code' => $sem_code,// Mandatory
-        'year' => '2022',       // Mandatory
-        'season' => 'winter',   // Mandatory
+        'year' => $year,        // Mandatory
+        'season' => $season,    // Mandatory
         'ip' => GFFormsModel::get_ip(),
 		'firstseminar' => 0,    // 1
 		'student' => 0,         // 1
@@ -313,7 +267,7 @@ function notification_11( $notification, $form, $entry ) {
 		'meal_dinner' => '',    // '2008-04-30,2008-05-01,2008-05-02,2008-05-03,2008-05-04,2008-05-05,2008-05-06',
 		'duration' => 0,        // 7,
 		'duration_days' => '',  // '2007-07-24,2007-07-25,2007-07-26,2007-07-27,2007-07-28,2007-07-29,2007-07-30',
-		'status' => '',   		// 'structure',
+		'status' => $status,    // 'structure',
 		'parking' => 0,         // 1
 		'survey' => '',   		//' Please give details here',
 		'updateby' => 0,
@@ -368,7 +322,8 @@ function notification_11( $notification, $form, $entry ) {
 									'', // $message, 
 									11, // id form
 									'', // $news_event, 
-									$participant['ip'] );
+									$participant['ip'],
+									$sem_code );
 
 		$cancel_link = get_permalink( get_page_by_title( $page_cancel ) ) . '?selector=' . $selector;
 		$modify_link = get_permalink( get_page_by_title( $page_title ) ) . '?selector=' . $selector;
