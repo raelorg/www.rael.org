@@ -239,12 +239,12 @@ function getParticipant( $email, $sem_code ) {
 	$data = array(
 	 	'email' => $email,
 	 	'sem_code' => $sem_code,
-	 	'token' => $sem_code
+	 	'token' => $seminar_token
 	);
 
 	$context_get = stream_context_create($options_get);
 	$contents = file_get_contents($seminar_service . http_build_query($data), false, $context_get);
-	$data = explode(",", $contents);
+	$json_data = json_decode( $contents );
 
 	$status_line = $http_response_header[0];
 	preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
@@ -253,7 +253,7 @@ function getParticipant( $email, $sem_code ) {
 	if($status == 200){
 		error_log('getParticipant - Found: ' . $status);
 	
-		return $data;	 
+		return $json_data;	 
 	} else {
 		error_log('getParticipant - Not found');
 
@@ -388,6 +388,84 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 
 } // send_person_to_ElohimNet
 
+// -----------------------------------------
+// Send registration to Elohim.net
+// -----------------------------------------
+function send_participant_to_ElohimNet( $participant ) {
+
+	class PostParticipantResult {
+		private $status;
+		private $debugContent;
+		private $email;
+
+		public function __construct($status, $debugContent, $email) {
+			$this->status = $status;
+			$this->debugContent = $debugContent;
+			$this->email = $email;
+		}
+
+		function displayForDev( $attempt, $type_post ) {
+			if ($this->status == 201) {
+				error_log( "SendParticipant Created " . $this->email );
+			} else if ($this->status == 202) {
+				error_log( "Sendparticipant Updated " . $this->email );
+			} else {
+				error_log( "Failed, status=" . $this->status . ", content=" . $this->debugContent );
+			}
+		}
+
+		public function getStatus() {
+      		return $this->status;
+    	}
+		
+	} 
+
+	function getRestResponseStatus($http_response_header) {
+		$status_line = $http_response_header[0];
+		preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+		$status = $match[1];
+		return $status;
+	}
+
+	function doPostParticipant( $participantData ) {
+        $seminar_service=GetService( 'seminar' );
+        $seminar_post_token=GetToken( 'post_seminar_dev' );
+
+		$postParticipantGenericQuery = $seminar_service . http_build_query( array( 'token' => $seminar_post_token ) );
+
+		$json_data = json_encode($participantData);
+
+		$options_post = array(
+		'http' => array(
+			'method' => "POST",
+			'header' =>
+			"Content-type: application/json\r\n" .
+			"Accept: application/json\r\n" .
+			"Connection: close\r\n" .
+			"Content-length: " . strlen($json_data) . "\r\n",
+			'protocol_version' => 1.1,
+			'content' => $json_data
+		)
+		);
+		
+		$context_ressource = stream_context_create($options_post);
+		$content = file_get_contents($postParticipantGenericQuery, false, $context_ressource);
+
+		return new PostParticipantResult(getRestResponseStatus($http_response_header), $content, $participantData['email']);
+	}
+
+    // Send registration to Elohim.net
+	$attempt = 0;
+	do {
+		$result = doPostParticipant( $participant );
+		++$attempt;
+	} while (   ( $result->getStatus() != 200 ) &&
+				( $result->getStatus() != 201 ) &&
+				( $result->getStatus() != 202 ) &&
+			    ( $attempt < 3 ) );
+  	
+	$result->displayForDev( $attempt, 'profile' );
+} // send_participant_to_ElohimNet
 
 // ---------------------------------------------------------
 // Send the email alert from the CRON task
@@ -718,7 +796,7 @@ function UpdateContactReturn( $selector ) {
 function SelectContact( $selector ) {
 	global $wpdb;
 
-	$query = "select email, firstname, lastname, country, language, area from raelorg_contacts where selector = '" . $selector . "'";
+	$query = "select email, firstname, lastname, country, language, area, sem_code from raelorg_contacts where selector = '" . $selector . "'";
 	$row = $wpdb->get_row( $query );
 
 	if ( null !== $row ) {
@@ -735,7 +813,7 @@ function SelectContact( $selector ) {
 // ---------------------------------------------------
 // Insert a new contact.
 // ---------------------------------------------------
-function InsertContact( $firstname, $lastname, $email, $language, $country, $area, $message, $form, $news_event, $ip ) {
+function InsertContact( $firstname, $lastname, $email, $language, $country, $area, $message, $form, $news_event, $ip, $sem_code=0 ) {
 	global $wpdb;
 	$row = 1;
 
@@ -751,6 +829,10 @@ function InsertContact( $firstname, $lastname, $email, $language, $country, $are
 	$contact['news_event'] = $news_event;
 	$contact['ip_address'] = $ip;
 	$contact['country_from_ip'] = $GLOBALS['raelorg_country_from_ip'];
+
+	if ($sem_code != 0) {
+		$contact['sem_code'] = $sem_code;
+	}
 	
 	do {
 		$selector = randomString();
