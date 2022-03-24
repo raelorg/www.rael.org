@@ -44,6 +44,9 @@ function pre_render_11( $form ) {
 	// Fill fields
 	foreach ( $form['fields'] as $field )  {
 
+		// TECHNICAL GUIDE
+		// In this switch instruction, process all field of the form 
+		// Note that the form can be in insert or update
 		switch ( $field->id ) {
 			case 1: // Name
 				if ( $found ) {
@@ -66,131 +69,75 @@ function pre_render_11( $form ) {
 				}
 				break;
 
-            case 4: // Country
-                $url         = $person_service . 'countries&token=' . $person_token;
-                $context_get = stream_context_create( $options_get );
-                $contents    = file_get_contents( $url, false, $context_get );
-                $json_data   = json_decode( $contents );
-                $items       = array ();
-            
-                foreach ( $json_data as $data ) {
-                    if ( ! is_object( $data ) ) continue;
-
-					$selected = false;
-					if (strtolower($data->iso) == strtolower($country_iso_from_ip)) {
-						$selected = true;
+				case 3: // Prefered Language
+					$url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
+					$context_get = stream_context_create( $options_get );
+					$contents    = file_get_contents( $url, false, $context_get );
+					$json_data   = json_decode( $contents );
+					$items       = array ();
+	
+					foreach ( $json_data as $data ) {
+						if ( ! is_object( $data ) ) continue;
+				
+						$selected = false;
+						if (strtolower($data->iso) == strtolower($language_iso)) {
+							$selected = true;
+						}
+						
+						$items[] = array(
+							'text' => $data->nativeName,
+							'value' => $data->iso,
+							'isSelected' => $selected
+						);
 					}
-            
-                    $items[] = array(
-                        'text' => $data->nativeName,
-                        'value' => $data->iso,
-                        'isSelected' => $selected
-                    );
-                }
-            
-                array_multisort( $items, SORT_ASC );
+	
+					array_multisort( $items, SORT_ASC );
+	
+					$field->choices = $items;
+				break;
 
-                $field->choices = $items;
-                break;
+				case 4: // Country
+					$url         = $person_service . 'countries&token=' . $person_token;
+					$context_get = stream_context_create( $options_get );
+					$contents    = file_get_contents( $url, false, $context_get );
+					$json_data   = json_decode( $contents );
+					$items       = array ();
+				
+					foreach ( $json_data as $data ) {
+						if ( ! is_object( $data ) ) continue;
 
-			case 3: // Prefered Language
-                $url         = $person_service . 'prefPublicLanguages&token=' . $person_token;
-                $context_get = stream_context_create( $options_get );
-                $contents    = file_get_contents( $url, false, $context_get );
-                $json_data   = json_decode( $contents );
-                $items       = array ();
-
-                foreach ( $json_data as $data ) {
-                    if ( ! is_object( $data ) ) continue;
-            
-					$selected = false;
-					if (strtolower($data->iso) == strtolower($language_iso)) {
-						$selected = true;
+						$selected = false;
+						if (strtolower($data->iso) == strtolower($country_iso_from_ip)) {
+							$selected = true;
+						}
+				
+						$items[] = array(
+							'text' => $data->nativeName,
+							'value' => $data->iso,
+							'isSelected' => $selected
+						);
 					}
-					
-                    $items[] = array(
-                        'text' => $data->nativeName,
-                        'value' => $data->iso,
-                        'isSelected' => $selected
-                    );
-                }
+				
+					array_multisort( $items, SORT_ASC );
 
-                array_multisort( $items, SORT_ASC );
-
-                $field->choices = $items;
-                break;
-		}
+					$field->choices = $items;
+					break;
+		} // switch
 	} // foreach
 
 	return $form;
 } // pre_render_11
 
-
+//------------------------------------------------------------------------------------------------------------------
+// TECHNICAL GUIDE
+// Adjust this HTML depending of the information you want to show in the notification to responsable
+// - The html table mus be placed on one line of code
+//------------------------------------------------------------------------------------------------------------------
 function setHTMLNotificationEventManager() {
 
-$html = 
+	$html = 
 
-'<p>******************* Demo event notification to responsable (example) ********************</p>
-<p>Hello, Event Demo manager!</p>
-
-<p>Please do NOT reply to this email, this is a <strong>notification</strong> from www.rael.org to let you know that someone just register the Demo Event.</p>
-
-<span style="color: #0ecad4;">** The profile for this person has already been created in Elohim.net **</span>
-
-<table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
-	<tbody>
-		<tr>
-			<td>
-				<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">
-					<tbody>
-						<tr bgcolor="#EAF2FA">
-							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Firstname</strong></font> </td>
-						</tr>
-						<tr bgcolor="#FFFFFF">
-							<td width="20">&nbsp;</td>
-							<td><font style="font-family:sans-serif; font-size:12px">field-name-1.3</font> </td>
-						</tr>
-						<tr bgcolor="#EAF2FA">
-							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Lastname</strong></font> </td>
-						</tr>
-						<tr bgcolor="#FFFFFF">
-							<td width="20">&nbsp;</td>
-							<td><font style="font-family:sans-serif; font-size:12px">field-name-1.6</font> </td>
-						</tr>
-						<tr bgcolor="#EAF2FA">
-							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font> </td>
-						</tr>
-						<tr bgcolor="#FFFFFF">
-							<td width="20">&nbsp;</td>
-							<td><font style="font-family:sans-serif; font-size:12px">field-email-2</font> </td>
-						</tr>
-						<tr bgcolor="#EAF2FA">
-							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font> </td>
-						</tr>
-						<tr bgcolor="#FFFFFF">
-							<td width="20">&nbsp;</td>
-							<td><font style="font-family:sans-serif; font-size:12px">field-language-3</font> </td>
-						</tr>
-						<tr bgcolor="#EAF2FA">
-							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font> </td>
-						</tr>
-						<tr bgcolor="#FFFFFF">
-							<td width="20">&nbsp;</td>
-							<td><font style="font-family:sans-serif; font-size:12px">field-country-4</font> </td>
-						</tr>
-						<tr bgcolor="#EAF2FA">
-							<td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Message</strong></font> </td>
-						</tr>
-						<tr bgcolor="#FFFFFF">
-							<td width="20">&nbsp;</td>
-							<td><font style="font-family:sans-serif; font-size:12px">field-message-6</font> </td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
+'<div><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF"><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Firstname</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">field-name-1.3</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Lastname</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">field-name-1.6</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">field-email-2</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">field-language-3</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">field-country-4</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Message</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">field-message-6</font></td></tr></table></div>
 
 <img class="alignnone wp-image-48617" src="https://luctestoct16.temp513.kinsta.cloud/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement
 
@@ -209,15 +156,18 @@ $html =
 add_filter( 'gform_notification_11', 'notification_11', 10, 3 );
 function notification_11( $notification, $form, $entry ) {
 
-	// Variables to set depending of the event
-	$sem_code = 150;
-	$page_title = 'Demo Event';
 	$page_cancel = 'Event cancellation';
-	$season = 'winter';
 	$status = 'Registered';
-	$year = '2022';
 	$message = rgar ( $entry, '6' );
 
+	// -------------------------------------------------------------------------
+	// TECHNICAL GUIDE
+	// Variables to set depending of the event
+	// -----BEGIN--------------------------------------------------------------------
+	$sem_code = 150;                // e107_db_seminars_reg.semreg_id
+	$year = '2022';                 // Year
+	$page_title = 'Demo Event';     // Title of the web page
+	$season = 'winter';             // Season
 	$participant = array(
 		'email' => rgar( $entry, '2' ),
 		'firstname' => rgar( $entry, '1.3' ),
@@ -275,6 +225,7 @@ function notification_11( $notification, $form, $entry ) {
 		'formtext' => '',       // array
 		'fee_transport' => 0    // 1
     );
+	// ---END----------------------------------------------------------------------
 
     $language = GetLanguageDescription($participant['prefLanguage']);
 	$country = GetCountryDescription($participant['country']);
@@ -283,12 +234,7 @@ function notification_11( $notification, $form, $entry ) {
 
 	// Alert notification to the event manager
 	if ( $notification['toType'] === 'email' ) {
-
-		$notification['to'] = 'lukhaton@outlook.com'; 
-		$notification['subject'] = 'Event subscription notification from www.rael.org'; 
-		$notification['name'] = 'International Raelian Movement'; 
-
-        $html = setHTMLNotificationEventManager();
+		$html = setHTMLNotificationEventManager();
 
         $html = str_replace('field-name-1.3', $participant['firstname'], $html );
         $html = str_replace('field-name-1.6', $participant['lastname'], $html );
@@ -297,7 +243,7 @@ function notification_11( $notification, $form, $entry ) {
         $html = str_replace('field-country-4', $country, $html );
         $html = str_replace('field-message-6', $message, $html );
 
-        $notification['message'] = $html;
+		$notification['message'] .= $html; 
     }
 
 	// Notification sent to the person.
