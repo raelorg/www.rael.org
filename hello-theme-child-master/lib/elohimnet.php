@@ -261,6 +261,41 @@ function getParticipant( $email, $sem_code ) {
 	}
 }
 
+// --------------------------------------------------------------------------
+// Cancel a registration
+// --------------------------------------------------------------------------
+function cancel_registration(  $email, $sem_code, $sem_id  ) {
+
+    $seminar_service=GetService( 'seminar' );
+    $seminar_post_token=GetToken( 'post_seminar_dev' );
+
+    $data = array(
+        "email"    => $email,
+        "sem_code" => $sem_code,
+        "sem_id"   => $sem_id
+    );
+
+    $json_data = json_encode($data);
+
+    $options_post = array(
+    'http' => array(
+        'method' => "POST",
+        'header' =>
+        "Content-type: application/json\r\n" .
+        "Accept: application/json\r\n" .
+        "Connection: close\r\n" .
+        "Content-length: " . strlen($json_data) . "\r\n",
+        'protocol_version' => 1.1,
+        'content' => $json_data
+    )
+    );
+    
+    $postCancellationGenericQuery = $seminar_service . http_build_query( array( 'token' => $seminar_post_token ) );
+    $context_ressource = stream_context_create($options_post);
+    $content = file_get_contents($postCancellationGenericQuery, false, $context_ressource);
+
+}
+
 // -----------------------------------------
 // Send person to Elohim.net
 // -----------------------------------------
@@ -466,6 +501,29 @@ function send_participant_to_ElohimNet( $participant ) {
   	
 	$result->displayForDev( $attempt, 'profile' );
 } // send_participant_to_ElohimNet
+
+//------------------------------------------------------------------------------------------------------------------
+// Construct the array of values to put in the notification sent to the responsable of the event
+//------------------------------------------------------------------------------------------------------------------
+function setNotificationArrayFields($fields) {
+
+    $html = '<div><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">';
+
+    foreach ($fields as $label => $val) {
+        $html .= '<tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>' . $label . '</strong></font></td></tr>';
+        $html .= '<tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">' . $val . '</font></td></tr>';
+    }
+
+	$html .=
+
+'</table></div><img class="alignnone wp-image-48617" src="https://www.rael.org/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement
+
+&nbsp;
+
+&nbsp;';
+
+    return $html;
+}
 
 // ---------------------------------------------------------
 // Send the email alert from the CRON task
@@ -774,6 +832,22 @@ function InsertBadSelector( $selector ) {
 	
 } // InsertBadSelector
 
+// ---------------------------------------------------
+// Get a notification
+// ---------------------------------------------------
+function SelectNotification( $form, $type, $language ) {
+	global $wpdb;
+
+	$query = "select notification from raelorg_notifications where form = " . $form . " and type = '" . $type . "' and language = '" . $language . "'";
+	$row = $wpdb->get_row( $query );
+
+	if ( null !== $row ) {
+		return $row->notification;
+	} else {
+		return 'not found';
+	}
+} // SelectNotification
+
 // --------------------------------------------------------
 // Update Contact information if the contact comes back to confirm the subscription
 // --------------------------------------------------------
@@ -1028,6 +1102,152 @@ function makeLinkFormWithSelector( $selector ) {
 	return $link;
 } // makeLinkFormWithSelector
 
+// --------------------------------------------------------------------------------
+// Return the url link of FAQ page depending of the current language
+// --------------------------------------------------------------------------------
+function getFAQlink() {
+	$arrayFAQ = array(
+		'ar' => 71399,   		// Arabic
+		'bn' => 26,      		// Bengali
+		'bg' => 76916,    		// Bulgarian 
+		'zh-hans' => 71306,		// Chinese simplified
+		'zh-hant' => 55858,		// Chinese traditional
+		'cs' => 72477,          // Czech
+		'da' => 176347,			// Danish
+		'nl' => 77800,          // Netherland
+		'en' => 26,				// English
+		'fp' => 74325,			// Filipino
+		'fr' => 55786,			// French
+		'de' => 71602,			// German
+		'el' =>	330982,			// Greek
+		'he' => 55827,			// Hebrew
+		'hi' => 348233,			// Hindi
+		'hu' => 26,				// Hungarian
+		'id' => 295130,			// Indonesian
+		'it' => 55798,			// Italian
+		'ja' => 55271,			// Japanese
+		'ko' => 51746,			// Korean
+		'lt' => 77813,			// Lithuanian
+		'mn' => 76340,			// Mongolian
+		'fa' => 58551,			// Persian
+		'pl' => 77163,			// Polish
+		'pt-pt' => 74849, 		// Portuguese
+		'ro' => 61982,			// Romanian
+		'ru' => 74542,			// Russian
+		'sk' => 77810,			// Slovakian
+		'sl' => 71157,			// Slovenian
+		'es' => 55732,			// Spanish
+		'sv' => 77805,			// Swedish
+		'th' => 74678,			// Thai
+		'tr' => 344586			// Turkish
+	);
+
+	$language_wpml = apply_filters( 'wpml_current_language', NULL );
+
+    if (array_key_exists($language_wpml, $arrayFAQ)) {
+        return get_permalink ($arrayFAQ[$language_wpml]);
+    } else {
+        return get_permalink ($arrayFAQ['en']);
+    }
+}
+
+// --------------------------------------------------------------------------------
+// Return the url link of HOME page depending of the current language
+// --------------------------------------------------------------------------------
+function getHOMElink() {
+	$arrayHOME = array(
+		'ar' => 68781,   		// Arabic
+		'bn' => 11,      		// Bengali
+		'bg' => 76768,    		// Bulgarian 
+		'zh-hans' => 56275,		// Chinese simplified
+		'zh-hant' => 55759,		// Chinese traditional
+		'cs' => 64143,          // Czech
+		'da' => 72650,			// Danish
+		'nl' => 64695,          // Netherland
+		'en' => 11,				// English
+		'fp' => 59400,			// Filipino
+		'fr' => 55725,			// French
+		'de' => 69454,			// German
+		'el' =>	329697,			// Greek
+		'he' => 51744,			// Hebrew
+		'hi' => 342356,			// Hindi
+		'hu' => 72655,			// Hungarian
+		'id' => 70544,			// Indonesian
+		'it' => 55795,			// Italian
+		'ja' => 55264,			// Japanese
+		'ko' => 49428,			// Korean
+		'lt' => 60022,			// Lithuanian
+		'mn' => 56863,			// Mongolian
+		'fa' => 57499,			// Persian
+		'pl' => 65382,			// Polish
+		'pt-pt' => 60075, 		// Portuguese
+		'ro' => 57399,			// Romanian
+		'ru' => 55762,			// Russian
+		'sk' => 58453,			// Slovakian
+		'sl' => 60076,			// Slovenian
+		'es' => 55382,			// Spanish
+		'sv' => 57813,			// Swedish
+		'th' => 70082,			// Thai
+		'tr' => 280680			// Turkish
+	);
+
+	$language_wpml = apply_filters( 'wpml_current_language', NULL );
+
+    if (array_key_exists($language_wpml, $arrayHOME)) {
+        return get_permalink ($arrayHOME[$language_wpml]);
+    } else {
+        return get_permalink ($arrayHOME['en']);
+    }
+}
+
+// --------------------------------------------------------------------------------
+// Return the url link of HOME page depending of the current language
+// --------------------------------------------------------------------------------
+function getDOWNLOADlink() {
+	$arrayDOWNLOAD = array(
+		'ar' => 71196,   		// Arabic
+		'bn' => 16,      		// Bengali
+		'bg' => 76781,    		// Bulgarian 
+		'zh-hans' => 56276,		// Chinese simplified
+		'zh-hant' => 56270,		// Chinese traditional
+		'cs' => 64194,          // Czech
+		'da' => 72800,			// Danish
+		'nl' => 64698,          // Netherland
+		'en' => 16,				// English
+		'fp' => 59405,			// Filipino
+		'fr' => 56862,			// French
+		'de' => 66307,			// German
+		'el' =>	330565,			// Greek
+		'he' => 56230,			// Hebrew
+		'hi' => 340841,			// Hindi
+		'hu' => 72651,			// Hungarian
+		'id' => 72826,			// Indonesian
+		'it' => 55761,			// Italian
+		'ja' => 55268,			// Japanese
+		'ko' => 49447,			// Korean
+		'lt' => 64960,			// Lithuanian
+		'mn' => 56613,			// Mongolian
+		'fa' => 57570,			// Persian
+		'pl' => 65357,			// Polish
+		'pt-pt' => 60077, 		// Portuguese
+		'ro' => 57395,			// Romanian
+		'ru' => 59480,			// Russian
+		'sk' => 58363,			// Slovakian
+		'sl' => 60095,			// Slovenian
+		'es' => 55377,			// Spanish
+		'sv' => 58175,			// Swedish
+		'th' => 70684,			// Thai
+		'tr' => 281097	 		// Turkish
+	);
+
+	$language_wpml = apply_filters( 'wpml_current_language', NULL );
+
+    if (array_key_exists($language_wpml, $arrayDOWNLOAD)) {
+        return get_permalink ($arrayDOWNLOAD[$language_wpml]);
+    } else {
+        return get_permalink ($arrayDOWNLOAD['en']);
+    }
+}
 
 // ----------------------------------------------------
 // Form : Subscription Confirmation (5)
@@ -1282,7 +1502,7 @@ function newsletter_notification_6( $notification, $form, $entry ) {
 	$selector = InsertContact( '', '', $email, $language_iso, '', '', '', 6, '', $ip_address );
 
 	$link_form = makeLinkFormWithSelector( $selector );
-	$link_rael = get_permalink( get_page_by_title( 'HOME' ) ); 
+	$link_rael = getHOMElink(); 
 
 	if ( strstr( $notification['message'], '{link_to_confirmation_form}' ) ) {
 		$notification['message'] = str_replace('{link_to_confirmation_form}', $link_form, $notification['message'] );
@@ -1639,9 +1859,9 @@ function contact_us_notification_7( $notification, $form, $entry ) {
 		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message );
 		
 		// Note: Even if a URL contains the English slug for another language, WPML will resolve the slug for us.
-		$link_faq = get_permalink( get_page_by_title( 'FAQ' ) );
-		$link_download = get_permalink( get_page_by_title( 'DOWNLOADS' ) );
-		$link_rael = get_permalink( get_page_by_title( 'HOME' ) );
+		$link_faq = getFAQlink();
+		$link_download = getDOWNLOADlink();
+		$link_rael = getHOMElink();
 
 		if ( strstr( $notification['message'], '{link_to_faq}' ) ) {
 			$notification['message'] = str_replace('{link_to_faq}', $link_faq, $notification['message'] );
