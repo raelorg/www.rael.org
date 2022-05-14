@@ -5,6 +5,8 @@ require_once "lib/cdn.php";
 require_once "lib/performance.php";
 require_once "lib/analytics.php";
 require_once "lib/elohimnet.php";
+require_once "lib/form_18_laFouly2022.php";
+require_once "lib/form_19_RegistrationCancellationlaFouly2022.php";
 require_once "lib/redirects.php";
 
 
@@ -24,10 +26,19 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 /*end*/
 
 /* --------------------------- begin-luc ------------------------------------ */
+//Remove page title
+add_filter( 'the_title', 'remove_page_title', 10, 2 );
+function remove_page_title( $title, $id ) {
+	$hide_title_page_ids = array(347825, 347828);//Page IDs
+	foreach($hide_title_page_ids as $page_id) {
+		if( $page_id == $id ) return '';
+	}
+	return $title;
+}
 
 add_filter( 'freshforms_post_has_gform', 'fffg_fresh_these_posts' );
 function fffg_fresh_these_posts(){
-	return array( 71652, 76941, 60364, 55859, 72894, 76352, 69653, 76352, 24, 71655, 55887, 71594, 55828, 295223, 55830, 55266, 49436, 77959, 74337, 58478, 69921, 71579, 63825, 72061, 71705, 69463, 55733, 70882, 79583, 49391, 71273, 76855, 60506, 60073, 72900, 76075, 77846, 72636, 57424, 71592, 56258, 295197, 56076, 69456, 51812, 77843, 74330, 58476, 72487, 77842, 68666, 73994, 71710, 71147, 55279, 77841, 79556, 324122 );
+	return array(348757);
 }
 
 /* Remove submit button for Contact Us page form */
@@ -354,17 +365,7 @@ add_shortcode('event_date_range','render_event_date_range');
 
 /*  Arun Kumar work end here */
 
-/*
-* Method 1: Setting.
-* Initialization of Google Maps in ACF
-* From: Alain Gauthier, 2020-08-26
-*/
-function my_acf_google_map_api($api) {
-  $api['key'] = 'AIzaSyCqKjpzQEVndx1dxBx1FyNSAc6-qKEtcJk';
 
-  return $api;
-}
-add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
 
 /* Gediminas work starts here */
 
@@ -546,6 +547,15 @@ add_action('wp_footer', function() {
 	};      
 </script>
 <?php
+});
+
+/**
+ * Force the envelope sender address to match the header From address
+ * for all emails sent from WordPress, so that DMARC alignment checks
+ * pass when using SPF. 
+ */
+add_action('phpmailer_init', function ( $phpmailer ) {
+    $phpmailer->Sender = $phpmailer->From;
 });
 
 /* Matt Doyle (matt@elated.com) work ends here */
