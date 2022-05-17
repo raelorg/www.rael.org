@@ -5,8 +5,6 @@ require_once "lib/cdn.php";
 require_once "lib/performance.php";
 require_once "lib/analytics.php";
 require_once "lib/elohimnet.php";
-require_once "lib/form_18_laFouly2022.php";
-require_once "lib/form_19_RegistrationCancellationlaFouly2022.php";
 require_once "lib/redirects.php";
 
 
@@ -34,11 +32,6 @@ function remove_page_title( $title, $id ) {
 		if( $page_id == $id ) return '';
 	}
 	return $title;
-}
-
-add_filter( 'freshforms_post_has_gform', 'fffg_fresh_these_posts' );
-function fffg_fresh_these_posts(){
-	return array(348757);
 }
 
 /* Remove submit button for Contact Us page form */
