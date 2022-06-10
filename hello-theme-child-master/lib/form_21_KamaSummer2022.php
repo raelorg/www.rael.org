@@ -177,7 +177,7 @@ function notification_21( $notification, $form, $entry ) {
 		'pay_type' => 'n/a',
 		'pay_amount' => 0.00,
 		'pay_received' => 0.00,
-		'pay_currency' => 'JPY',
+		'pay_currency' => 'CFA',
 		'fee_meals' => 0.00,
 		'fee_cc' => 0.00,
 		'fee_discount' => 0.00,
@@ -268,8 +268,8 @@ function notification_21( $notification, $form, $entry ) {
 
 		switch ($language_iso) {
 			case 'en':
-				$cancel_permalink = get_permalink(351283) . '?selector=' . $selector;;
-				$modify_permalink = get_permalink(351281) . '?selector=' . $selector;;
+				$cancel_permalink = get_permalink(0) . '?selector=' . $selector;;
+				$modify_permalink = get_permalink(0) . '?selector=' . $selector;;
 				break;
 			case 'fr':
 				$cancel_permalink = get_permalink(351287) . '?selector=' . $selector;;
@@ -289,7 +289,7 @@ function notification_21( $notification, $form, $entry ) {
 			$notification['message'] = str_replace('{modify_registration}', $modify_permalink, $notification['message'] );
 		}
 
-	    send_participant_to_ElohimNet( $participant );
+	    send_participant_to_ElohimNet( $participant, $selector );
 	}
 
     return $notification;

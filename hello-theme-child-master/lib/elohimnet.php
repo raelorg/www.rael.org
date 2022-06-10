@@ -299,7 +299,7 @@ function cancel_registration(  $email, $sem_code, $sem_id  ) {
 // -----------------------------------------
 // Send person to Elohim.net
 // -----------------------------------------
-function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message ) {
+function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message, $selector='' ) {
 
 	class PostPersonResult {
 		private $status;
@@ -312,7 +312,7 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 		  $this->email = $email;
 		}
 
-		function insertContactLog ( $attempt, $type_post ) {
+		function insertContactLog ( $attempt, $type_post, $selector ) {
 			global $wpdb;
 
 			$contact_log = array();
@@ -321,12 +321,13 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 			$contact_log['debug_content'] = $this->debugContent;
 			$contact_log['attempt'] = $attempt;
 			$contact_log['type_post'] = $type_post;
+			$contact_log['selector'] = $selector;
 
 			$wpdb->insert( 'raelorg_contacts_log', $contact_log ); 
 		}
 
-		function displayForDev( $attempt, $type_post ) {
-			$this->insertContactLog( $attempt, $type_post );
+		function displayForDev( $attempt, $type_post, $selector ) {
+			$this->insertContactLog( $attempt, $type_post, $selector );
 
 			if ($this->status == 201) {
 				error_log( "SendPersonToIPT Created " . $this->email );
@@ -399,7 +400,7 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 				( $result->getStatus() != 202 ) &&
 			    ( $attempt < 3 ) );
   	
-	$result->displayForDev( $attempt, 'profile' );
+	$result->displayForDev( $attempt, 'profile', $selector );
 	
 	// Send the message to Elohim.net
 	if ( ! empty( $message ) ) {
@@ -418,7 +419,7 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 				( $result->getStatus() != 202 ) &&
 			    ( $attempt < 3 ) );
 	  
-    $result->displayForDev( $attempt, 'message' );
+    $result->displayForDev( $attempt, 'message', $selector );
   }
 
 } // send_person_to_ElohimNet
@@ -426,7 +427,7 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 // -----------------------------------------
 // Send registration to Elohim.net
 // -----------------------------------------
-function send_participant_to_ElohimNet( $participant ) {
+function send_participant_to_ElohimNet( $participant, $selector='' ) {
 
 	class PostParticipantResult {
 		private $status;
@@ -439,7 +440,23 @@ function send_participant_to_ElohimNet( $participant ) {
 			$this->email = $email;
 		}
 
-		function displayForDev( $attempt, $type_post ) {
+		function insertContactLog ( $attempt, $type_post, $selector ) {
+			global $wpdb;
+
+			$contact_log = array();
+			$contact_log['email'] = $this->email;
+			$contact_log['status'] = $this->status;
+			$contact_log['debug_content'] = $this->debugContent;
+			$contact_log['attempt'] = $attempt;
+			$contact_log['type_post'] = $type_post;
+			$contact_log['selector'] = $selector;
+
+			$wpdb->insert( 'raelorg_contacts_log', $contact_log ); 
+		}
+		
+		function displayForDev( $attempt, $type_post, $selector ) {
+			$this->insertContactLog( $attempt, $type_post, $selector );
+
 			if ($this->status == 201) {
 				error_log( "SendParticipant Created " . $this->email );
 			} else if ($this->status == 202) {
@@ -499,7 +516,7 @@ function send_participant_to_ElohimNet( $participant ) {
 				( $result->getStatus() != 202 ) &&
 			    ( $attempt < 3 ) );
   	
-	$result->displayForDev( $attempt, 'profile' );
+	$result->displayForDev( $attempt, 'seminar', $selector );
 } // send_participant_to_ElohimNet
 
 //------------------------------------------------------------------------------------------------------------------
@@ -1471,7 +1488,7 @@ function confirmation_after_submission_5( $entry, $form ) {
 	$GLOBALS['selector'] = $_GET['selector'];
 
 	UpdateContact( $firstname, $lastname, $language, $country, $region );
-	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '' );
+	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '', $GLOBALS['selector'] );
 
 } // confirmation_after_submission_5
 
@@ -1856,7 +1873,7 @@ function contact_us_notification_7( $notification, $form, $entry ) {
 		$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
 		$selector = InsertContact( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message, 7, $news_event, $ip_address );
-		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message );
+		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message, $selector );
 		
 		// Note: Even if a URL contains the English slug for another language, WPML will resolve the slug for us.
 		$link_faq = getFAQlink();
@@ -1888,8 +1905,8 @@ function contact_us_notification_7( $notification, $form, $entry ) {
 add_action( 'hook_push_rejects_to_elohimnet', 'push_rejects_to_elohimnet', 13 );
 function push_rejects_to_elohimnet () {
 
-	send_person_to_ElohimNet( 'John', 'EDMONDS', 'SEAGHOST15@YAHOO.COM', 'en', 'us', 'Florida', '', 'I am very interested to learn more.' );
-	send_person_to_ElohimNet( 'azul', 'Amirouch', 'azemour58@gmail.com', 'en', 'ma', 'Salé', '', 'hello i want to go away to planet like our earth but this planet has a volume as sun.' );
+	//send_person_to_ElohimNet( 'John', 'EDMONDS', 'SEAGHOST15@YAHOO.COM', 'en', 'us', 'Florida', '', 'I am very interested to learn more.' );
+	//send_person_to_ElohimNet( 'azul', 'Amirouch', 'azemour58@gmail.com', 'en', 'ma', 'Salé', '', 'hello i want to go away to planet like our earth but this planet has a volume as sun.' );
 	
 }
 
