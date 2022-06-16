@@ -299,7 +299,7 @@ function cancel_registration(  $email, $sem_code, $sem_id  ) {
 // -----------------------------------------
 // Send person to Elohim.net
 // -----------------------------------------
-function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message, $selector='' ) {
+function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, $province, $regions, $message, $selector='', $phone='' ) {
 
 	class PostPersonResult {
 		private $status;
@@ -383,6 +383,7 @@ function send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $co
 		'lastname' => $lastname,
 		'country' => $country,
 		'state' => $province,
+		'mobile_phone' => $phone,
 		'prefLanguage' => $language );
 
 	if ( ! empty( $regions ) ) {
@@ -1902,12 +1903,5 @@ function contact_us_notification_7( $notification, $form, $entry ) {
 } // contact_us_notification_7
 
 
-add_action( 'hook_push_rejects_to_elohimnet', 'push_rejects_to_elohimnet', 13 );
-function push_rejects_to_elohimnet () {
-
-	//send_person_to_ElohimNet( 'John', 'EDMONDS', 'SEAGHOST15@YAHOO.COM', 'en', 'us', 'Florida', '', 'I am very interested to learn more.' );
-	//send_person_to_ElohimNet( 'azul', 'Amirouch', 'azemour58@gmail.com', 'en', 'ma', 'Salé', '', 'hello i want to go away to planet like our earth but this planet has a volume as sun.' );
-	
-}
 
 
