@@ -118,6 +118,366 @@ function pre_render_27( $form ) {
 	return $form;
 } // pre_render_27
 
+// -------------------------------------------------------------
+// Be sure that is no conflict between meals 500 and 1500 CFA
+// -------------------------------------------------------------
+add_filter( 'gform_validation', 'validation_27' );
+function validation_27( $validation_result ) {
+	$form  = $validation_result['form'];
+	$entry = GFFormsModel::get_current_lead();
+
+	$field_lunch_500 = RGFormsModel::get_field( $form, 35 );
+	$meal_lunch_days_500 = str_replace( '(500.00 CFA)', '', is_object( $field_lunch_500 ) ? $field_lunch_500->get_value_export( $entry ) : '');  // Get the value selected like 2022-07-17, 2022-07-18, ....
+	$field_lunch_1500 = RGFormsModel::get_field( $form, 36 );
+	$meal_lunch_days_1500 = str_replace( '(1,500.00 CFA)', '', is_object( $field_lunch_1500 ) ? $field_lunch_1500->get_value_export( $entry ) : '');  // Get the value selected like 2022-07-17, 2022-07-18, ....
+
+	$field_dinner_500 = RGFormsModel::get_field( $form, 37 );
+	$meal_dinner_days_500 = str_replace( '(500.00 CFA)', '', is_object( $field_dinner_500 ) ? $field_dinner_500->get_value_export( $entry ) : '');  // Get the value selected like 2022-07-17, 2022-07-18, ....
+	$field_dinner_1500 = RGFormsModel::get_field( $form, 38 );
+	$meal_dinner_days_1500 = str_replace( '(1,500.00 CFA)', '', is_object( $field_dinner_1500 ) ? $field_dinner_1500->get_value_export( $entry ) : '');  // Get the value selected like 2022-07-17, 2022-07-18, ....
+
+	$meal_lunch_days_500 = str_replace( ' ', '', $meal_lunch_days_500);
+	$meal_lunch_days_1500 = str_replace( ' ', '', $meal_lunch_days_1500);
+	$meal_dinner_days_500 = str_replace( ' ', '', $meal_dinner_days_500);
+	$meal_dinner_days_1500 = str_replace( ' ', '', $meal_dinner_days_1500);
+
+	if (   ( strpos($meal_lunch_days_500, '2022-08-14') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-14') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 14 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-15') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-15') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 15 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-16') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-16') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 16 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-17') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-17') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 17 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-18') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-18') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 18 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-19') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-19') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 19 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-20') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-20') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 20 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-21') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-21') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 21 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-22') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-22') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 22 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-23') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-23') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 23 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-24') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-24') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 24 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-25') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-25') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 25 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-26') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-26') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 26 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-27') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-27') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 27 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_lunch_days_500, '2022-08-28') !== false )
+	 	&& ( strpos($meal_lunch_days_1500, '2022-08-28') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '35' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le déjeuner à 500 et 1 500 CFA pour le 28 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+
+	if (   ( strpos($meal_dinner_days_500, '2022-08-14') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-14') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 14 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-15') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-15') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 15 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-16') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-16') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 16 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-17') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-17') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 17 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-18') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-18') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 18 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-19') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-19') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 19 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-20') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-20') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 20 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-21') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-21') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 21 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-22') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-22') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 22 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-23') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-23') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 23 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-24') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-24') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 24 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-25') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-25') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 25 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-26') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-26') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 26 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-27') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-27') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 27 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+	if (   ( strpos($meal_dinner_days_500, '2022-08-28') !== false )
+	 	&& ( strpos($meal_dinner_days_1500, '2022-08-28') !== false ) ) {
+	 		$validation_result['is_valid'] = false;
+
+	 		foreach ( $form['fields'] as &$field ) {
+	 			if ( $field->id == '37' ) {
+	 			 	$field->failed_validation = true;				
+	 			 	$field->validation_message = "Vous avez choisi à la fois le dîmer à 500 et 1 500 CFA pour le 28 août. Veuillez choisir un ou l'autre.";
+	 			}
+	 		}
+	}
+
+	$validation_result['form'] = $form;
+	return $validation_result;
+
+}
+
 // -----------------------------------------------------
 // Send a notification to the event manager
 // Send a notification to the participant
@@ -200,8 +560,6 @@ function notification_27( $notification, $form, $entry ) {
 	$lunch_price_1500 = 1500.00;
 	$dinner_price_500 = 500.00;
 	$dinner_price_1500 = 1500.00;
-
-	// [17-Jun-2022 19:18:53 UTC] $meal_breakfast_days= 2022-08-15(500.00CFA),2022-08-16(500.00CFA),2022-08-18(500.00CFA),2022-08-19(500.00CFA),2022-08-20(500.00CFA),2022-08-22(500.00CFA),2022-08-23(500.00CFA),2022-08-25(500.00CFA),2022-08-26(500.00CFA)
 
 	$field = RGFormsModel::get_field( $form, 33 );
 	$meal_breakfast_days = str_replace( '(500.00 CFA)', '', is_object( $field ) ? $field->get_value_export( $entry ) : '');  // Get the value selected like 2022-07-17, 2022-07-18, ....
@@ -312,13 +670,6 @@ function notification_27( $notification, $form, $entry ) {
 			$meal_dinner_days .= '2022-08-24,';		
 	}
 
-
-	error_log('$meal_breakfast_days= ' . $meal_breakfast_days);
-	error_log('$meal_lunch_days_500= ' . $meal_lunch_days_500);
-	error_log('$meal_lunch_days_1500= ' . $meal_lunch_days_1500);
-	error_log('$meal_dinner_days_500= ' . $meal_dinner_days_500);
-	error_log('$meal_dinner_days_1500= ' . $meal_dinner_days_1500);
-
 	$nb_breakfast = substr_count($meal_breakfast_days,',')+1;
 	$nb_lunch_500 = substr_count($meal_lunch_days_500,',')+1;
 	$nb_lunch_1500 = substr_count($meal_lunch_days_1500,',')+1;
@@ -413,7 +764,7 @@ function notification_27( $notification, $form, $entry ) {
 	// Alert notification to the event manager
 	if ( $notification['toType'] === 'email' ) {
 
-		$notification['to'] = 'loukesir@hotmail.com'; 
+		//$notification['to'] = 'loukesir@hotmail.com'; 
 
         //------------------------------------------------------------------------------------------------------------------
         // TECHNICAL GUIDE
