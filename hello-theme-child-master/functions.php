@@ -4,7 +4,14 @@ require_once "lib/assets.php";
 require_once "lib/cdn.php";
 require_once "lib/performance.php";
 require_once "lib/analytics.php";
-require_once "lib/elohimnet.php";
+require_once "lib/elohimnet.php";          // Link with Elohim.net & common functions
+require_once "lib/form_5_DoubleOptIn.php"; // Prior GF 2.5
+require_once "lib/form_6_Newsletter.php";  // Prior GF 2.5
+require_once "lib/form_7_ContactUs.php";   // Prior GF 2.5
+require_once "lib/form_20_CancellationKamaSummer2022.php";
+require_once "lib/form_27_Elohika2022.php";
+require_once "lib/form_24_SeminarDemoCancellation.php";
+require_once "lib/form_23_seminarDemo.php";
 require_once "lib/redirects.php";
 
 
