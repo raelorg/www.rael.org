@@ -1,5 +1,15 @@
 <?php
 
+
+// ----------------------------------------------------------------------
+// Form : Newsletter (6)
+// > changes form tabindex start value to 99
+// ----------------------------------------------------------------------
+add_filter( 'gform_tabindex_6', 'change_tabindex_6' , 10, 2 );
+function change_tabindex_6( $tabindex, $form ) {
+    return 99;
+}
+
 // ----------------------------------------------------------------------
 // Form : Newsletter (6)
 // > Send the double opt-in notification to the person.
