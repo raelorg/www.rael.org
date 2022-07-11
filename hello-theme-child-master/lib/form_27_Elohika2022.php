@@ -698,7 +698,7 @@ function notification_27( $notification, $form, $entry ) {
 		'country' => rgar( $entry, '8' ),
 		'state' => '',
 		'suburb' => rgar( $entry, '9' ), // City / Town
-		'prefLanguage' => '',
+		'prefLanguage' => apply_filters( 'wpml_current_language', NULL ),
         'username' => rgar( $entry, '1.6' ) . '||' . rgar( $entry, '1.3' ), 
 		'mobile_phone' => rgar( $entry, '12' ),
 		'home_phone' => rgar( $entry, '11' ),
