@@ -157,7 +157,10 @@ function pre_render_23( $form ) {
 add_filter( 'gform_notification_23', 'notification_23', 10, 3 );
 function notification_23( $notification, $form, $entry ) {
 
-	$page_cancel = 'Registration cancellation';
+	// -------------------------------------------------------------------------
+	// TECHNICAL GUIDE
+	// > Do the programming here.
+	// -----BEGIN--------------------------------------------------------------------
 	$breakfast_price = 2000.00;
 	$lunch_price = 2500.00;
 	$dinner_price = 2500.00;
@@ -192,11 +195,6 @@ Additional information:
 	}
 
     $feedback = $message . $additional_information;
-
-	// -------------------------------------------------------------------------
-	// TECHNICAL GUIDE
-	// Variables to set depending of the event
-	// -----BEGIN--------------------------------------------------------------------
 	$form = 23;                  	// id GF
 	$sem_code = 153;                // e107_db_seminars_reg.semreg_id
 	$page_title = 'Seminar Demo';   // Title of the web page
