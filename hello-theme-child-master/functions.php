@@ -7,9 +7,9 @@ require_once "lib/analytics.php";
 require_once "lib/elohimnet.php";          // Link with Elohim.net & common functions
 require_once "lib/form_5_DoubleOptIn.php"; // Prior GF 2.5
 require_once "lib/form_6_Newsletter.php";  // Prior GF 2.5
-require_once "lib/form_7_ContactUs.php";   // Prior GF 2.5
-require_once "lib/form_20_CancellationKamaSummer2022.php";
-require_once "lib/form_27_Elohika2022.php";
+require_once "lib/form_28_ContactUs.php";  // GF 2.5
+require_once "lib/form_34_Newsletter.php"; // GF 2.5
+require_once "lib/form_35_DoubleOptIn.php"; // GF 2.5
 require_once "lib/form_24_SeminarDemoCancellation.php";
 require_once "lib/form_23_seminarDemo.php";
 require_once "lib/redirects.php";
@@ -31,6 +31,21 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 /*end*/
 
 /* --------------------------- begin-luc ------------------------------------ */
+
+// Redirection exception
+function redirect_exception( $enqueue ) {
+    global $post;
+	// hi home page: 342356
+	// hi intelligent design: 340795
+    if (   ( $post->ID === 342356 )             
+		|| ( $post->ID === 340795 ) ) {
+        $enqueue = false;
+    }
+    return $enqueue;
+}
+add_filter( 'wpml_enqueue_browser_redirect_language', 'redirect_exception' );
+
+
 //Remove page title
 add_filter( 'the_title', 'remove_page_title', 10, 2 );
 function remove_page_title( $title, $id ) {
