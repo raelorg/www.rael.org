@@ -4,7 +4,14 @@ require_once "lib/assets.php";
 require_once "lib/cdn.php";
 require_once "lib/performance.php";
 require_once "lib/analytics.php";
-require_once "lib/elohimnet.php";
+require_once "lib/elohimnet.php";          // Link with Elohim.net & common functions
+require_once "lib/form_5_DoubleOptIn.php"; // Prior GF 2.5
+require_once "lib/form_6_Newsletter.php";  // Prior GF 2.5
+require_once "lib/form_28_ContactUs.php";  // GF 2.5
+require_once "lib/form_34_Newsletter.php"; // GF 2.5
+require_once "lib/form_35_DoubleOptIn.php"; // GF 2.5
+require_once "lib/form_24_SeminarDemoCancellation.php";
+require_once "lib/form_23_seminarDemo.php";
 require_once "lib/redirects.php";
 
 
@@ -25,9 +32,28 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
 /* --------------------------- begin-luc ------------------------------------ */
 
-add_filter( 'freshforms_post_has_gform', 'fffg_fresh_these_posts' );
-function fffg_fresh_these_posts(){
-	return array( 71652, 76941, 60364, 55859, 72894, 76352, 69653, 76352, 24, 71655, 55887, 71594, 55828, 295223, 55830, 55266, 49436, 77959, 74337, 58478, 69921, 71579, 63825, 72061, 71705, 69463, 55733, 70882, 79583, 49391, 71273, 76855, 60506, 60073, 72900, 76075, 77846, 72636, 57424, 71592, 56258, 295197, 56076, 69456, 51812, 77843, 74330, 58476, 72487, 77842, 68666, 73994, 71710, 71147, 55279, 77841, 79556, 324122 );
+// Redirection exception
+function redirect_exception( $enqueue ) {
+    global $post;
+	// hi home page: 342356
+	// hi intelligent design: 340795
+    if (   ( $post->ID === 342356 )             
+		|| ( $post->ID === 340795 ) ) {
+        $enqueue = false;
+    }
+    return $enqueue;
+}
+add_filter( 'wpml_enqueue_browser_redirect_language', 'redirect_exception' );
+
+
+//Remove page title
+add_filter( 'the_title', 'remove_page_title', 10, 2 );
+function remove_page_title( $title, $id ) {
+	$hide_title_page_ids = array(347825, 347828);//Page IDs
+	foreach($hide_title_page_ids as $page_id) {
+		if( $page_id == $id ) return '';
+	}
+	return $title;
 }
 
 /* Remove submit button for Contact Us page form */
@@ -354,17 +380,7 @@ add_shortcode('event_date_range','render_event_date_range');
 
 /*  Arun Kumar work end here */
 
-/*
-* Method 1: Setting.
-* Initialization of Google Maps in ACF
-* From: Alain Gauthier, 2020-08-26
-*/
-function my_acf_google_map_api($api) {
-  $api['key'] = 'AIzaSyCqKjpzQEVndx1dxBx1FyNSAc6-qKEtcJk';
 
-  return $api;
-}
-add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
 
 /* Gediminas work starts here */
 
@@ -430,11 +446,131 @@ add_shortcode('translatable_iframe', 'iframe_embed' );
  * 2. Add the `data-cfasync='false'` attribute to the tag.
  */
 add_filter( 'script_loader_tag', function ( $tag, $handle ) {
-  if ( 'jquery-core' === $handle ) {
+  if ( 'jquery-core' === $handle || 'wp-hooks' === $handle ) {
     return str_replace( "type='text/javascript' src", "data-cfasync='false' src", $tag );
   } else {
     return $tag;
   }
 }, 10, 2 );
+
+/* Matt Doyle (matt@elated.com) work ends here */
+
+/* Matt Doyle (matt@elated.com) work starts here */
+
+/**
+ * Begin output buffering when WordPress starts.
+ */
+add_action( 'init', function() {
+  ob_start();
+});
+
+/**
+ * When WordPress is ready to output the markup, flush the output buffer,
+ * then apply any filters to the markup before sending it to the browser.
+ */
+add_action('shutdown', function() {
+  $final = '';
+
+  // Iterate over each output buffer that was created during WordPress's
+  // execution, collecting that buffer's output into the final output.
+
+  $levels = ob_get_level();
+
+  for ($i = 0; $i < $levels; $i++) {
+    $final .= ob_get_clean();
+  }
+
+  // Apply any filters to the final output.
+  echo apply_filters('rael_final_output', $final);
+}, 0);
+
+/**
+ * This filter inserts the `data-cfasync='false'` attribute in the Gravity
+ * Forms inline `script` tag, to prevent the script being deferred by 
+ * Rocket Loader.
+ */
+add_filter('rael_final_output', function($output) {
+  return str_replace(
+    '<script>if(!gform){document.addEventListener("gform_main_scripts_loaded"',
+    '<script data-cfasync="false">if(!gform){document.addEventListener("gform_main_scripts_loaded"',
+    $output);
+});
+
+/* Matt Doyle (matt@elated.com) work ends here */
+
+/* Matt Doyle (matt@elated.com) work starts here */
+
+
+/**
+ * Insert AdRoll pixel into the page HEAD.
+ */
+add_action('wp_head', function() {
+?>
+<script type="text/javascript">
+    adroll_adv_id = "YP2ZA24FSRHVFOXA6H4TJN";
+    adroll_pix_id = "CN2GLR4VF5DM7E5CN4Q7PM";
+    adroll_version = "2.0";
+
+    (function(w, d, e, o, a) {
+        w.__adroll_loaded = true;
+        w.adroll = w.adroll || [];
+        w.adroll.f = [ 'setProperties', 'identify', 'track' ];
+        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
+                + "/roundtrip.js";
+        for (a = 0; a < w.adroll.f.length; a++) {
+            w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
+                return function() {
+                    w.adroll.push([ n, arguments ])
+                }
+            })(w.adroll.f[a])
+        }
+
+        e = d.createElement('script');
+        o = d.getElementsByTagName('script')[0];
+        e.async = 1;
+        e.src = roundtripUrl;
+        o.parentNode.insertBefore(e, o);
+    })(window, document);
+    adroll.track("pageView");
+</script>
+<?php
+});
+
+/**
+ * Attach AdRoll event tracking handlers to the download buttons
+ * on /ebook/intelligent-design/ .
+ */
+add_action('wp_footer', function() {
+?>
+<script type="text/javascript">
+	const ebookDownloadButton = document.getElementById('ebook-download');
+	if ( ebookDownloadButton ) {
+		ebookDownloadButton.addEventListener( "click", function() {
+			try { 
+			__adroll.track("pageView", {"segment_name":"25629b2f"});
+			} catch(err) {};
+		});
+	};      
+
+	const audiobookDownloadButton = document.getElementById('audiobook-download');
+	if ( audiobookDownloadButton ) {
+		audiobookDownloadButton.addEventListener( "click", function() {
+			try { 
+				__adroll.track("pageView", {"segment_name":"25629b2f"});
+			} catch(err) {};
+		});
+	};      
+</script>
+<?php
+});
+
+/**
+ * Force the envelope sender address to match the header From address
+ * for all emails sent from WordPress, so that DMARC alignment checks
+ * pass when using SPF. 
+ */
+add_action('phpmailer_init', function ( $phpmailer ) {
+    $phpmailer->Sender = $phpmailer->From;
+});
 
 /* Matt Doyle (matt@elated.com) work ends here */
