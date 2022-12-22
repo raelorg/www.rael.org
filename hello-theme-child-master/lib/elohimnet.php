@@ -840,13 +840,16 @@ function GetUniqueIdSession() {
 // ---------------------------------------------------
 function InsertBadSelector( $selector ) {
 	global $wpdb;
+	
+	if ( !is_null( $selector ) ) {
+		
+		$row = array();
+		$row['selector'] = $selector;
+		$row['ip_address'] = $GLOBALS['raelorg_ip_address']; 
+		$row['country'] = $GLOBALS['raelorg_country_from_ip'];
 
-	$row = array();
-	$row['selector'] = $selector;
-	$row['ip_address'] = $GLOBALS['raelorg_ip_address']; 
-	$row['country'] = $GLOBALS['raelorg_country_from_ip'];
-
-	$wpdb->insert( 'raelorg_contacts_bad_selector', $row ); 
+		$wpdb->insert( 'raelorg_contacts_bad_selector', $row );
+	}
 	
 } // InsertBadSelector
 
