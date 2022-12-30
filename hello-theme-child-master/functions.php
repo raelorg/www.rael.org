@@ -5,13 +5,11 @@ require_once "lib/cdn.php";
 require_once "lib/performance.php";
 require_once "lib/analytics.php";
 require_once "lib/elohimnet.php";          // Link with Elohim.net & common functions
-require_once "lib/form_5_DoubleOptIn.php"; // Prior GF 2.5
-require_once "lib/form_6_Newsletter.php";  // Prior GF 2.5
 require_once "lib/form_28_ContactUs.php";  // GF 2.5
 require_once "lib/form_34_Newsletter.php"; // GF 2.5
 require_once "lib/form_35_DoubleOptIn.php"; // GF 2.5
-require_once "lib/form_24_SeminarDemoCancellation.php";
-require_once "lib/form_23_seminarDemo.php";
+require_once "lib/form_39_Nunavut_cancellation.php";
+require_once "lib/form_38_Nunavut.php";
 require_once "lib/redirects.php";
 
 
@@ -397,7 +395,7 @@ function iframe_embed( $atts ) {
 		'height' => '500',					// default iframe height if not provided in params
 	), $atts );
 
-	$iframe_to_embed='<iframe width="100%" height="' . $a[height] . '" scrolling="no" frameborder="no" allow="autoplay" src="' . $a[url] . '"></iframe>';
+	$iframe_to_embed='<iframe width="100%" height="' . $a['height'] . '" scrolling="no" frameborder="no" allow="autoplay" src="' . $a['url'] . '"></iframe>';
 	return $iframe_to_embed;
 }
 
@@ -574,3 +572,4 @@ add_action('phpmailer_init', function ( $phpmailer ) {
 });
 
 /* Matt Doyle (matt@elated.com) work ends here */
+
