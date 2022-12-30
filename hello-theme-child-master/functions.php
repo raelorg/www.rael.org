@@ -77,41 +77,42 @@ function wpdoc_add_custom_body_open_code() {
     echo '<!-- Google Tag Manager (noscript) --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58TMKC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->';
 }
 
-// Block redirection according to browser language
+// When someone click link from social media
+// > Block redirection according to browser language
 function skip_redirection() {
 
 	global $post;
 
-	$pages_to_skip = [71863, // 'https://www.rael.org/ebook/intelligent-design/'
-                    72111, // 'https://www.rael.org/ar/ebook/intelligent-design/'
-                    87178, // 'https://www.rael.org/bg/ebook/intelligent-design/'
-                    72063, // 'https://www.rael.org/zh-hans/ebook/intelligent-design-1/'
-                    72081, // 'https://www.rael.org/zh-hant/ebook/intelligent-design-1/'
-                    79768, // 'https://www.rael.org/cs/ebook/intelligent-design/'
-                    87622, // 'https://www.rael.org/da/ebook/intelligent-design/'
-                    81041, // 'https://www.rael.org/nl/ebook/intelligent-design/'
-                    71929, // 'https://www.rael.org/fr/ebook/intelligent-design-1/'
-                    72224, // 'https://www.rael.org/fp/ebook/intelligent-design/'
-                    72150, // 'https://www.rael.org/de/ebook/intelligent-design-1/'
-                    71926, // 'https://www.rael.org/he/ebook/intelligent-design/'
-                    72651, // 'https://www.rael.org/hu/letoltesek/'
-                    295185, // 'https://www.rael.org/id/ebook/desain-cerdas/'
-                    71915, // 'https://www.rael.org/it/ebook/intelligent-design-1/'
-                    72097, // 'https://www.rael.org/ja/ebook/intelligent-design/'
-                    71887, // 'https://www.rael.org/ko/ebook/intelligent-design-1/'
-                    81450, // 'https://www.rael.org/lt/ebook/intelligent-design/'
-                    72214, // 'https://www.rael.org/mn/ebook/intelligent-design/'
-                    72130, // 'https://www.rael.org/fa/ebook/intelligent-design-1/'
-                    79839, // 'https://www.rael.org/pl/ebook/intelligent-design/'
-                    72209, // 'https://www.rael.org/pt-pt/ebook/intelligent-design-1/'
-                    72185, // 'https://www.rael.org/ro/ebook/intelligent-design/'
-                    72115, // 'https://www.rael.org/ru/ebook/intelligent-design-1/'
-                    88716, // 'https://www.rael.org/sk/ebook/intelligent-design-1/'
-                    72195, // 'https://www.rael.org/sl/ebook/intelligent-design-1/'
-                    71909, // 'https://www.rael.org/es/ebook/intelligent-design'
-                    96486, // 'https://www.rael.org/sv/ebook/intelligent-design/'
-                    87864, // 'https://www.rael.org/th/ebook/intelligent-design-1/'
-                    281629 // 'https://www.rael.org/tr/ebook/zeki-dizayn/'
+	$pages_to_skip = [71863, // https://www.rael.org/ebook/intelligent-design/
+                    72111, // https://www.rael.org/ar/ebook/intelligent-design/
+                    72063, // https://www.rael.org/zh-hans/ebook/intelligent-design-1/
+                    72081, // https://www.rael.org/zh-hant/ebook/intelligent-design-1/
+                    79768, // https://www.rael.org/cs/ebook/inteligentni-design/
+                    87622, // https://www.rael.org/da/ebook/intelligent-design/
+                    81041, // https://www.rael.org/nl/ebook/intelligent-design/
+                    71929, // https://www.rael.org/fr/ebook/le-message-des-extra-terrestres/
+                    72224, // https://www.rael.org/fp/ebook/matalinong-disenyo/
+                    72150, // https://www.rael.org/de/ebook/intelligentes-design/
+                    330641, // https://www.rael.org/el/ebook/intelligent-design/
+                    71926, // https://www.rael.org/he/ebook/intelligent-design/
+                    340795, // https://www.rael.org/hi/ebook/intelligent-design/
+                    295185, // https://www.rael.org/id/ebook/desain-cerdas/
+                    71915, // https://www.rael.org/it/ebook/il-libro-che-dice-la-verita/
+                    72097, // https://www.rael.org/ja/ebook/intelligent-design/
+                    71887, // https://www.rael.org/ko/ebook/intelligent-design/
+                    81450, // https://www.rael.org/lt/ebook/intelligent-design/
+                    72214, // https://www.rael.org/mn/ebook/intelligent-design/
+                    72130, // https://www.rael.org/fa/ebook/intelligent-design-1/
+                    79839, // https://www.rael.org/pl/ebook/przeslanie-od-przybyszow-z-kosmosu/
+                    72209, // https://www.rael.org/pt-pt/ebook/a-mensagem-transmitida-pelos-extraterrestres/
+                    72185, // https://www.rael.org/ro/ebook/designul-inteligent/
+                    72115, // https://www.rael.org/ru/ebook/intelligent-design-1/
+                    88716, // https://www.rael.org/sk/ebook/intelligent-design-1/
+                    72195, // https://www.rael.org/sl/ebook/intelligent-design-1/
+                    71909, // https://www.rael.org/es/ebook/intelligent-design/
+                    96486, // https://www.rael.org/sv/ebook/intelligent-design/
+                    87864, // https://www.rael.org/th/ebook/intelligent-design-1/
+                    281629 // https://www.rael.org/tr/ebook/zeki-dizayn/
                    ];
  
 	if ( ! is_admin() && $post && in_array( $post->ID, $pages_to_skip, true ) ) {
