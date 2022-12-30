@@ -18,4 +18,12 @@ html[dir=rtl] #input_35_5_1_container, html[dir=rtl] #input_35_5_2_container {pa
 #input_35_5_2_container {margin-top:24px}
 .gfield_chainedselect span {padding:0 !important}
 html[dir=rtl] #input_35_5_1_container, html[dir=rtl] #input_35_5_2_container {padding-left:16px !important}}
+@media only screen and (min-width: 641px) {#input_38_114_1_container, #input_38_114_2_container {padding-right: 16px;width:50%}
+html[dir=rtl] #input_38_114_1_container, html[dir=rtl] #input_38_114_2_container {padding-left: 16px !important;padding-right: 0 !important;width:50%}
+#input_38_114_1_container > span, #input_35_5_2_container > span  {width:100%}}
+@media only screen and (max-width: 640px) {
+#input_38_114_2_container {margin-top:24px}
+.gfield_chainedselect span {padding:0 !important}
+html[dir=rtl] #input_38_114_1_container, html[dir=rtl] #input_38_114_2_container {padding-left:16px !important}}
+
 /*# sourceMappingURL=frontend.css.map */
