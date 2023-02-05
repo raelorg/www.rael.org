@@ -296,7 +296,7 @@ add_filter( 'uael_posts_query_args', function( $query, $settings ) {
 add_action('uael_single_post_after_thumbnail', 'uael_books_links_info', 10, 2);
 
 function uael_books_links_info($post_id, $settings) {
-  if ($settings['post_type_filter'] == 'shop_items' && in_array('classic_posts_per_page', $settings)) {
+  if ($settings['post_type_filter'] == 'shop_items' && array_key_exists('classic_posts_per_page', $settings)) {
     echo "<ul class='source_icon'>";
     $links_exists = true;
     if (get_field('ibook_link', $post_id)) {
@@ -350,7 +350,7 @@ function uael_books_links_info($post_id, $settings) {
 */
 
 add_filter('uael_single_post_link', function ($link, $post_id, $settings) {
-  if ($settings['post_type_filter'] == 'shop_items' && in_array('classic_posts_per_page', $settings)) {
+  if ($settings['post_type_filter'] == 'shop_items' && array_key_exists('classic_posts_per_page', $settings)) {
     if (get_field('market_link', $post_id)) {
       return get_field('market_link', $post_id);
     } else {
