@@ -1,13 +1,11 @@
 <?php
 
-
 // -----------------------------------------------------------------------------------------
 // Form : IPT (28)
 //    > Fill in the Language field
 // -----------------------------------------------------------------------------------------
 add_filter( 'gform_pre_render_28', 'contact_us_populate_28' );
 function contact_us_populate_28( $form ) {
-
 	$GLOBALS['raelorg_session_ID'] = GetUniqueIdSession();
 	$GLOBALS['raelorg_ip_address'] = GFFormsModel::get_ip();
 	$GLOBALS['raelorg_country_from_ip'] = "";
@@ -159,46 +157,21 @@ function spam_detect_28( $is_spam, $form, $entry ) {
         return $is_spam;
     }
 	
-	$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
-	$firstname = rgar( $entry, '1.3' );
-	$lastname = rgar( $entry, '1.6' );
 	$email = rgar( $entry, 3 );
-
-	$length_firsname = strlen( $firstname );  // RodneyTrido
-	$length_lastname = strlen( $lastname );   // RodneyTridoVF
-	$rest = substr($lastname, -2);    		  // VF
-	$length_rest = strlen( $rest );			  // 2
-	$domain = strstr($email, '@');            // @clip-share.net
+	$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
 	$row = checkSpam( $email );
 
-	// 1. email already exists in the spam blacklist
-	// 2. le prénom et le nom sont numériques
-	// 3. first and last name are numeric
-	// 4. the domain is invalid
-	// 5. the email does not contain xyz
-	if  (	( null !== $row )
-		 || ( $domain === '@clip-share.net' )
-		 || ( strstr($email, 'xyz') )
-		 ||	(   ( is_numeric( $firstname )  ) 
-			 && ( is_numeric( $lastname )  ) ) 
-		 || (   ( strpos( $lastname, $firstname ) === 0 )  // pos start at 0
-			 && ( ( $length_lastname - $length_firsname) === 2 )
-			 && ( ctype_upper($rest) )
-			 && ( $length_rest === 2 ) ) ) {
- 
-		if ( null == $row ) {
-			InsertSpam( $email );
-			$selector = InsertContact( $firstname, $lastname, $email, rgpost( 'input_8' ), rgpost( 'input_7' ), '', rgpost( 'input_9' ), 22, '', $ip_address );
-		}
-		else {
-			UpdateSpam( $email, $row->attempt, $ip_address );
-		}
-		
-		return true;
- 	}
-	
-	return false;
+	if ( null !== $row ) {
+		$is_spam = true;
+		UpdateSpam( $email, $row->attempt, $ip_address );
+	}
+
+	if ( $is_spam && method_exists( 'GFCommon', 'set_spam_filter' ) ) {
+		GFCommon::set_spam_filter( rgar( $form, 'id' ), 'The name of your spam check', 'the reason this entry is being marked as spam' );
+	}
+
+	return $is_spam;
 } // spam_detect
 
 // -----------------------------------------------------
@@ -223,7 +196,7 @@ function contact_us_notification_28( $notification, $form, $entry ) {
 	$province = rgar( $entry, '10.2' );
 
 	$email_country = 'contact@rael.org';
-	$notification['bcc'] = 'loukesir@outlook.com'; // For followup
+	//$notification['bcc'] = 'loukesir@outlook.com'; // For followup
 
 	// Find the country@rael.org email for the country
 	$options_get = array(
