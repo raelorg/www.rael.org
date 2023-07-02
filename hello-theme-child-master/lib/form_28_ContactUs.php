@@ -16,6 +16,10 @@ function contact_us_populate_28( $form ) {
 			$ip_data = @json_decode(wp_remote_retrieve_body(wp_remote_get( "http://ip-api.com/json/".$GLOBALS['raelorg_ip_address'])));
 
 			if ( $ip_data->status == "success" ) {
+				if ($ip_data->countryCode == 'HK') {
+					$ip_data->countryCode = 'cn';
+				}
+				
 				$GLOBALS['raelorg_country_from_ip'] = $ip_data->countryCode;
 			}
 		}
