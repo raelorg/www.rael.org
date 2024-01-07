@@ -8,8 +8,10 @@ require_once "lib/elohimnet.php";          // Link with Elohim.net & common func
 require_once "lib/form_28_ContactUs.php";  // GF 2.5
 require_once "lib/form_34_Newsletter.php"; // GF 2.5
 require_once "lib/form_35_DoubleOptIn.php"; // GF 2.5
-require_once "lib/form_39_Nunavut_cancellation.php";
-require_once "lib/form_38_Nunavut.php";
+require_once "lib/form_48_Japan78.php";
+require_once "lib/form_49_Congo78.php";
+require_once "lib/form_50_CoteIvoire78.php";
+require_once "lib/form_51_BurkinaFaso78.php";
 require_once "lib/redirects.php";
 
 
@@ -30,9 +32,31 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
 /* --------------------------- begin-luc ------------------------------------ */
 
+// Add Japanese currency Yen
+add_filter( 'gform_currencies', 'add_yen_currency' );
+function add_yen_currency( $currencies ) {
+    $currencies['JPY'] = array(
+        'name'               => __( 'japanese Yen', 'gravityforms' ),
+        'code'               => 'JPY',
+        'symbol_left'        => '¥',
+        'symbol_right'       => '',
+        'symbol_padding'     => ' ',
+        'thousand_separator' => ',',
+        'decimal_separator'  => '.',
+        'decimals'           => 0
+    );
+  
+    return $currencies;
+}
+
 // Redirection exception
 function redirect_exception( $enqueue ) {
     global $post;
+	
+	if (!isset($post->ID)) {
+	    return $enqueue;
+	}
+	
 	// hi home page: 342356
 	// hi intelligent design: 340795
     if (   ( $post->ID === 342356 )             
@@ -403,99 +427,6 @@ function iframe_embed( $atts ) {
 add_shortcode('translatable_iframe', 'iframe_embed' );
 
 /* Gediminas work ends here */
-
-/* Matt Doyle (matt@elated.com) work starts here */
-/*
- * 1. Troubleshooting
- *     As mentioned in the video you sent, the HTML source of the Italian version of the contact page on the live site includes invalid content type attributes for most of the script tags. 
- *     For example: <script src='https://www.rael.org/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js'></script>
- *     ...has been changed to: <script src='https://www.rael.org/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js' type="0b70962dac147251d3fac53d-text/javascript"></script>
- *
- *     These invalid attributes prevent the JavaScript code from running when initially loaded, and are deliberately inserted by Cloudflare's Rocket Loader feature.
- *
- *     The Rocket Loader script inserted at the end of the page (rocket-loader.min.js) goes through each of the included scripts and converts them to valid JavaScript includes so that they can run. 
- *     (It does this so that it can control the order of JavaScript execution in the page, resulting in faster page loads.)
- *
- *     However, sometimes Rocket Loader runs the scripts in an order that breaks something on the page, and I believe this is what's happened here. Specifically, the jQuery library is being loaded at 
- *     the wrong time, and this is then causing the Gravity Forms Chained Selected JavaScript code to fail:
- *
- *     <script src='https://mk0raelorgiua5hd7uvs.kinstacdn.com/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js' type="0b70962dac147251d3fac53d-text/javascript"></script>
- *
- *     I verified this by temporarily editing the Italian contact page source to remove the '0b70962dac147251d3fac53d-' string for that jQuery include, making the include valid. 
- *     The chained select fields then worked.
- *
- *     (I am guessing that this issue only happened on certain language versions of the contact page because those pages had been fetched by Cloudflare after Rocket Loader had been enabled.)
- * 
- * 2. Fixing
- *     The fix is to add a data-cfasync="false" attribute to the script tag that includes the jQuery library in your pages. This attribute prevents Rocket Loader from touching the jQuery library, while 
- *     still allowing the other scripts in your page to be optimised. (The type attribute also needs to be removed from the tag for this to work.)
- *
- *     The code is based on this Stack Overflow answer.
- *     https://stackoverflow.com/questions/60883508/how-to-add-cloudflares-data-cfasync-false-attribute-to-script-elements-in-word/60884017#60884017
- */
-
-/**
- * Add a filter function to the `script_loader_tag` hook that excludes
- * the jQuery library from Cloudflare's Rocket Loader (since RL breaks
- * jQuery on this site):
- *
- * 1. Remove `type='text/javascript'` from the `script` tag (required by
- *    Rocket Loader).
- *
- * 2. Add the `data-cfasync='false'` attribute to the tag.
- */
-add_filter( 'script_loader_tag', function ( $tag, $handle ) {
-  if ( 'jquery-core' === $handle || 'wp-hooks' === $handle ) {
-    return str_replace( "type='text/javascript' src", "data-cfasync='false' src", $tag );
-  } else {
-    return $tag;
-  }
-}, 10, 2 );
-
-/* Matt Doyle (matt@elated.com) work ends here */
-
-/* Matt Doyle (matt@elated.com) work starts here */
-
-/**
- * Begin output buffering when WordPress starts.
- */
-add_action( 'init', function() {
-  ob_start();
-});
-
-/**
- * When WordPress is ready to output the markup, flush the output buffer,
- * then apply any filters to the markup before sending it to the browser.
- */
-add_action('shutdown', function() {
-  $final = '';
-
-  // Iterate over each output buffer that was created during WordPress's
-  // execution, collecting that buffer's output into the final output.
-
-  $levels = ob_get_level();
-
-  for ($i = 0; $i < $levels; $i++) {
-    $final .= ob_get_clean();
-  }
-
-  // Apply any filters to the final output.
-  echo apply_filters('rael_final_output', $final);
-}, 0);
-
-/**
- * This filter inserts the `data-cfasync='false'` attribute in the Gravity
- * Forms inline `script` tag, to prevent the script being deferred by 
- * Rocket Loader.
- */
-add_filter('rael_final_output', function($output) {
-  return str_replace(
-    '<script>if(!gform){document.addEventListener("gform_main_scripts_loaded"',
-    '<script data-cfasync="false">if(!gform){document.addEventListener("gform_main_scripts_loaded"',
-    $output);
-});
-
-/* Matt Doyle (matt@elated.com) work ends here */
 
 /* Matt Doyle (matt@elated.com) work starts here */
 
