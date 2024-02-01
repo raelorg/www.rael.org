@@ -199,6 +199,11 @@ function contact_us_notification_28( $notification, $form, $entry ) {
 	$iso_country = rgar( $entry, '10.1' );
 	$province = rgar( $entry, '10.2' );
 
+	// Redirect Fiji to Australia
+	if ($iso_country == 'fj') {
+		$iso_country = 'au';
+	}
+
 	$email_country = 'contact@rael.org';
 	//$notification['bcc'] = 'loukesir@outlook.com'; // For followup
 
