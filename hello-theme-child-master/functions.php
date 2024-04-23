@@ -5,13 +5,10 @@ require_once "lib/cdn.php";
 require_once "lib/performance.php";
 require_once "lib/analytics.php";
 require_once "lib/elohimnet.php";          // Link with Elohim.net & common functions
-require_once "lib/form_28_ContactUs.php";  // GF 2.5
-require_once "lib/form_34_Newsletter.php"; // GF 2.5
-require_once "lib/form_35_DoubleOptIn.php"; // GF 2.5
-require_once "lib/form_48_Japan78.php";
-require_once "lib/form_49_Congo78.php";
-require_once "lib/form_50_CoteIvoire78.php";
-require_once "lib/form_51_BurkinaFaso78.php";
+require_once "lib/form_28_ContactUs.php";
+require_once "lib/form_34_Newsletter.php";
+require_once "lib/form_35_DoubleOptIn.php";
+require_once "lib/form_59_Europe2024.php";
 require_once "lib/redirects.php";
 
 
