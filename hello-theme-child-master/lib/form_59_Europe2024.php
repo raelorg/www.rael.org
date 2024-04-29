@@ -158,6 +158,12 @@ function contact_us_populate_province_59( $input_choices, $form_id, $field, $inp
 add_filter( 'gform_notification_59', 'notification_59', 10, 3 );
 function notification_59( $notification, $form, $entry ) {
 
+	$first = 0;
+
+	if ((rgar( $entry, '42' ) == 'Yes') || (rgar( $entry, '42' ) == 'Oui') || (rgar( $entry, '42' ) == 'Sì')) {
+		$first = 1;
+	}
+
 	$participant = array(
 		'email' => rgar( $entry, '22' ), // ok
 		'firstname' => rgar( $entry, '21.3' ), // ok
@@ -178,7 +184,7 @@ function notification_59( $notification, $form, $entry ) {
 		'sem_code' => 159, // ok
         'year' => '2024',  // ok
         'season' => 'summer', // ok
-		'firstseminar' => (rgar( $entry, '42' ) == 'Yes' ? 1 : 0), // ok
+		'firstseminar' => $first, // ok
 		'student' => 0, // ok
 		'present' => 0, // ok
 		'status' => '', // ok
@@ -333,14 +339,33 @@ function notification_59( $notification, $form, $entry ) {
 
 		$arrayFields = setNotificationArrayFields($fields); 
 
+		$language_iso = apply_filters( 'wpml_current_language', NULL );
+		$person_type = 'person-not-newcomer';
+		
+		if ((rgar( $entry, '42' ) == 'Yes') || (rgar( $entry, '42' ) == 'Oui') || (rgar( $entry, '42' ) == 'Sì')) 
+		{
+			$person_type = 'person-newcomer';
+		}
+		
+		GFCommon::log_debug( __METHOD__ . ' ' . rgar( $entry, '42' ) );
+		GFCommon::log_debug( __METHOD__ . ' ' . $language_iso );
+		GFCommon::log_debug( __METHOD__ . ' ' . $person_type );
+		
+		//$confirmation = SelectNotification(59, 'person-not-newcomer', 'en');
 		// Check if a notification exist for the current language and use it as replacement
 		// > Sometimes it's better to keep notifications in the database than to waste time with WPML.
-		$confirmation = SelectNotification(59, 'person', $language_iso);
-
-		if ( 'not found' !== $confirmation ) {
-			$notification['message'] = $confirmation;
+		if (($language_iso == 'en') || ($language_iso == 'fr') || ($language_iso == 'it')) 
+		{
+			GFCommon::log_debug( __METHOD__ . ' en-fr-it' );
+			$confirmation = SelectNotification(59, $person_type, $language_iso);
+		}
+		else 
+		{
+			GFCommon::log_debug( __METHOD__ . ' autre' );
+			$confirmation = SelectNotification(59, $person_type, 'en');
 		}
 
+		$notification['message'] = $confirmation;
 		$notification['bcc'] = 'loukesir@outlook.com';
 			
 		if ( strstr( $notification['message'], '{field_list}' ) ) {
