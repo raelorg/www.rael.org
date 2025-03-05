@@ -8,7 +8,6 @@ require_once "lib/elohimnet.php";          // Link with Elohim.net & common func
 require_once "lib/form_28_ContactUs.php";
 require_once "lib/form_34_Newsletter.php";
 require_once "lib/form_35_DoubleOptIn.php";
-require_once "lib/form_59_Europe2024.php";
 require_once "lib/redirects.php";
 
 
@@ -28,6 +27,193 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 /*end*/
 
 /* --------------------------- begin-luc ------------------------------------ */
+function shortcode_whatsapp ( $atts ){
+	$ip_address = GFFormsModel::get_ip();
+	$language_iso = apply_filters( 'wpml_current_language', NULL );
+	$country_from_ip = '';
+	$whatsapp_phone = '';
+	$url = '';
+
+	while ( $country_from_ip == '' )
+	{
+		$ip_data = @json_decode(wp_remote_retrieve_body(wp_remote_get( "http://ip-api.com/json/".$ip_address)));
+
+		if ( $ip_data->status == 'success' ) {
+			$country_from_ip = strtolower($ip_data->countryCode);
+
+			// Honk Kong fait partie de la Chine
+			if ($ip_data->countryCode == 'hk') {
+				$country_from_ip = 'cn';
+			}
+		}
+	}
+
+	switch ($country_from_ip) {
+		case 'al': // Albania
+			if ($language_iso == 'sq') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'au': // Australia
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '61466414211';
+			}
+			break;
+		case 'ba': // Bosnia
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'bg': // Bulgaria
+			if ($language_iso == 'bg') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'bz': // Belize
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'ci': // Côte d'Ivoire
+			if ($language_iso == 'fr') {
+				$whatsapp_phone = '2250707828300';
+			}
+			break;
+		case 'co': // Columbia
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'cr': // Costa Rica
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'ec': // Ecuador
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'fr': // France
+			if ($language_iso == 'fr') {
+				$whatsapp_phone = '330769162172';
+			}
+			break;
+		case 'gr': // Greece
+			if ($language_iso == 'el') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'gt': // Guatemala
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'gy': // Guyana
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'hr': // Croatia
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'hu': // Hungary
+			if ($language_iso == 'hu') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'kv': // Kosovo
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'in': // India
+			if (($language_iso == 'hi') || ($language_iso == 'en')) {
+				$whatsapp_phone = '16048286401';
+			}
+			break;
+		case 'me': // Montenegro
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'mk': // Macedonia
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'mx': // Mexique
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '522227132693';
+			}
+			break;
+		case 'ni': // Nicaragua
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'nz': // New Zeland
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '61466414211';
+			}
+			break;
+		case 'pa': // Panama
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'pl': // Poland
+			if ($language_iso == 'pl') {
+				$whatsapp_phone = '48792940499';
+			}
+			break;
+		case 'rs': // Serbia
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'si': // Slovenia
+			if ($language_iso == 'sl') {
+				$whatsapp_phone = '393408879365';
+			}
+			break;
+		case 'sk': // Slovakia
+			if ($language_iso == 'sk') {
+				$whatsapp_phone = '40763083998';
+			}
+			break;
+		case 'ro': // Roumanie
+			if ($language_iso == 'ro') {
+				$whatsapp_phone = '40763083998';
+			}
+			break;
+		case 'ua': // Ukraine
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '34664549176';
+			}
+			break;
+		case 've': // Venezuela
+			if ($language_iso == 'es') {
+				$whatsapp_phone = '573153363000';
+			}
+			break;
+		case 'za': // South Africa
+			if ($language_iso == 'en') {
+				$whatsapp_phone = '027693395091';
+			}
+			break;
+	}
+	
+	if ($whatsapp_phone != '') {
+		$url = '<a href="https://wa.me/' . $whatsapp_phone . '" target="_blank" rel="noopener noreferrer"><img src="https://www.rael.org/wp-content/uploads/2024/09/WhatsApp_button.svg" alt="Button Image"></a><br><br>';
+	}
+
+	return $url;
+}
+add_shortcode ('whatsapp_button','shortcode_whatsapp');
+
 
 // Add Japanese currency Yen
 add_filter( 'gform_currencies', 'add_yen_currency' );
@@ -91,12 +277,14 @@ function add_facebook_meta_tag(){
 <?php
 }
 
+
 // Add Google Tag code which is supposed to be placed after opening body tag.
 add_action( 'wp_body_open', 'wpdoc_add_custom_body_open_code' );
  
 function wpdoc_add_custom_body_open_code() {
     echo '<!-- Google Tag Manager (noscript) --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58TMKC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->';
 }
+
 
 // When someone click link from social media
 // > Block redirection according to browser language
