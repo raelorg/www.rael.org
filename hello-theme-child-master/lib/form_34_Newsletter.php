@@ -97,3 +97,5 @@ function newsletter_notification_34( $notification, $form, $entry ) {
 
 	return $notification;
 } // newsletter_notification_34
+
+

@@ -116,7 +116,7 @@ function contact_us_populate_28( $form ) {
 add_filter( 'gform_chained_selects_input_choices_28_10_1', 'contact_us_populate_country_28', 10, 7 );
 function contact_us_populate_country_28( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 
-	// InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], 'N/A' );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], 'N/A' );
 
 	return $GLOBALS['raelorg_countries'];
 	
@@ -132,7 +132,7 @@ function contact_us_populate_province_28( $input_choices, $form_id, $field, $inp
 
 	$selected_iso_country = $chain_value[ "{$field->id}.1" ];
 
-	// InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Province', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], 'N/A' );
+	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'IPT', 'Province', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], 'N/A' );
 	
 	$choices = array ();
 	$query   = "select province from raelorg_country_province where code_country = '" . $selected_iso_country . "' and active = 1 order by province";
@@ -183,6 +183,7 @@ function spam_detect_28( $is_spam, $form, $entry ) {
 //    > Prepare the notification to the country respondent
 //    > Send a notification to the person
 // -----------------------------------------------------
+// 
 add_filter( 'gform_notification_28', 'contact_us_notification_28', 10, 3 );
 function contact_us_notification_28( $notification, $form, $entry ) {
 
@@ -232,7 +233,7 @@ function contact_us_notification_28( $notification, $form, $entry ) {
 			break;
 		}
 	}
-	
+
 	// Alert notification to the country respondent
 	if ( $notification['toType'] === 'email' ) {
 		$notification['to'] = $email_country; 
@@ -272,7 +273,7 @@ function contact_us_notification_28( $notification, $form, $entry ) {
 		$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
 		$selector = InsertContact( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message, 28, $news_event, $ip_address );
-//		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message, '', $phone );
+		//send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message, '', $phone );
 		
 		// Note: Even if a URL contains the English slug for another language, WPML will resolve the slug for us.
 		$link_faq = getFAQlink();
@@ -299,5 +300,104 @@ function contact_us_notification_28( $notification, $form, $entry ) {
 
 	return $notification;
 } // contact_us_notification_28
+
+
+add_action( 'gform_after_submission_28', 'send_to_espo_crm_28', 10, 2 );
+function send_to_espo_crm_28( $entry, $form ) {
+	$firstname = rgar( $entry, '1.3' );
+	$lastname = rgar( $entry, '1.6' );
+	$email = rgar( $entry, '3' );
+	$phone = rgar( $entry, '5' );
+	$language_iso = rgar( $entry, '8' );
+	$message = rgar ( $entry, '9' );
+	$iso_country = rgar( $entry, '10.1' );
+	$province = rgar( $entry, '10.2' );
+
+	// Redirect Fiji to Australia
+	if ($iso_country == 'fj') {
+		$iso_country = 'au';
+	}
+	
+	// Test d'existance
+	$url = 'http://148.113.194.171/api/v1/Lead?where[0][type]=equals&where[0][attribute]=emailAddress&where[0][value]=' . urlencode($email);
+
+	$response = wp_remote_get($url, array(
+		'headers' => array(
+			'X-Api-Key' => 'cc5db451f8a41a037f0d39dc80a1b495'
+		)
+	));
+
+	$data = json_decode(wp_remote_retrieve_body($response), true);
+	$leadId = $data['list'][0]['id'] ?? null;
+
+	if ($leadId) {
+		error_log("Lead trouvé succès : $leadId \n");
+		$lead = $data['list'][0] ?? null;
+		$ancienne_description = $lead['description'] ?? '';
+		error_log("Ancienne description : $ancienne_description \n");
+
+		$date    = date('Y-m-d H:i');  // Date actuelle
+		$description = $ancienne_description . "\n [" . $date . "] " . $message;
+		error_log("Description = $description");
+		
+		$update = array(
+		    'cContactRequestComment' => $message
+		);
+
+		$response = wp_remote_request('http://148.113.194.171/api/v1/Lead/' . $leadId, array(
+			'method'  => 'PUT',
+			'headers' => array(
+				'X-Api-Key'    => 'cc5db451f8a41a037f0d39dc80a1b495',
+				'Content-Type' => 'application/json'
+			),
+			'body'    => json_encode($update)
+		));
+		
+		$code = wp_remote_retrieve_response_code($response);
+		$body = wp_remote_retrieve_body($response);
+
+		error_log("Code HTTP PUT : $code");
+		error_log("Réponse PUT : $body");
+	} else {
+		$lead_data = array(
+			'firstName'    => $firstname,
+			'lastName'     => $lastname,
+			'emailAddress' => $email,
+			'cLanguage' => $language_iso,
+			'cCountry' => $iso_country,
+			'status'       => "New",
+			'addressState' => $province,
+			'cCellPhone'   => $phone,
+			'cFollowupStatus' => "No contact",
+			'cSpreader'    => "raelorg",
+			'cContactRequestComment'  => $message
+		);
+
+		$response = wp_remote_post('http://148.113.194.171/api/v1/Lead', array(
+			'method'    => 'POST',
+			'headers'   => array(
+				'X-Api-Key'    => 'cc5db451f8a41a037f0d39dc80a1b495',
+				'Content-Type' => 'application/json'
+			),
+			'body'      => json_encode($lead_data)
+		));
+
+		if (is_wp_error($response)) {
+			error_log('Erreur HTTP EspoCRM : ' . $response->get_error_message());
+		} else {
+			$code = wp_remote_retrieve_response_code($response);
+			$body = wp_remote_retrieve_body($response);
+
+			error_log('Code HTTP : ' . $code);
+			error_log('Réponse API : ' . $body);
+
+			if ($code >= 200 && $code < 300) {
+				error_log('Lead créé avec succès.');
+			} else {
+				error_log('Échec de création du Lead. Code : ' . $code);
+			}
+		}
+	}
+}
 
 

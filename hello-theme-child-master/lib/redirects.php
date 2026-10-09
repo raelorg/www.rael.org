@@ -1,6 +1,7 @@
 <?php
 /** start - by Kevin
  * 
+/**
  * Redirects
  *
  * Provides a place to handle redirects programmatically, which
@@ -411,4 +412,4 @@ class Rael_Redirects {
 
 new Rael_Redirects();
 
-/** end - by Kevin
+/** end - by Kevin **/

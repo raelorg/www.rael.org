@@ -1,0 +1,264 @@
+Problèmes:
+
+
+
+
+@media only screen and (min-width: 641px) {#input_41_82_1_container, #input_41_82_2_container {padding-right: 16px;width:50%}
+html[dir=rtl] #input_41_82_1_container, html[dir=rtl] #input_41_82_2_container {padding-left: 16px !important;padding-right: 0 !important;width:50%}
+#input_41_82_1_container > span, #input_41_82_2_container > span  {width:100%}}
+@media only screen and (max-width: 640px) {
+#input_41_82_2_container {margin-top:24px}
+.gfield_chainedselect span {padding:0 !important}
+html[dir=rtl] #input_41_82_1_container, html[dir=rtl] #input_41_82_2_container {padding-left:16px !important}}
+
+
+
+Friday, December 8			2023-12-08
+Saturday, December 9		2023-12-09
+Sunday, December 10			2023-12-10
+Monday, December 11			2023-12-11
+Tuesday, December 12		2023-12-12
+Wednesday, December 13		2023-12-13
+Thursday, December 14		2023-12-14
+Friday, December 15			2023-12-15
+Saturday December 16		2023-12-16
+Sunday, December 17			2023-12-17
+
+Responsable: steveino
+e107_id = 952
+
+
+asia-ha@rael.org
+> BQB00634@nifty.ne.jp (288)
+> kayo6666@lqbb.jp (1503)
+> satoshiraelian@gmail.com (148)
+asia-sem@rael.org
+> hk@pc.nifty.jp (177)
+> steveino@venus.dti.ne.jp (952)
+> raelian2525sgr@gmail.com (941)
+
+
+> Sonoko : 1472
+
+SELECT email, e107_id FROM `e107_db_raelians` WHERE email in ('bqb00634@nifty.com','kayo6666@lqbb.jp','satoshiraelian@gmail.com', 'hk@pc.nifty.jp', 'steveino@venus.dti.ne.jp', 'raelian2525sgr@gmail.com')
+
+semreg_meal:
+array (
+  'breakfast' => '0',
+  'lunch' => '600',
+  'dinner' => '1000',
+)
+
+semreg_mealdays:
+array (
+  'lunch' => 
+  array (
+    0 => '2023-12-09',
+    1 => '2023-12-10',
+    2 => '2023-12-11',
+    3 => '2023-12-12',
+    4 => '2023-12-13',
+    5 => '2023-12-14',
+    6 => '2023-12-15',
+    7 => '2023-12-16',
+  ),
+  'dinner' => 
+  array (
+    0 => '2023-12-09',
+    1 => '2023-12-10',
+    2 => '2023-12-11',
+    3 => '2023-12-12',
+    4 => '2023-12-13',
+    5 => '2023-12-14',
+    6 => '2023-12-15',
+    7 => '2023-12-16',
+  ),
+  'breakfast' => 
+  array (
+    0 => '2023-12-09',
+    1 => '2023-12-10',
+    2 => '2023-12-11',
+    3 => '2023-12-12',
+    4 => '2023-12-13',
+    5 => '2023-12-14',
+    6 => '2023-12-15',
+    7 => '2023-12-16',
+  ),
+)
+
+semreg_accom:
+array (
+  'Room for 1 person (¥ 15,500 per night)' => 
+  array (
+    0 => '15000',
+    1 => '15500',
+  ),
+  'Room for 2 persons (¥ 7,300 per night)' => 
+  array (
+    0 => '7300',
+    1 => '7300',
+  ),
+  'Room for 3 persons (¥ 6,800 per night)' => 
+  array (
+    0 => '6800',
+    1 => '6800',
+  ),
+  'Room for 4 persons (¥ 6,700 per night)' => 
+  array (
+    0 => '6700',
+    1 => '6700',
+  ),
+  'Self reservation 1: Please choose when you reserved KARIYUSHI Beach Resort Ocean Spa not through JRM' => 
+  array (
+    0 => '0',
+    1 => '0',
+  ),
+  'Self reservation 2: Please choose when you reserved another hotel' => 
+  array (
+    0 => '0',
+    1 => '0',
+  ),
+)
+
+semreg_accomdays:
+2023-12-08,2023-12-09,2023-12-10,2023-12-11,2023-12-12,2023-12-13,2023-12-14,2023-12-15,2023-12-16,2023-12-17
+
+semreg_duration:
+8
+
+semreg_student_age:
+25
+
+2023
+winter
+Iqaluit
+
+semreg_translation:
+Chinese,English,French,Korean,Spanish
+
+semreg_startdate:
+2023-12-10
+
+semreg_pref:
+array (
+  'registration_start_time' => '9:00',
+  'registration_end_time' => '20:00',
+  'early_discount_amount' => '4000',
+  'early_discount_cutoff' => '2023-10-20',
+  'second_currency' => 'JPY',
+  'meal_expire' => '2023-12-17',
+  'idrequests' => '666',
+  'gift_certificate' => '0',
+  'no_structurediscount' => '0',
+  'overseas_discount_amount' => '10',
+  'transport' => '1',
+  'nametag_text' => '',
+  'duration_choice' => '1',
+  'hide_language_match' => '0',
+  'parking' => '1',
+  'pledge' => '1',
+  'choose_function' => '1',
+  'accomactive' => '1',
+  'studentandunder' => '1',
+  'donation' => '1',
+  'accom_paid_separately' => '1',
+  'disablestudent' => '0',
+)
+
+
+semreg_pricing:
+array ( 
+'Structure member'=>array('Full'=>'30400','Daily'=>'3800'),
+'Supporting Structure member (Japanese Only)'=>array('Full'=>'30400','Daily'=>'3800'),
+'Simple member'=>array('Full'=>'18400','Daily'=>'2300'),
+'Newcomer'=>array('Full'=>'18400','Daily'=>'2300'),
+'Non member'=>array('Full'=>'18400','Daily'=>'2300'),
+'Student under 26 years old or person under 18 years old'=>array('Full'=>'0','Daily'=>'0') )
+
+
+
+<h2>TO JAPANESE RAELIAN MOVEMENT</h2>
+<h2 style="text-align: center;">PLEDGE FOR ATTENDING</h2>
+<h2 style="text-align: center;">50th Anniversary World Convention & Asia Happiness Academy a.H. 78 (2023)</h2>
+<p>In order to make this learning opportunity the greatest for you and other
+participants, please read carefully, understand, and agree to the guidelines
+below regarding your application and your participation to 50th Anniversary
+World Convention & Asia Happiness Academy a.H. 78 (2023).</p>
+<ol>
+<li>I will pay all the fees (including those of program participation, hotel stay,
+meals and all others related to the 50th Anniversary World Convention & Asia
+Happiness Academy a.H. 78 (2023)) before the start of the whole program, and I
+will not ask Japanese Raelian Movement (The Raelian Movement) to pay back,
+even if I leave the 50th Anniversary World Convention & Asia Happiness
+Academy a.H. 78 before it ends for any reason.</li>
+<li>I will accept a decision of an event holder when I will be charged a cancellation
+fee according to their cancellation policy when I cancel after I apply for the 50th
+Anniversary World Convention & Asia Happiness Academy a.H. 78.</li>
+<li>I respect the laws of Japan, rules of the facilities I use, and rules, any systems
+and treatments of the Raellian Movement during the 50th Anniversary World
+Convention & Asia Happiness Academy a.H. 78.</li>
+<li>I will follow medical instructions concerning whether I should continue
+attending or not when I am sick or injured.</li>
+<li>I understand that if my family, relatives or friends who don’t apply for a
+participation but stay with me during the 50th Anniversary World Convention &
+Asia Happiness Academy a.H. 78, they are not be able to attend any official
+programs except for events the Raelian Movement permits.</li>
+<li>I understand that it is completely forbidden to photograph, video or audiorecord
+during the 50th Anniversary World Convention & Asia Happiness
+Academy a.H. 78 including lectures, exercises and night shows, and will follow
+this rule.</li>
+<li>I understand that I am responsible for any theft, loss, injury, sickness, or any
+other unexpected accidents that happen to me or my companion(s) during the
+50th Anniversary World Convention & Asia Happiness Academy a.H. 78 including
+lectures, exercises and night shows. And I understand that if my family,
+relative(s) or friend(s) who don’t apply for a participation of the 50th Anniversary
+World Convention & Asia Happiness Academy a.H. 78, stay with me, they will be
+responsible for all the events that happened to them as well.</li>
+<li>If I am an employee of a mass media company (including those of
+magazine ,newspaper, radio, TV, or Internet, etc ) or if I have any engagement or
+contract with such a company, I will inform Public Relations of the Raelian
+Movement upon applying to the 50th Anniversary World Convention & Asia
+Happiness Academy a.H. 78. And if I find anyone attend the 50th Anniversary
+World Convention & Asia Happiness Academy a.H. 78 for the purpose of a media
+coverage, I will immediately report to the Raelian Movement. In any case, I will
+not slander, discriminate, neither act to dishonor or impair credibility of the
+Raelian Movement.</li>
+<li>When the Raelian Movement regard me as inappropriate to participate
+because I am breaking the rules as written above or may cause any trouble to
+the ongoing programs, and decides to refuse or stop my participation, I will
+immediately follow the instructions.</li>
+</ol>
+<p>I solemnly swear that I read, understand and follow all the rules above.
+When I cause any trouble because of breaking the rules, I understand that not
+only the Raelian Movement may prohibit my participation, but also may take a
+legal action against me.<p>
+<p>(The end of pledge)</p>
+<p>Please note the Raelian Movement checks your IDs during 50th Anniversary
+World Convention & Asia Happiness Academy a.H. 78 in order to protect Mr.
+Rael, all the participants including you.</p>
+【 Valid IDs 】
+<ul>
+<li>Passport</li>
+<li>Student ID</li>
+</ul>
+<p>(When you need to prove you are student to apply to a student discount)</p>
+<p>Note: Only original IDs are valid.</p>
+<p>Thank You for your cooperation and understanding.</p>
+<p>For any questions, please feel free to contact us at: Email: asia-ha@rael.org</p>
+
+
+
+
+
+Hello,
+
+Your Registration to 50th Convention and Happiness Academy 78 a.H. has been received, thank you.
+
+Amount to be paid in cash at check-in: JPY {montant_to_pay}
+
+Peace Love and Harmony
+Yasuyuki
+
+<img class="alignnone wp-image-48617" src="https://loukesir.kinsta.cloud/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement
+
+<a href="{cancel_registration}" target="_blank" rel="noopener">Cancel registration</a>

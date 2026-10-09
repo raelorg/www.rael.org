@@ -6,8 +6,8 @@
 //   the Form Object prior to rendering the form.
 // ----------------------------------------------------
 
-add_filter( 'gform_pre_render_46', 'pre_render_46' );
-function pre_render_46( $form ) {
+add_filter( 'gform_pre_render_50', 'pre_render_50' );
+function pre_render_50( $form ) {
 
 	$person_service = GetService( 'person' );
 	$person_token = GetToken( 'get_person_dev' );
@@ -97,7 +97,7 @@ function pre_render_46( $form ) {
 	} // foreach
 
 	return $form;
-} // pre_render_46
+} // pre_render_50
 
 // -----------------------------------------------------
 // Modify a notification object before it is converted into an email and sent
@@ -105,8 +105,8 @@ function pre_render_46( $form ) {
 // > Send a notification to the participant
 // > Send the participant in Elohim.net
 // -----------------------------------------------------
-add_filter( 'gform_notification_46', 'notification_46', 10, 3 );
-function notification_46( $notification, $form, $entry ) {
+add_filter( 'gform_notification_50', 'notification_50', 10, 3 );
+function notification_50( $notification, $form, $entry ) {
 
 	$language_iso = rgar( $entry, '10' );
 	$language = GetLanguageDescription($language_iso);
@@ -167,5 +167,5 @@ function notification_46( $notification, $form, $entry ) {
 
     return $notification;
     
-} // notification_46
+} // notification_50
 

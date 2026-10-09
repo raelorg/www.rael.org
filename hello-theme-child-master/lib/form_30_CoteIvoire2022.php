@@ -190,6 +190,7 @@ function notification_30( $notification, $form, $entry ) {
 		'work_phone' => '',
 		'date_birth' => rgar( $entry, '10' ),
 		'gender' => rgar( $entry, '5' ),
+		'understand_english' => 0,
 		'sem_code' => $sem_code,
         'year' => '2022', 
         'season' => 'summer',

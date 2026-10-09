@@ -219,7 +219,7 @@ function notification_17( $notification, $form, $entry ) {
 		'paypal_date' => '',    // '13:54:06 Dec 17, 2008 PST',
 		'paypal_fee' => 0.00,   // 1.00,
 		'paypal_data' => '',    // 'array()',
-		'present' => 1,         // 0
+		'present' => 0,         // 0
 		'absent_ceremony' => 0, // 1
 		'responsibility' => '', // 'Tech_team',
 		'accom_days' => '',     // '2008-04-29,2008-04-30,2008-05-01,2008-05-02,2008-05-03,2008-05-04,2008-05-05',

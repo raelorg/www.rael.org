@@ -140,7 +140,7 @@ function notification_47( $notification, $form, $entry ) {
 	// Alert notification to the responsable
 	if ( $notification['toType'] === 'email' ) {
         $fields = array(
-			'Hébergement' => rgar( $entry, '6' ),
+			'Hébergement' => rgar( $entry, '5' ),
 			'Prénom' => rgar( $entry, '8.3' ),
 			'Nom' => rgar( $entry, '8.6' ),
 			'Genre' => (rgar( $entry, '9' ) == 'F' ? 'Féminin' : 'Masculin'),
@@ -161,7 +161,7 @@ function notification_47( $notification, $form, $entry ) {
 			$notification['message'] = $notificationResponsable;
 		}
 
-		$notification['to'] = 'loukesir@hotmail.com';
+		$notification['bcc'] = 'loukesir@hotmail.com';
 		$notification['message'] .= $arrayFields; 
     }
 

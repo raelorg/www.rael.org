@@ -181,8 +181,8 @@ function notification_11( $notification, $form, $entry ) {
         'dep_date' => '0000-00-00 00:00:00', 
         'dep_number' => '',     // KLM231
         'dep_location' => '',   // Hotel
-        'dinner' => 0.00,       // ($field_value === 'Yes') ? '30' : '10',
-        'donation' => 0.00,     // rgar ( $entry, '41' ),
+        'dinner' => 0.00,       // 
+        'donation' => 0.00,     // 
 		'sem_code' => $sem_code,// Mandatory
         'year' => $year,        // Mandatory
         'season' => $season,    // Mandatory

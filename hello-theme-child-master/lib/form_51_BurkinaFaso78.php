@@ -6,8 +6,8 @@
 //   the Form Object prior to rendering the form.
 // ----------------------------------------------------
 
-add_filter( 'gform_pre_render_46', 'pre_render_46' );
-function pre_render_46( $form ) {
+add_filter( 'gform_pre_render_51', 'pre_render_51' );
+function pre_render_51( $form ) {
 
 	$person_service = GetService( 'person' );
 	$person_token = GetToken( 'get_person_dev' );
@@ -97,7 +97,7 @@ function pre_render_46( $form ) {
 	} // foreach
 
 	return $form;
-} // pre_render_46
+} // pre_render_51
 
 // -----------------------------------------------------
 // Modify a notification object before it is converted into an email and sent
@@ -105,8 +105,8 @@ function pre_render_46( $form ) {
 // > Send a notification to the participant
 // > Send the participant in Elohim.net
 // -----------------------------------------------------
-add_filter( 'gform_notification_46', 'notification_46', 10, 3 );
-function notification_46( $notification, $form, $entry ) {
+add_filter( 'gform_notification_51', 'notification_51', 10, 3 );
+function notification_51( $notification, $form, $entry ) {
 
 	$language_iso = rgar( $entry, '10' );
 	$language = GetLanguageDescription($language_iso);
@@ -137,9 +137,20 @@ function notification_46( $notification, $form, $entry ) {
 		}
 	}
 
+	$firt_participation = rgar( $entry, '33' );
+	$participation = '';
+
+	if ($firt_participation == 'Oui') {
+		$participation = rgar( $entry, '36' );
+	}
+	else {
+		$participation = rgar( $entry, '37' );
+	}
+
 	// Alert notification to the responsable
 	if ( $notification['toType'] === 'email' ) {
         $fields = array(
+			'Participation' => $participation,
 			'Hébergement' => rgar( $entry, '6' ),
 			'Prénom' => rgar( $entry, '8.3' ),
 			'Nom' => rgar( $entry, '8.6' ),
@@ -155,7 +166,7 @@ function notification_46( $notification, $form, $entry ) {
 
 		// Check if a notification exist for the current language and use it as replacement
 		// > Sometimes it's better to keep notifications in the database than to waste time with WPML.
-		$notificationResponsable = SelectNotification(49, 'responsable', $language_iso);
+		$notificationResponsable = SelectNotification(45, 'responsable', $language_iso);
 
 		if ( 'not found' !== $notificationResponsable ) {
 			$notification['message'] = $notificationResponsable;
@@ -167,5 +178,5 @@ function notification_46( $notification, $form, $entry ) {
 
     return $notification;
     
-} // notification_46
+} // notification_51
 

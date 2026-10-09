@@ -1,11 +1,11 @@
 <?php
 
 // ----------------------------------------------------
-// Form : Subscription Confirmation (35)
+// Form : Subscription Confirmation (5)
 // > Pre-populate the confirmation form (double opt-in)
 // ----------------------------------------------------
-add_filter( 'gform_pre_render_35', 'confirmation_pre_render_35' );
-function confirmation_pre_render_35( $form ) {
+add_filter( 'gform_pre_render_5', 'confirmation_pre_render_5' );
+function confirmation_pre_render_5( $form ) {
 	//do_action( 'hook_push_rejects_to_elohimnet' );
 
 	$ml_token = GetToken( 'ml_dev' );
@@ -24,13 +24,18 @@ function confirmation_pre_render_35( $form ) {
 			$ip_data = @json_decode(wp_remote_retrieve_body(wp_remote_get( "http://ip-api.com/json/".$GLOBALS['raelorg_ip_address'])));
 
 			if ( $ip_data->status == "success" ) {
-				if ($ip_data->countryCode == 'HK') {
-					$ip_data->countryCode = 'cn';
-				}
-				
 				$GLOBALS['raelorg_country_from_ip'] = $ip_data->countryCode;
 			}
 		}
+
+	?>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            /* apply only to a textarea with a class of gf_readonly */
+            jQuery("li.gf_readonly input").attr("readonly","readonly");
+        });
+    </script>
+	<?php
 
 	$contact = SelectContact( $GLOBALS['selector'] );
 	
@@ -50,30 +55,25 @@ function confirmation_pre_render_35( $form ) {
 	foreach ( $form['fields'] as $field )  {
 
 		switch ( $field->id ) {
-			case 3: // Email
+			case 253: // Email
 				if ( $contact !== null ) {
 					$field->defaultValue = $contact->email;
-                }
-
-
-                ?>
-                <script type="text/javascript">
-                    jQuery(document).ready(function(){
-                        jQuery("#input_35_3").attr("readonly", "readonly");
-                    });
-                </script>
-                <?php
-
-                break;
-
-			case 1: // Name
-				if ( $contact !== null )  {
-					$field->inputs[1]['defaultValue'] = $contact->firstname;
-					$field->inputs[3]['defaultValue'] = $contact->lastname;
 				}
 				break;
 
-			case 4: // Prefered Language
+			case 248: // fisrtname
+				if ( $contact !== null )  {
+					$field->defaultValue = $contact->firstname;
+				}
+				break;
+
+			case 249: // lastname
+				if ( $contact !== null )  {
+					$field->defaultValue = $contact->lastname;
+				}
+				break;
+
+			case 245: // Prefered Language
 				$data = array(
 					'values' => 'languages',
 					'token' => $ml_token
@@ -101,7 +101,7 @@ function confirmation_pre_render_35( $form ) {
 
 				break;
 
-			case 5: // Country and Region cannot be populated here
+			case 251: // Country and Region cannot be populated here
 				$country = GetParentLabelCountry( apply_filters( 'wpml_current_language', NULL ) );
                 $area = GetChildrenLabelArea( apply_filters( 'wpml_current_language', NULL ) );
 
@@ -146,26 +146,26 @@ function confirmation_pre_render_35( $form ) {
 	} // foreach
 
 	return $form;
-} // confirmation_pre_render_35
+} // confirmation_pre_render_5
 
 // -----------------------------------------------------------------------
-// Form : Subscription Confirmation (35)
+// Form : Subscription Confirmation (5)
 //    > Fill in the Country field
 // -----------------------------------------------------------------------
-add_filter( 'gform_chained_selects_input_choices_35_5_1', 'confirmation_populate_country_35', 10, 7 );
-function confirmation_populate_country_35( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+add_filter( 'gform_chained_selects_input_choices_5_251_1', 'confirmation_populate_country_5', 10, 7 );
+function confirmation_populate_country_5( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 
 	InsertFormsLog( $GLOBALS['raelorg_session_ID'], 'NL', 'Country', $GLOBALS['raelorg_country_from_ip'], $GLOBALS['raelorg_ip_address'], $GLOBALS['selector'] );
 	
 	return $GLOBALS['raelorg_countries'];
-} // confirmation_populate_country_35
+} // confirmation_populate_country_5
 
 // ------------------------------------------------------------------
-// Form : Subscription Confirmation (35)
+// Form : Subscription Confirmation (5)
 // > Fill in the Area field
 // ------------------------------------------------------------------
-add_filter( 'gform_chained_selects_input_choices_35_5_2', 'confirmation_populate_area_35', 11, 7 );
-function confirmation_populate_area_35( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
+add_filter( 'gform_chained_selects_input_choices_5_251_2', 'confirmation_populate_region_5', 11, 7 );
+function confirmation_populate_region_5( $input_choices, $form_id, $field, $input_id, $chain_value, $value, $index ) {
 
 	$ml_service=GetService( 'ml' );
   	$ml_token=GetToken( 'ml_dev' );
@@ -201,28 +201,27 @@ function confirmation_populate_area_35( $input_choices, $form_id, $field, $input
   	}
 
   	return $choices;
-} // confirmation_populate_region_35
+} // confirmation_populate_region_5
 
 // --------------------------------------------------
-// Form : Subscription Confirmation (35)
+// Form : Subscription Confirmation (5)
 // > Get subscription
 // --------------------------------------------------
-add_action( 'gform_after_submission_35', 'confirmation_after_submission_35', 10, 2 );
-function confirmation_after_submission_35( $entry, $form ) {
+add_action( 'gform_after_submission_5', 'confirmation_after_submission_5', 10, 2 );
+function confirmation_after_submission_5( $entry, $form ) {
 
-	$firstname = rgar( $entry, '1.3' );
-	$lastname = rgar( $entry, '1.6' );
-	$email = rgar( $entry, '3' );
-	$language = rgar ( $entry, '4' );
-	$country = rgar( $entry, '5.1' );
-	$region = rgar( $entry, '5.2' );
+	$firstname = rgar( $entry, '248' );
+	$lastname = rgar( $entry, '249' );
+	$email = rgar( $entry, '253' );
+	$language = rgar ( $entry, '245' );
+	$country = rgar( $entry, '251.1' );
+	$region = rgar( $entry, '251.2' );
 	
 	$regions = array( $region ) + array( $GLOBALS['subscriber_region'] );
 
 	$GLOBALS['selector'] = $_GET['selector'];
 
 	UpdateContact( $firstname, $lastname, $language, $country, $region );
-	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '', $GLOBALS['selector'] );
+	send_person_to_ElohimNet( $firstname, $lastname, $email, $language, $country, '', $regions, '' );
 
-} // confirmation_after_submission_35
-
+} // confirmation_after_submission_5

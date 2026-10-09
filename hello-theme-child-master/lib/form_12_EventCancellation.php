@@ -71,6 +71,12 @@ function pre_render_12( $form ) {
                 case 4: // sem_id
                     $field->defaultValue = $participant->sem_id;
                     break;
+                case 5: // firstname
+                    $field->defaultValue = $participant->firstname;
+                    break;
+                case 6: // lastname
+                    $field->defaultValue = $participant->lastname;
+                    break;
             }
         }
     }
@@ -90,20 +96,8 @@ function notification_12( $notification, $form, $entry ) {
 	$email = rgar( $entry, 2 );
 	$sem_code = rgar( $entry, 3 );
 	$sem_id = rgar( $entry, 4 );
-
-	// Variables to set depending of the event
-
-	$page_title = 'Event cancellation';
-	$page_cancel = 'Event cancellation';
-
-	$notification['bcc'] = 'loukesir@outlook.com'; // For followup
-
-	// Alert notification to the event manager
-	if ( $notification['toType'] === 'email' ) {
-		$notification['to'] = 'lukhaton@outlook.com'; 
-		$notification['subject'] = 'Event cancellation notification from www.rael.org'; 
-		$notification['name'] = 'International Raelian Movement'; 
-    }
+	$firstname = rgar( $entry, 5 );
+	$lastname = rgar( $entry, 6 );
 
 	// Notification sent to the person.
 	if ( $notification['toType'] === 'field' ) {

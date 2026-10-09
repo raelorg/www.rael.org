@@ -1,0 +1,1194 @@
+2023-05-10 17:47:51.224142 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:47:51.226747 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:47:51.230613 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:47:51.231133 - DEBUG --> GFFormDisplay::process_form(): Source page number: 1. Target page number: 2. 
+2023-05-10 17:47:51.231185 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:47:51.231221 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:47:51.240299 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:47:51.240402 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:47:51.240695 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:47:51.240766 - DEBUG --> GFFormDisplay::validate_field id = 2 
+2023-05-10 17:47:51.241019 - DEBUG --> GFFormDisplay::validate_field id = 3 
+2023-05-10 17:47:51.241142 - DEBUG --> GFFormDisplay::validate_field id = 118 
+2023-05-10 17:47:51.241489 - DEBUG --> GFFormDisplay::validate_field id = 4 
+2023-05-10 17:47:51.241772 - DEBUG --> GFFormDisplay::validate_field id = 5 
+2023-05-10 17:47:51.242253 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.001514 seconds. 
+2023-05-10 17:47:51.242295 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:47:51.242432 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242460 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242480 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242499 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242516 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242535 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242558 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242577 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242594 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242613 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242630 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242647 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242666 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242687 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242706 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242723 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242742 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242758 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242775 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242794 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242815 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242834 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242861 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242880 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242897 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242914 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242937 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242954 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242971 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.242990 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243007 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243026 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243043 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243066 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243083 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243100 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243119 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243136 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243154 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243175 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243194 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243211 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243230 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243247 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243264 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243283 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243305 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243324 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243347 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243366 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243385 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243402 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243424 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243443 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243460 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243479 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243495 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243514 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243531 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243555 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243571 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243590 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243607 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243627 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243644 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243663 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243685 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243702 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243721 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243738 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243757 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243774 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243798 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243817 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243834 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243861 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243880 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243896 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243915 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243937 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243956 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243973 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.243990 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244009 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244026 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244050 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244069 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244086 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244106 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244122 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244141 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244158 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244182 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244200 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244219 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244236 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244255 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244272 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244293 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244312 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244369 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244391 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:47:51.244416 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:47:51.244440 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:47:51.244477 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.021345 seconds. 
+2023-05-10 17:48:14.976929 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:48:14.979490 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:48:14.983580 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:48:14.984199 - DEBUG --> GFFormDisplay::process_form(): Source page number: 2. Target page number: 3. 
+2023-05-10 17:48:14.984266 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:48:14.984289 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:48:15.001280 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:48:15.001351 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:48:15.001760 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:48:15.001910 - DEBUG --> GFFormDisplay::validate_field id = 32 
+2023-05-10 17:48:15.002291 - DEBUG --> GFFormDisplay::validate_field id = 35 
+2023-05-10 17:48:15.002649 - DEBUG --> GFFormDisplay::validate_field id = 37 
+2023-05-10 17:48:15.003019 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.001168 seconds. 
+2023-05-10 17:48:15.003065 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:48:15.003228 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003253 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003269 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003285 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003300 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003315 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003329 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003349 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003364 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003377 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003392 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003407 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003422 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003441 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003509 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003525 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003540 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003555 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003568 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003582 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003602 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003616 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003629 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003643 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003658 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003671 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003689 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003703 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003717 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003731 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003746 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003760 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003773 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003791 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003806 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003819 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003834 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003848 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003861 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003875 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003895 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003910 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003923 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003938 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003962 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.003983 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004014 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004035 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004051 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004066 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004081 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004096 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004110 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004128 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004142 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004157 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004170 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004185 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004200 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004218 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004237 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004252 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004266 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004281 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004297 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004312 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004369 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004391 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004407 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004424 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004437 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004456 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004472 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004487 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004503 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004518 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004534 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004550 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004566 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004585 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004609 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004632 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004654 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004673 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004687 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004703 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004719 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004734 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004749 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004764 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004779 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004793 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004808 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004823 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004838 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004853 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004868 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004887 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004904 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004920 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004934 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004961 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:15.004983 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:48:15.005007 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:48:15.005039 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.029132 seconds. 
+2023-05-10 17:48:20.023202 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:48:20.027271 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:48:20.032831 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:48:20.033679 - DEBUG --> GFFormDisplay::process_form(): Source page number: 3. Target page number: 4. 
+2023-05-10 17:48:20.033745 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:48:20.033771 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:48:20.054534 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:48:20.054627 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:48:20.055075 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:48:20.055253 - DEBUG --> GFFormDisplay::validate_field id = 54 
+2023-05-10 17:48:20.055645 - DEBUG --> GFFormDisplay::validate_field id = 51 
+2023-05-10 17:48:20.055862 - DEBUG --> GFFormDisplay::validate_field id = 52 
+2023-05-10 17:48:20.056056 - DEBUG --> GFFormDisplay::validate_field id = 55 
+2023-05-10 17:48:20.056160 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.001015 seconds. 
+2023-05-10 17:48:20.056189 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:48:20.056303 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056364 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056396 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056416 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056435 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056453 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056472 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056489 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056508 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056524 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056543 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056560 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056577 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056617 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056637 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056654 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056672 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056689 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056706 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056724 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056740 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056759 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056776 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056792 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056811 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056828 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056848 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056873 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056894 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056911 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056930 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056946 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056965 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.056983 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057001 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057018 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057034 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057053 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057070 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057086 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057105 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057121 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057138 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057156 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057173 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057190 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057209 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057229 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057250 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057267 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057286 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057302 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057321 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057338 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057357 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057377 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057395 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057414 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057430 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057447 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057466 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057482 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057501 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057518 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057535 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057554 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057570 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057588 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057605 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057622 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057640 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057657 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057677 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057698 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057717 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057734 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057750 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057769 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057785 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057804 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057821 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057838 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057857 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057883 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057902 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057919 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057936 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057955 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057971 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.057990 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058007 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058023 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058042 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058058 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058077 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058095 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058118 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058136 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058155 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058172 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058190 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058207 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:20.058234 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:48:20.058262 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:48:20.058298 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.036338 seconds. 
+2023-05-10 17:48:26.108982 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:48:26.112885 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:48:26.117352 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:48:26.118345 - DEBUG --> GFFormDisplay::process_form(): Source page number: 4. Target page number: 5. 
+2023-05-10 17:48:26.118447 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:48:26.118480 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:48:26.137638 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:48:26.137722 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:48:26.138160 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:48:26.138298 - DEBUG --> GFFormDisplay::validate_field id = 112 
+2023-05-10 17:48:26.138680 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.000467 seconds. 
+2023-05-10 17:48:26.138725 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:48:26.138854 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.138880 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.138895 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.138927 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.138945 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.138959 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.138976 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.138991 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139013 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139031 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139048 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139064 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139080 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139095 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139110 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139123 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139139 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139153 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139168 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139183 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139199 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139214 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139229 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139244 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139257 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139272 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139286 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139302 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139337 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139353 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139367 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139381 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139396 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139413 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139427 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139442 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139457 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139472 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139487 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139502 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139523 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139538 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139553 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139568 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139583 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139597 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139612 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139627 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139642 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139657 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139672 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139687 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139703 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139717 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139731 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139746 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139761 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139776 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139791 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139806 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139820 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139834 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139849 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139864 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139879 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139894 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139909 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139925 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139939 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139955 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139969 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139983 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.139997 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140017 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140033 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140048 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140063 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140078 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140093 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140106 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140121 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140136 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140155 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140180 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140218 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140242 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140259 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140275 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140292 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140310 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140351 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140372 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140388 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140405 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140424 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140441 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140460 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140476 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140492 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140515 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140532 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140549 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:26.140573 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:48:26.140598 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:48:26.140631 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.032876 seconds. 
+2023-05-10 17:48:31.354310 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:48:31.356853 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:48:31.360697 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:48:31.361169 - DEBUG --> GFFormDisplay::process_form(): Source page number: 5. Target page number: 6. 
+2023-05-10 17:48:31.361221 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:48:31.361243 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:48:31.378388 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:48:31.378463 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:48:31.378751 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:48:31.378865 - DEBUG --> GFFormDisplay::validate_field id = 130 
+2023-05-10 17:48:31.379272 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.000474 seconds. 
+2023-05-10 17:48:31.379311 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:48:31.379441 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379462 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379479 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379494 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379511 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379525 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379550 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379565 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379580 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379595 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379609 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379623 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379637 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379652 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379667 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379681 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379694 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379709 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379724 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379739 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379753 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379766 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379781 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379795 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379810 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379823 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379838 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379853 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379868 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379882 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379895 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379909 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379924 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379939 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379952 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379966 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379981 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.379995 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380008 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380023 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380043 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380059 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380073 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380086 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380101 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380115 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380130 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380143 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380157 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380172 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380186 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380201 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380214 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380228 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380243 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380256 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380270 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380285 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380300 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380314 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380359 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380387 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380407 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380426 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380449 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380469 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380487 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380508 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380528 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380554 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380574 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380594 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380614 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380634 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380655 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380675 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380696 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380714 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380734 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380753 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380774 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380795 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380814 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380834 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380853 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380872 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380893 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380913 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380933 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380953 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380973 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.380991 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381014 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381036 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381057 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381078 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381098 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381118 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381138 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381158 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381179 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381197 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:48:31.381226 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:48:31.381253 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:48:31.381293 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.027921 seconds. 
+2023-05-10 17:49:05.053447 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:49:05.057602 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:49:05.062808 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:49:05.063472 - DEBUG --> GFFormDisplay::process_form(): Source page number: 6. Target page number: 7. 
+2023-05-10 17:49:05.063544 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:49:05.063570 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:49:05.096478 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:49:05.096628 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:49:05.097091 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:49:05.097306 - DEBUG --> GFFormDisplay::validate_field id = 75 
+2023-05-10 17:49:05.097718 - DEBUG --> GFFormDisplay::validate_field id = 78 
+2023-05-10 17:49:05.097816 - DEBUG --> GFFormDisplay::validate_field id = 79 
+2023-05-10 17:49:05.097975 - DEBUG --> GFFormDisplay::validate_field id = 80 
+2023-05-10 17:49:05.098035 - DEBUG --> GFFormDisplay::validate_field id = 81 
+2023-05-10 17:49:05.098160 - DEBUG --> GFFormDisplay::validate_field id = 82 
+2023-05-10 17:49:05.098217 - DEBUG --> GFFormDisplay::validate_field id = 83 
+2023-05-10 17:49:05.098261 - DEBUG --> GFFormDisplay::validate_field id = 84 
+2023-05-10 17:49:05.098305 - DEBUG --> GFFormDisplay::validate_field id = 85 
+2023-05-10 17:49:05.098475 - DEBUG --> GFFormDisplay::validate_field id = 86 
+2023-05-10 17:49:05.098613 - DEBUG --> GFFormDisplay::validate_field id = 87 
+2023-05-10 17:49:05.098730 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.001575 seconds. 
+2023-05-10 17:49:05.098761 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:49:05.099009 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099064 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099092 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099121 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099148 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099174 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099200 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099229 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099253 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099278 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099304 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099330 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099356 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099383 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099407 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099433 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099462 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099488 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099512 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099539 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099562 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099589 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099617 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099642 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099668 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099694 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099719 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099742 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099769 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099795 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099819 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099845 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099873 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099898 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099925 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099966 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.099993 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100017 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100043 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100065 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100090 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100120 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100147 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100172 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100198 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100223 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100246 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100272 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100296 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100317 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100462 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100482 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100497 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100512 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100528 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100545 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100567 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100591 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100615 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100641 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100666 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100692 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100718 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100744 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100769 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100795 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100821 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100846 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100872 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100898 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100923 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100970 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.100999 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101025 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101052 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101077 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101103 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101126 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101151 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101177 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101205 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101229 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101257 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101284 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101310 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101337 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101363 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101388 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101414 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101442 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101470 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101496 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101524 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101551 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101577 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101603 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101633 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101660 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101686 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101711 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101738 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101768 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:05.101808 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:49:05.101855 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:49:05.101910 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.049633 seconds. 
+2023-05-10 17:49:10.125894 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:49:10.130970 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:49:10.137665 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:49:10.138515 - DEBUG --> GFFormDisplay::process_form(): Source page number: 7. Target page number: 8. 
+2023-05-10 17:49:10.138607 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:49:10.138644 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:49:10.163294 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:49:10.163403 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:49:10.163872 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:49:10.164127 - DEBUG --> GFFormDisplay::validate_field id = 93 
+2023-05-10 17:49:10.164575 - DEBUG --> GFFormDisplay::validate_field id = 125 
+2023-05-10 17:49:10.164788 - DEBUG --> GFFormDisplay::validate_field id = 127 
+2023-05-10 17:49:10.164891 - DEBUG --> GFFormDisplay::validate_field id = 92 
+2023-05-10 17:49:10.164983 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.001033 seconds. 
+2023-05-10 17:49:10.165026 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:49:10.165237 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165287 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165316 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165340 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165368 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165405 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165438 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165465 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165491 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165514 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165538 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165561 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165585 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165610 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165633 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165657 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165679 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165703 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165726 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165751 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165776 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165801 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165824 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165848 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165874 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165898 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165923 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165949 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165973 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.165997 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166022 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166045 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166070 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166094 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166117 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166141 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166166 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166192 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166217 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166241 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166266 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166290 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166316 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166340 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166363 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166388 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166433 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166457 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166482 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166507 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166532 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166557 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166580 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166605 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166632 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166657 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166682 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166707 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166732 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166755 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166780 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166805 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166830 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166855 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166879 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166903 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166928 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.166980 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167009 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167033 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167058 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167083 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167108 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167131 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167156 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167181 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167206 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167228 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167253 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167275 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167299 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167324 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167347 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167372 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167406 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167432 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167457 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167479 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167503 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167525 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167547 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167571 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167593 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167615 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167640 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167663 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167686 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167711 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167733 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167757 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167781 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167804 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:10.167835 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:49:10.167869 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:49:10.167927 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.043760 seconds. 
+2023-05-10 17:49:17.749207 - DEBUG --> GFFormDisplay::process_form(): Starting to process form (#41) submission. 
+2023-05-10 17:49:17.751997 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_process. 
+2023-05-10 17:49:17.755676 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_process. 
+2023-05-10 17:49:17.756290 - DEBUG --> GFFormDisplay::process_form(): Source page number: 8. Target page number: 0. 
+2023-05-10 17:49:17.756361 - DEBUG --> GFFormDisplay::validate(): Starting for form #41. 
+2023-05-10 17:49:17.756386 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_pre_validation. 
+2023-05-10 17:49:17.765202 - DEBUG --> GFFormDisplay::validate(): Completed gform_pre_validation. 
+2023-05-10 17:49:17.765260 - DEBUG --> GFFormDisplay::validate(): Checking restrictions. 
+2023-05-10 17:49:17.765572 - DEBUG --> GFFormDisplay::validate(): Completed restrictions. Starting field validation. 
+2023-05-10 17:49:17.765634 - DEBUG --> GFFormDisplay::validate_field id = 2 
+2023-05-10 17:49:17.765862 - DEBUG --> GFFormDisplay::validate_field id = 3 
+2023-05-10 17:49:17.765980 - DEBUG --> GFFormDisplay::validate_field id = 118 
+2023-05-10 17:49:17.766324 - DEBUG --> GFFormDisplay::validate_field id = 4 
+2023-05-10 17:49:17.766608 - DEBUG --> GFFormDisplay::validate_field id = 5 
+2023-05-10 17:49:17.767044 - DEBUG --> GFFormDisplay::validate_field id = 32 
+2023-05-10 17:49:17.767153 - DEBUG --> GFFormDisplay::validate_field id = 35 
+2023-05-10 17:49:17.767342 - DEBUG --> GFFormDisplay::validate_field id = 37 
+2023-05-10 17:49:17.767535 - DEBUG --> GFFormDisplay::validate_field id = 54 
+2023-05-10 17:49:17.767631 - DEBUG --> GFFormDisplay::validate_field id = 51 
+2023-05-10 17:49:17.767776 - DEBUG --> GFFormDisplay::validate_field id = 52 
+2023-05-10 17:49:17.767903 - DEBUG --> GFFormDisplay::validate_field id = 55 
+2023-05-10 17:49:17.767946 - DEBUG --> GFFormDisplay::validate_field id = 112 
+2023-05-10 17:49:17.768064 - DEBUG --> GFFormDisplay::validate_field id = 130 
+2023-05-10 17:49:17.768271 - DEBUG --> GFFormDisplay::validate_field id = 75 
+2023-05-10 17:49:17.768424 - DEBUG --> GFFormDisplay::validate_field id = 78 
+2023-05-10 17:49:17.768498 - DEBUG --> GFFormDisplay::validate_field id = 79 
+2023-05-10 17:49:17.769156 - DEBUG --> GFFormDisplay::validate_field id = 80 
+2023-05-10 17:49:17.769229 - DEBUG --> GFFormDisplay::validate_field id = 81 
+2023-05-10 17:49:17.769329 - DEBUG --> GFFormDisplay::validate_field id = 82 
+2023-05-10 17:49:17.769381 - DEBUG --> GFFormDisplay::validate_field id = 83 
+2023-05-10 17:49:17.769424 - DEBUG --> GFFormDisplay::validate_field id = 84 
+2023-05-10 17:49:17.769469 - DEBUG --> GFFormDisplay::validate_field id = 85 
+2023-05-10 17:49:17.769532 - DEBUG --> GFFormDisplay::validate_field id = 86 
+2023-05-10 17:49:17.769617 - DEBUG --> GFFormDisplay::validate_field id = 87 
+2023-05-10 17:49:17.769692 - DEBUG --> GFFormDisplay::validate_field id = 93 
+2023-05-10 17:49:17.769762 - DEBUG --> GFFormDisplay::validate_field id = 125 
+2023-05-10 17:49:17.769834 - DEBUG --> GFFormDisplay::validate_field id = 127 
+2023-05-10 17:49:17.769881 - DEBUG --> GFFormDisplay::validate_field id = 92 
+2023-05-10 17:49:17.769932 - DEBUG --> GFFormDisplay::validate_field id = 123 
+2023-05-10 17:49:17.770013 - DEBUG --> GFFormDisplay::validate_field id = 108 
+2023-05-10 17:49:17.770070 - DEBUG --> GFFormDisplay::validate_field id = 17 
+2023-05-10 17:49:17.770323 - DEBUG --> GFFormDisplay::validate(): Field validation completed in 0.004716 seconds. 
+2023-05-10 17:49:17.770351 - DEBUG --> GFFormDisplay::validate(): Executing functions hooked to gform_validation. 
+2023-05-10 17:49:17.770497 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770526 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770545 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770560 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770576 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770591 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770606 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770622 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770637 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770651 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770664 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770680 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770694 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770709 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770724 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770739 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770752 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770767 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770781 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770796 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770811 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770826 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770840 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770854 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770869 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770884 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770899 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770912 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770926 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770941 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770956 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770971 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770984 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.770998 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771022 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771037 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771050 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771065 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771080 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771095 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771109 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771122 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771136 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771151 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771166 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771179 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771193 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771209 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771224 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771238 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771251 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771266 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771281 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771295 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771310 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771323 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771338 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771353 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771368 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771382 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771395 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771410 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771425 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771440 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771455 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771470 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771483 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771497 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771517 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771533 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771547 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771562 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771575 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771590 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771605 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771620 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771635 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771648 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771663 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771677 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771692 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771706 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771720 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771735 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771749 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771764 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771779 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771794 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771807 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771822 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771836 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771852 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771867 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771881 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771895 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771909 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771924 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771939 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771954 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771969 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771982 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.771997 - DEBUG --> custom_validation_41 $field->value =  
+2023-05-10 17:49:17.772025 - DEBUG --> GFFormDisplay::validate(): Completed gform_validation. 
+2023-05-10 17:49:17.772042 - DEBUG --> GFFormDisplay::process_form(): After validation. Is submission valid? Yes. 
+2023-05-10 17:49:17.772124 - DEBUG --> GFFormDisplay::process_form(): Submission is valid. Moving forward. 
+2023-05-10 17:49:17.772147 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_pre_submission_filter. 
+2023-05-10 17:49:17.772224 - DEBUG --> GFFormDisplay::process_form(): Completed gform_pre_submission_filter. 
+2023-05-10 17:49:17.772289 - DEBUG --> GFFormsModel::save_entry(): Saving entry. 
+2023-05-10 17:49:17.774935 - DEBUG --> GFFormsModel::save_entry(): Entry record created in the database. ID: 25793. 
+2023-05-10 17:49:17.775485 - DEBUG --> GFFormsModel::save_entry(): Saving entry fields. 
+2023-05-10 17:49:17.775665 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Attendance(#2 - radio). 
+2023-05-10 17:49:17.775741 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: How many days would you like to addtend in the Seminar?(#3 - radio). 
+2023-05-10 17:49:17.775825 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Discount(#118.1 - product). 
+2023-05-10 17:49:17.775860 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Discount(#118.2 - product). 
+2023-05-10 17:49:17.775897 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Discount(#118.3 - product). 
+2023-05-10 17:49:17.775984 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Attendance fulltime (Structure member)(#4.1 - product). 
+2023-05-10 17:49:17.776036 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Attendance fulltime (Structure member)(#4.2 - product). 
+2023-05-10 17:49:17.776067 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Attendance fulltime (Structure member)(#4.3 - product). 
+2023-05-10 17:49:17.776401 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Accommodation type(#32 - radio). 
+2023-05-10 17:49:17.776493 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.1 - option). 
+2023-05-10 17:49:17.776550 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.2 - option). 
+2023-05-10 17:49:17.776621 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.3 - option). 
+2023-05-10 17:49:17.776668 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.4 - option). 
+2023-05-10 17:49:17.776707 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.5 - option). 
+2023-05-10 17:49:17.776746 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.6 - option). 
+2023-05-10 17:49:17.776783 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.7 - option). 
+2023-05-10 17:49:17.776822 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.8 - option). 
+2023-05-10 17:49:17.776851 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.9 - option). 
+2023-05-10 17:49:17.776881 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Room for 1 person(#35.11 - option). 
+2023-05-10 17:49:17.777051 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Would you like to order BOX meals during the Event?(#54 - radio). 
+2023-05-10 17:49:17.777112 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.1 - option). 
+2023-05-10 17:49:17.777143 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.2 - option). 
+2023-05-10 17:49:17.777170 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.3 - option). 
+2023-05-10 17:49:17.777203 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.4 - option). 
+2023-05-10 17:49:17.777231 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.5 - option). 
+2023-05-10 17:49:17.777259 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.6 - option). 
+2023-05-10 17:49:17.777283 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.7 - option). 
+2023-05-10 17:49:17.777308 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Lunch bento box (¥ 600)(#51.8 - option). 
+2023-05-10 17:49:17.777359 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.1 - option). 
+2023-05-10 17:49:17.777412 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.2 - option). 
+2023-05-10 17:49:17.777440 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.3 - option). 
+2023-05-10 17:49:17.777465 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.4 - option). 
+2023-05-10 17:49:17.777489 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.5 - option). 
+2023-05-10 17:49:17.777514 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.6 - option). 
+2023-05-10 17:49:17.777539 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.7 - option). 
+2023-05-10 17:49:17.777565 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Dinner bento box (¥ 1000)(#52.8 - option). 
+2023-05-10 17:49:17.777628 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Would you like to take advantage of the circular JRM chartered bus service between the event hall and the hotel?(#112 - radio). 
+2023-05-10 17:49:17.777715 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Since there is no shuttle bus between the hotel and the airport, the JRM will charter buses on Dec 16 after the Event ends. Would you like to take advantage of this charter (a fee is required)?(#130 - radio). 
+2023-05-10 17:49:17.777906 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Are you submitting this form for someone other than yourself?(#75 - radio). 
+2023-05-10 17:49:17.778008 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Name(#78.2 - name). 
+2023-05-10 17:49:17.778043 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Name(#78.3 - name). 
+2023-05-10 17:49:17.778070 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Name(#78.4 - name). 
+2023-05-10 17:49:17.778099 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Name(#78.6 - name). 
+2023-05-10 17:49:17.778125 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Name(#78.8 - name). 
+2023-05-10 17:49:17.778176 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Email(#79 - email). 
+2023-05-10 17:49:17.778225 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Nickname(#80 - text). 
+2023-05-10 17:49:17.778286 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Gender(#81 - radio). 
+2023-05-10 17:49:17.778338 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Country(#82.1 - chainedselect). 
+2023-05-10 17:49:17.778378 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Country(#82.2 - chainedselect). 
+2023-05-10 17:49:17.778429 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Town / City(#83 - text). 
+2023-05-10 17:49:17.778482 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Language(#84 - select). 
+2023-05-10 17:49:17.778543 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Date of birth(#85 - date). 
+2023-05-10 17:49:17.778608 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Understand English?(#86 - radio). 
+2023-05-10 17:49:17.778666 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Mobile phone(#87 - phone). 
+2023-05-10 17:49:17.778729 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Need translation?(#93 - radio). 
+2023-05-10 17:49:17.778793 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Need parking?(#125 - radio). 
+2023-05-10 17:49:17.778846 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Message / Question(#92 - textarea). 
+2023-05-10 17:49:17.778922 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: By clicking Yes, I agree to abide by the rules.(#123.1 - checkbox). 
+2023-05-10 17:49:17.778985 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Option field mapping(#17.1 - product). 
+2023-05-10 17:49:17.779015 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Option field mapping(#17.2 - product). 
+2023-05-10 17:49:17.779043 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Option field mapping(#17.3 - product). 
+2023-05-10 17:49:17.786482 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#5 - total). 
+2023-05-10 17:49:17.788253 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#7 - total). 
+2023-05-10 17:49:17.790043 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#10 - total). 
+2023-05-10 17:49:17.791785 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#12 - total). 
+2023-05-10 17:49:17.793534 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#14 - total). 
+2023-05-10 17:49:17.795279 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#16 - total). 
+2023-05-10 17:49:17.797101 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#19 - total). 
+2023-05-10 17:49:17.798862 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#21 - total). 
+2023-05-10 17:49:17.800647 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#24 - total). 
+2023-05-10 17:49:17.802403 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#26 - total). 
+2023-05-10 17:49:17.804130 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#28 - total). 
+2023-05-10 17:49:17.805883 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pays(#30 - total). 
+2023-05-10 17:49:17.807717 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#37 - total). 
+2023-05-10 17:49:17.809545 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#38 - total). 
+2023-05-10 17:49:17.811297 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#40 - total). 
+2023-05-10 17:49:17.813097 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#42 - total). 
+2023-05-10 17:49:17.814882 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#44 - total). 
+2023-05-10 17:49:17.816684 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#46 - total). 
+2023-05-10 17:49:17.818439 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#55 - total). 
+2023-05-10 17:49:17.820180 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#102 - total). 
+2023-05-10 17:49:17.821916 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#63 - total). 
+2023-05-10 17:49:17.823695 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#127 - total). 
+2023-05-10 17:49:17.825450 - DEBUG --> GFFormsModel::queue_save_input_value(): Queued field operation: Total to pay(#108 - total). 
+2023-05-10 17:49:17.827687 - DEBUG --> GFFormsModel::save_entry(): Finished saving entry fields. 
+2023-05-10 17:49:17.827753 - DEBUG --> GFFormsModel::save_entry(): Saving entry completed in 0.055457 seconds. 
+2023-05-10 17:49:17.827785 - DEBUG --> GFFormsModel::set_entry_meta(): Saving meta for entry (#25793) completed in 0.000008 seconds. 
+2023-05-10 17:49:17.946332 - DEBUG --> GFCommon::is_spam_entry(): Result from Akismet: false 
+2023-05-10 17:49:17.946470 - DEBUG --> GFCommon::is_spam_entry(): Executing functions hooked to gform_entry_is_spam. 
+2023-05-10 17:49:17.946814 - DEBUG --> Gravity_Forms\Gravity_Forms\Honeypot\GF_Honeypot_Handler::validate_honeypot(): Is honeypot input empty? true 
+2023-05-10 17:49:17.946872 - DEBUG --> Gravity_Forms\Gravity_Forms\Honeypot\GF_Honeypot_Handler::validate_honeypot(): Is version_hash input valid? true 
+2023-05-10 17:49:17.946892 - DEBUG --> Gravity_Forms\Gravity_Forms\Honeypot\GF_Honeypot_Handler::validate_honeypot(): Are both inputs valid? true 
+2023-05-10 17:49:17.946914 - DEBUG --> GFCommon::is_spam_entry(): Result from gform_entry_is_spam filter: false 
+2023-05-10 17:49:17.946938 - DEBUG --> GFCommon::is_spam_entry(): Spam checks completed in 0.119126 seconds. Is submission considered spam? No. 
+2023-05-10 17:49:17.947025 - DEBUG --> GF_Background_Process::dispatch(): Running for gf_feed_processor. 
+2023-05-10 17:49:17.947565 - DEBUG --> GF_Background_Process::dispatch(): Unable to dispatch tasks to Admin Ajax: Nothing left to process 
+2023-05-10 17:49:17.947613 - DEBUG --> GFFormsModel::create_post(): Starting. 
+2023-05-10 17:49:17.949090 - DEBUG --> GFFormsModel::create_post(): Stopping. The form doesn't have any post fields. 
+2023-05-10 17:49:17.949146 - DEBUG --> GFAPI::send_notifications(): Gathering notifications for form_submission event for entry #25793. 
+2023-05-10 17:49:17.949222 - DEBUG --> GFCommon::send_notifications(): Processing notifications for form_submission event for entry #25793: Array
+(
+    [0] => 64505b61ba349
+    [1] => 6456b96b4e829
+)
+
+(only active/applicable notifications are sent) 
+2023-05-10 17:49:17.949245 - DEBUG --> GFCommon::send_notification(): Starting to process notification (#64505b61ba349 - Admin Notification). 
+2023-05-10 17:49:18.177774 - DEBUG --> GFCommon::send_email(): Sending email via wp_mail(). 
+2023-05-10 17:49:18.177870 - DEBUG --> Array
+(
+    [to] => loukesir@hotmail.com
+    [subject] => New registration from 50th Convention and Happiness Academy 78 a.H.
+    [message] => <html>
+	<head>
+		<title>New registration from 50th Convention and Happiness Academy 78 a.H.</title>
+	</head>
+	<body>
+		Hello,<br />
+<br />
+Please do NOT reply to this email, this is a <strong>notification</strong> from rael.org to let you know that someone that someone has just registered for the 50th Convention and Happiness Academy 78 a.H.<br />
+<br />
+<span style="color: #0ecad4;">** The profile for this person has already been created in Elohim.net **</span><div><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF"><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>First name</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">test</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Last name</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">test</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">loukesir@hotmail.com</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">Canada</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>State</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">Nova Scotia</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">English</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Message</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px"></font></td></tr></table></div><img class="alignnone wp-image-48617" src="https://www.rael.org/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement<br />
+<br />
+&nbsp;<br />
+<br />
+&nbsp;
+	</body>
+</html>
+    [headers] => Array
+        (
+            [From] => From: "International Raelian Movement" <no-reply@rael.org>
+            [Bcc] => Bcc: loukesir@hotmail.com
+            [Content-type] => Content-type: text/html; charset=UTF-8
+        )
+
+    [attachments] => Array
+        (
+        )
+
+    [abort_email] => 
+)
+ 
+2023-05-10 17:49:18.196763 - DEBUG --> GFCommon::send_email(): Result from wp_mail(): 1 
+2023-05-10 17:49:18.196840 - DEBUG --> GFCommon::send_email(): WordPress successfully passed the notification email (#64505b61ba349 - Admin Notification) for entry #25793 to the sending server. 
+2023-05-10 17:49:18.196861 - DEBUG --> GFCommon::send_email(): The WordPress phpmailer_init hook has been detected, usually used by SMTP plugins. It can alter the email setup/content or sending server, and impact the notification deliverability. 
+2023-05-10 17:49:18.198651 - DEBUG --> GFCommon::send_notification(): Starting to process notification (#6456b96b4e829 - Person notification). 
+2023-05-10 17:49:18.573266 - DEBUG --> GFCommon::send_email(): Sending email via wp_mail(). 
+2023-05-10 17:49:18.573371 - DEBUG --> Array
+(
+    [to] => loukesir@hotmail.com
+    [subject] => Registration confirmation to 50th Convention and Happiness Academy 78 a.H.
+    [message] => <html>
+	<head>
+		<title>Registration confirmation to 50th Convention and Happiness Academy 78 a.H.</title>
+	</head>
+	<body>
+		Hello,<br />
+<br />
+Your Registration to 50th Convention and Happiness Academy 78 a.H. has been received, thank you.<br />
+<br />
+Amount to be paid in cash at check-in: JPY 136500<br />
+<br />
+<div><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF"><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>First name</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">test</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Last name</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">test</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Nickname</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px"></font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Birthdate</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">2023-05-10</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Gender</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">M</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Email</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">loukesir@hotmail.com</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Country</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">Canada</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>State</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">Nova Scotia</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Suburb</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px"></font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Language</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">English</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Understand English?</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">No</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Mobile phone</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px"></font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>First seminar</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">No</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Student</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">No</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Attendance</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">Structure member</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Fee</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">30400</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Duration days</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">2023-12-09,2023-12-10,2023-12-11,2023-12-12,2023-12-13,2023-12-14,2023-12-15,2023-12-16</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Accommodation type</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">Room for 1 person (JPY 15,500 per night)</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Accommodation days</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">2023-12-09,2023-12-10,2023-12-11,2023-12-12,2023-12-13,2023-12-14,2023-12-15</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Accommodation fee</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">108500</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Parking</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">No</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Lunch</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px"></font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Dinner</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px"></font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Translation</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px"></font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Meals fee</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">1600</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Transport fee</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">0</font></td></tr><tr bgcolor="#EAF2FA"><td colspan="2"><font style="font-family:sans-serif; font-size:12px"><strong>Discount</strong></font></td></tr><tr bgcolor="#FFFFFF"><td width="20">&nbsp;</td><td><font style="font-family:sans-serif; font-size:12px">4000</font></td></tr></table></div><img class="alignnone wp-image-48617" src="https://www.rael.org/wp-content/uploads/2019/08/raelian_symbol_.svg" alt="" width="37" height="43" /> International Raelian Movement<br />
+<br />
+&nbsp;<br />
+<br />
+&nbsp;<br />
+<br />
+Peace Love and Harmony<br />
+Yasuyuki<br />
+<br />
+<a href="https://loukesir.kinsta.cloud/registration/50th-anniversary-in-okinawa-cancellation/?selector=HMUhetwe7aOTNd3RcOkgJoXk" target="_blank" rel="noopener">Cancel registration</a>
+	</body>
+</html>
+    [headers] => Array
+        (
+            [From] => From: "International Raelian Movement" <asia-ha@rael.org>
+            [Reply-To] => Reply-To: asia-ha@rael.org
+            [Content-type] => Content-type: text/html; charset=UTF-8
+        )
+
+    [attachments] => Array
+        (
+        )
+
+    [abort_email] => 
+)
+ 
+2023-05-10 17:49:18.583400 - DEBUG --> GFCommon::send_email(): Result from wp_mail(): 1 
+2023-05-10 17:49:18.583473 - DEBUG --> GFCommon::send_email(): WordPress successfully passed the notification email (#6456b96b4e829 - Person notification) for entry #25793 to the sending server. 
+2023-05-10 17:49:18.583501 - DEBUG --> GFCommon::send_email(): The WordPress phpmailer_init hook has been detected, usually used by SMTP plugins. It can alter the email setup/content or sending server, and impact the notification deliverability. 
+2023-05-10 17:49:18.584062 - DEBUG --> GFCommon::send_notifications(): Sending notifications for entry (#25793) completed in 0.634806 seconds. 
+2023-05-10 17:49:18.584455 - DEBUG --> GFFormDisplay::handle_confirmation(): Preparing confirmation (#64505b61ba48f - Default Confirmation). 
+2023-05-10 17:49:18.584844 - DEBUG --> GFFormDisplay::handle_confirmation(): Confirmation to be used => <div id='gf_41' class='gform_anchor' tabindex='-1'></div><div id='gform_confirmation_wrapper_41' class='gform_confirmation_wrapper '><div id='gform_confirmation_message_41' class='gform_confirmation_message_41 gform_confirmation_message'>Thank you for your registration to 50th Convention and Happiness Academy 78 a.H. A notification has been sent to you by email.</div></div> 
+2023-05-10 17:49:18.584909 - DEBUG --> GFFormDisplay::process_form(): Executing functions hooked to gform_after_submission. 
+2023-05-10 17:49:18.585336 - DEBUG --> GFFormDisplay::process_form(): Completed gform_after_submission. 
+2023-05-10 17:49:18.585412 - DEBUG --> GFFormDisplay::process_form(): Processing completed in 0.837183 seconds. 
+2023-05-10 17:49:19.815733 - DEBUG --> Gravity_Forms\Gravity_Forms\Duplicate_Submissions\GF_Duplicate_Submissions_Handler::is_valid_submission(): form #41. entry #25793. 
+2023-05-10 17:49:19.822180 - DEBUG --> GFFormDisplay::get_form(): Preparing form (#41) confirmation completed in 0.298001 seconds. 
+2023-05-10 17:49:19.921000 - DEBUG --> Gravity_Forms\Gravity_Forms\Duplicate_Submissions\GF_Duplicate_Submissions_Handler::is_valid_submission(): form #41. entry #25793. 

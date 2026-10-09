@@ -119,4 +119,4 @@ class Rael_Performance {
 
 new Rael_Performance();
 
-/** end - by Kevin
+/** end - by Kevin **/

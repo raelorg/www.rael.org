@@ -170,4 +170,4 @@ class Rael_Post_Types
 
 new Rael_Post_Types();
 
-/** end - by Kevin
+/** end - by Kevin **/
