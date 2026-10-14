@@ -261,7 +261,7 @@ function contact_us_notification_28( $notification, $form, $entry ) {
 			$notification['message'] = $notificationResponsable;
 		}
 		
-		$notification['to'] = 'loukesir@outlook.com';
+		//$notification['to'] = 'loukesir@outlook.com';
 		$notification['message'] .= $arrayFields; 
 	}
 
@@ -272,7 +272,7 @@ function contact_us_notification_28( $notification, $form, $entry ) {
 		$ip_address = empty( $entry['ip'] ) ? GFFormsModel::get_ip() : $entry['ip'];
 
 		$selector = InsertContact( $firstname, $lastname, $email, $language_iso, $iso_country, '', $message, 28, $news_event, $ip_address );
-//		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message, '', $phone );
+		send_person_to_ElohimNet( $firstname, $lastname, $email, $language_iso, $iso_country, $province, '', $message, '', $phone );
 		
 		// Note: Even if a URL contains the English slug for another language, WPML will resolve the slug for us.
 		$link_faq = getFAQlink();

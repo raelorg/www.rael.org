@@ -3,12 +3,11 @@ require_once "lib/post-types.php";
 require_once "lib/assets.php";
 require_once "lib/cdn.php";
 require_once "lib/performance.php";
-//require_once "lib/analytics.php";
 require_once "lib/elohimnet.php";          // Link with Elohim.net & common functions
 require_once "lib/form_28_ContactUs.php";
 require_once "lib/form_34_Newsletter.php";
 require_once "lib/form_35_DoubleOptIn.php";
-require_once "lib/form_64_Japan80.php";
+require_once "lib/form_67_Japan81.php";
 require_once "lib/redirects.php";
 
 
@@ -19,8 +18,10 @@ if (isset($_GET['debug'])) {
 
 function hello_elementor_child_enqueue_scripts()
 {
+    $css_file = get_stylesheet_directory() . '/style.css';
+
    // Modified by Juliana Gonzalez - Modify version of css file
-   wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.2.4');
+   wp_enqueue_style('hello-elementor-child', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor'], '1.0.2.8');
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts');
 
@@ -297,27 +298,6 @@ function change_message_9($message, $form)
    return "<div></div>";
 }
 
-/* meta_tag for FB pixel */
-//add_action('wp_head', 'add_facebook_meta_tag');
-/*
-function add_facebook_meta_tag()
-{
-?>
-//<meta name="facebook-domain-verification" content="hkpezs9g9ernscf44grjm0e7o5adl0" />
-//<?php
-}
-*/
-
-// Add Google Tag code which is supposed to be placed after opening body tag.
-/*
-add_action('wp_body_open', 'wpdoc_add_custom_body_open_code');
-
-function wpdoc_add_custom_body_open_code()
-{
-   echo '<!-- Google Tag Manager (noscript) --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-58TMKC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->';
-}
-*/
-
 // When someone click link from social media
 // > Block redirection according to browser language
 function skip_redirection()
@@ -378,12 +358,17 @@ add_shortcode('custom_event_slider', 'render_custom_event_slider');
 function render_custom_event_slider()
 {
    // Domen Turek - Cache
-   $cache_key = 'custom_event_slider_' . get_locale();
+	
+   /* ..... Jasmin disabling line below due to fix some lanaguage's homepage display problem (june 25.2026) 
+   
+	$cache_key = 'custom_event_slider_' . get_locale();
    $cached = get_transient($cache_key);
-
-   if ($cached !== false) {
-      return $cached;
-   }
+   
+   .... Jasmin disabling code end here */
+	// Arun commented below 3 lines 6th Oct
+//    if ($cached !== false) {
+//       return $cached;
+//    }
 
    $args = [
       'orderby' => 'end_date',
@@ -444,25 +429,38 @@ function render_custom_event_slider()
                <?php
                         $terms = get_the_terms($event->ID, 'category');
                         $field_desc = 'description';
-                        if ($terms) {
-                           foreach ($terms as $term) {
-                              if ($term->slug == 'online-event') {
-                                 $field_desc = 'description_online_event';
-                                 break;
-                              }
-                           }
-                        }
+
+                        // Arun changed code on 8th Oct below up to 16 lines
+                        if ($terms && !is_wp_error($terms)) {
+							foreach ($terms as $term) {
+								$slug = $term->slug;
+								if (has_filter('wpml_object_id')) {
+									$default_id = apply_filters('wpml_object_id', $term->term_id, 'category', true, apply_filters('wpml_default_language', null));
+									$original = $default_id ? get_term($default_id, 'category') : null;
+									if ($original && !is_wp_error($original)) {
+										$slug = $original->slug;
+									}
+								}
+								if ($slug == 'online-event') {
+									$field_desc = 'description_online_event';
+									break;
+								}
+							}
+						}
+
+                  // Arun changed code on 8th Oct below up to 7 lines
                         $desc = get_field($field_desc, $event->ID);
-                        $desc = wp_strip_all_tags($desc);
-                        if (strlen($desc) > 370) {
-                           echo substr($desc, 0, 370) . '...';
-                        } else {
-                           echo $desc;
-                        } ?>
+						$desc = is_string($desc) ? wp_strip_all_tags($desc) : '';
+						if (mb_strlen($desc) > 370) {
+							echo mb_substr($desc, 0, 370) . '...';
+						} else {
+							echo $desc;
+						} ?>
             </p>
             <hr>
             <a href="<?php echo esc_url(get_permalink($event->ID)); ?>" class="slider_view_event button elementor-button elementor-size-sm"><?php _e('View Full Event Details', 'hello-elementor-child'); ?></a>
-            <a href="<?php echo esc_url(get_page_link(17)); ?>" class="slider_view_events button elementor-button elementor-size-sm"><?php _e('View All Events', 'hello-elementor-child'); ?></a>
+             <!-- Arun changed this below anchor code on 8th Oct -->
+			 <a href="<?php echo esc_url(get_page_link(has_filter('wpml_object_id') ? apply_filters('wpml_object_id', 17, 'page', true) : 17)); ?>" class="slider_view_events button elementor-button elementor-size-sm"><?php _e('View All Events', 'hello-elementor-child'); ?></a>
          </div>
       </div>
    </div>
@@ -478,7 +476,8 @@ function render_custom_event_slider()
    }
    $html = ob_get_clean();
    // Domen Turek - Cache
-   set_transient($cache_key, $html, HOUR_IN_SECONDS);
+   // Arun commented below line 6th Oct
+//    set_transient($cache_key, $html, HOUR_IN_SECONDS);
    return $html;
 }
 

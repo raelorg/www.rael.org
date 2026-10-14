@@ -155,7 +155,7 @@ function pre_render_64( $form ) {
 			break;
 
 			case '113':
-				if (date("Y-m-d") > "2026-07-31") {
+				if (date("Y-m-d") > "2026-03-12") {
 					$field->defaultValue = "false";
 				}
 			break;
@@ -758,13 +758,33 @@ function custom_validation_64( $validation_result ) {
 	$form = $validation_result['form'];
 	$current_page_number = rgpost('gform_source_page_number_' . $form['id']) ? rgpost('gform_source_page_number_' . $form['id']) : 1;
 
+	if ($current_page_number == 5) {
+		$entry = GFFormsModel::get_current_lead();
+		$age = rgar( $entry, '125' );
+
+		foreach ( $form['fields'] as &$field ) {
+
+			// Age
+			if ( $field->id == 125 ) {
+				$valeur = rgpost( "input_{$field->id}" );
+
+				// Validation : doit être numérique ET entre 0 et 100
+				if ( !is_numeric( $valeur ) || $valeur < 0 || $valeur > 100 ) {
+					$field->failed_validation = true;
+					$field->validation_message = 'Please enter a number between 0 and 100.';
+					$validation_result['is_valid'] = false;
+				}
+			}
+        }
+	}
+	
 	if ($current_page_number == 3) {
 		$entry = GFFormsModel::get_current_lead();
 		$box_meals = rgar( $entry, '34' );
 		 
 		if ($box_meals == 'Yes' ) {
 			$field = RGFormsModel::get_field( $form, 37 );
-			$meal_lunch_days = str_replace( '(¥ 700)', '', is_object( $field ) ? $field->get_value_export( $entry ) : '');      // Get the value selected like 2022-07-17, 2022-07-18, ....
+			$meal_lunch_days = str_replace( '(¥ 850)', '', is_object( $field ) ? $field->get_value_export( $entry ) : '');      // Get the value selected like 2022-07-17, 2022-07-18, ....
 			$field = RGFormsModel::get_field( $form, 38 );
 			$meal_dinner_days = str_replace( '(¥ 1,200)', '', is_object( $field ) ? $field->get_value_export( $entry ) : '');     // Get the value selected like 2022-07-17, 2022-07-18, ....
 		
@@ -777,12 +797,13 @@ function custom_validation_64( $validation_result ) {
 
 				//finding Field with ID of 1 and marking it as failed validation
 				foreach( $form['fields'] as &$field ) {
-		
-					//NOTE: replace 1 with the field you would like to validate
+					if (( $field->id == '37' ) && ($nb_lunch == 0) && ($nb_dinner == 0)) {
+						$field->failed_validation = true;
+						$field->validation_message = 'Choose at least 1 lunch or 1 dinner.';
+					}
 					if (( $field->id == '38' ) && ($nb_lunch == 0) && ($nb_dinner == 0)) {
 						$field->failed_validation = true;
 						$field->validation_message = 'Choose at least 1 lunch or 1 dinner.';
-						break;
 					}
 				}
 			}

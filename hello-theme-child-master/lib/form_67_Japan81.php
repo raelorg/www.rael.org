@@ -128,7 +128,7 @@ function pre_render_67( $form ) {
 			break;
 
 			case '113': // BENTO
-				if (date("Y-m-d") > "2026-07-31") {
+				if (date("Y-m-d") > "2026-08-08") {
 					$field->defaultValue = "false";
 				}
 			break;
@@ -429,6 +429,7 @@ function notification_67( $notification, $form, $entry ) {
     }
 
     $feedback = $additional_information;
+	$pay_amount = $fee + $fee_transport + $sem_fee_lunch + $sem_fee_dinner;
 
 	$participant = array(
 		'email' => rgar( $entry, '65' ), // ok2
@@ -482,7 +483,7 @@ function notification_67( $notification, $form, $entry ) {
 		'absent_ceremony' => 0, // ok
 		'sem_feedback' => $feedback, // ok2
 		'pay_type' => 'cash', // ok2
-		'pay_amount' => 0.00, // ok2
+		'pay_amount' => $pay_amount, // ok2
 		'pay_received' => 0.00, // ok2
 		'pay_currency' => 'JPY', // ok2
 		'fee_meals' => $sem_fee_lunch + $sem_fee_dinner, // ok2
