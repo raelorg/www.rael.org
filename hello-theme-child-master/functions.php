@@ -3,7 +3,7 @@ require_once "lib/post-types.php";
 require_once "lib/assets.php";
 require_once "lib/cdn.php";
 require_once "lib/performance.php";
-require_once "lib/elohimnet.php";          // Link with Elohim.net & common functions
+require_once "lib/raelorg_elohimnet_ws.php"; // Luc: Link with Elohim.net & common functions
 require_once "lib/form_28_ContactUs.php";
 require_once "lib/form_34_Newsletter.php";
 require_once "lib/form_35_DoubleOptIn.php";
